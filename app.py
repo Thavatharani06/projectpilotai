@@ -191,17 +191,6 @@ def handle_update_progress(project_id, updates):
     eval_res = orchestrator.run_reviewer_agent(project_id, updates)
     return {"status": "SUCCESS", "evaluation": eval_res}
 
-def handle_assistant_prompt(project_id, user_prompt):
-    try:
-        resp = requests.post(f"{API_BASE_URL}/api/projects/{project_id}/assistant-prompt", json={"prompt": user_prompt}, timeout=2)
-        if resp.status_code == 200:
-            return resp.json()
-    except Exception:
-        pass
-
-    res = orchestrator.process_natural_language_assistant(project_id, user_prompt)
-    return {"status": "SUCCESS", "result": res}
-
 def handle_rescue_approval(project_id, action):
     try:
         resp = requests.post(f"{API_BASE_URL}/api/projects/{project_id}/rescue-approval", json={"action": action}, timeout=2)
@@ -284,13 +273,12 @@ if not proj_data:
     handle_project_create(payload)
     proj_data = handle_get_project_details(st.session_state["active_project_id"])
 
-# Reorganized Clean Navigation Tabs Workflow
-tab_setup, tab_tracker, tab_resources, tab_assistant, tab_feed = st.tabs([
+# Reorganized Clean Navigation Tabs Workflow (4 Core Tabs)
+tab_setup, tab_tracker, tab_resources, tab_feed = st.tabs([
     "🎯 1. Project Setup & AI Roadmap",
     "📋 2. Student Progress & Health Monitor",
     "📚 3. Relevant Papers & Open-Source Projects",
-    "🤖 4. Technical AI Assistant & Code Debugger",
-    "📜 5. Agent Decision Log"
+    "📜 4. Agent Decision Log"
 ])
 
 # ----------------------------------------------------
@@ -494,41 +482,7 @@ with tab_resources:
             """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
-# TAB 4: TECHNICAL AI ASSISTANT & CODE DEBUGGER
-# ----------------------------------------------------
-with tab_assistant:
-    st.subheader("🤖 Technical AI Assistant & Code Debugger")
-    st.caption("Ask Technical Assistant to generate starter code OR paste broken code/error logs to generate instant code fixes:")
-
-    active_id = st.session_state["active_project_id"]
-    active_proj_title = proj_data["project"]["title"] if proj_data else "Smart Attendance System"
-
-    st.markdown(f"**Active Context:** `<span style='color:#a29bfe;'>{active_proj_title}</span>`", unsafe_allow_html=True)
-
-    asst_prompt = st.text_area(
-        "Ask Technical Assistant (Generate starter code OR paste broken code/error log to debug):", 
-        value=st.session_state.get("last_llm_prompt", f"Generate starter code and architecture guidelines for {active_proj_title}"),
-        height=100
-    )
-
-    if st.button("🚀 Run Code Generator & Debugger", type="primary", use_container_width=True):
-        st.session_state["last_llm_prompt"] = asst_prompt
-        st.rerun()
-
-    current_prompt = st.session_state.get("last_llm_prompt", asst_prompt)
-    llm_res = orchestrator.rag.generate_or_debug_code(current_prompt, active_proj_title)
-
-    st.markdown("---")
-    st.markdown(f"### Engine Output: `{llm_res.get('mode', '💻 Code Assistant')}` - {llm_res.get('title', 'Generated Output')}")
-    
-    st.info(f"💡 **Explanation & Fix:** {llm_res.get('explanation', '')}")
-    st.write(f"📌 **Database Spec:** {llm_res.get('database_rec', '')}")
-
-    st.write("### 💻 Working Code Template / Fixed Code")
-    st.code(llm_res.get("starter_code", "# Code block\nimport os"), language="python")
-
-# ----------------------------------------------------
-# TAB 5: AGENT DECISION LOG
+# TAB 4: AGENT DECISION LOG
 # ----------------------------------------------------
 with tab_feed:
     st.subheader("📜 Agentic Reasoning & Decision Log")
