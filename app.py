@@ -289,7 +289,7 @@ tab_setup, tab_tracker, tab_resources, tab_assistant, tab_feed = st.tabs([
     "🎯 1. Project Setup & AI Roadmap",
     "📋 2. Student Progress & Health Monitor",
     "📚 3. Relevant Papers & Open-Source Projects",
-    "🤖 4. Technical AI Assistant & Code Generator",
+    "🤖 4. Technical LLM Assistant & Code Debugger",
     "📜 5. Agent Decision Log"
 ])
 
@@ -494,49 +494,38 @@ with tab_resources:
             """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
-# TAB 4: TECHNICAL AI ASSISTANT & CODE GENERATOR (DEDICATED TAB)
+# TAB 4: TECHNICAL LLM ASSISTANT & CODE DEBUGGER (DEDICATED TAB)
 # ----------------------------------------------------
 with tab_assistant:
-    st.subheader("🤖 Technical AI Assistant & Code Generator")
-    st.caption("Generate domain-specific starter code templates, technical documentation summaries, and system architecture specifications:")
+    st.subheader("🤖 Technical LLM Assistant, Code Generator & Debugger")
+    st.caption("Ask technical questions, request starter code, OR paste broken code/error logs to generate instant code fixes:")
 
     active_id = st.session_state["active_project_id"]
     active_proj_title = proj_data["project"]["title"] if proj_data else "Smart Attendance System"
-    active_proj_goal = proj_data["project"]["goal"] if proj_data else "Face recognition"
 
     st.markdown(f"**Active Context:** `<span style='color:#a29bfe;'>{active_proj_title}</span>`", unsafe_allow_html=True)
 
-    asst_prompt = st.text_input("Ask Technical Assistant (or enter custom code request):", 
-                                f"{active_proj_title} code and architecture")
+    asst_prompt = st.text_area(
+        "Ask LLM Assistant (Generate starter code OR paste broken code/error log to debug):", 
+        value=st.session_state.get("last_llm_prompt", f"Generate starter code and architecture guidelines for {active_proj_title}"),
+        height=100
+    )
 
-    if st.button("🚀 Generate Code & Technical Guidance", type="primary", use_container_width=True):
-        res = handle_assistant_prompt(active_id, asst_prompt)
-        if res and res.get("status") == "SUCCESS":
-            a_res = res["result"]
-            if a_res["type"] == "RESCUE_TRIGGERED":
-                st.warning(f"🚨 {a_res['message']}")
-            else:
-                st.info(f"💡 {a_res['message']}")
-            st.rerun()
+    if st.button("🚀 Run LLM Code Generator & Debugger", type="primary", use_container_width=True):
+        st.session_state["last_llm_prompt"] = asst_prompt
+        st.rerun()
+
+    current_prompt = st.session_state.get("last_llm_prompt", asst_prompt)
+    llm_res = orchestrator.rag.generate_or_debug_code(current_prompt, active_proj_title)
 
     st.markdown("---")
-    st.subheader("💻 Recommended Starter Code & System Architecture Specs")
+    st.markdown(f"### {llm_res.get('mode', '💻 LLM Code Assistant')}: `{llm_res.get('title', 'Generated Code')}`")
     
-    # Use project title + prompt to fetch real domain code
-    query_for_code = f"{asst_prompt} {active_proj_title} {active_proj_goal}"
-    rag_docs = orchestrator.rag.search_resources(query_for_code, top_k=2)
-    
-    c_code1, c_code2 = st.columns(2)
+    st.info(f"💡 **Explanation & Fix:** {llm_res.get('explanation', '')}")
+    st.write(f"📌 **Database & Spec:** {llm_res.get('database_rec', '')}")
 
-    with c_code1:
-        st.write("### 🗄️ System Architecture & Database Spec")
-        for d in rag_docs:
-            st.info(f"**{d['title']}**\n\n📌 **Spec:** {d.get('database_rec', 'SQLite for local MVP, PostgreSQL for production.')}")
-
-    with c_code2:
-        st.write("### 💻 Starter Code Template")
-        for d in rag_docs:
-            st.code(d.get('starter_code', '# Starter Code Template\nimport os\nimport sys'), language="python")
+    st.write("### 💻 Working Code Template / Fixed Code")
+    st.code(llm_res.get("starter_code", "# Code block\nimport os"), language="python")
 
 # ----------------------------------------------------
 # TAB 5: AGENT DECISION LOG

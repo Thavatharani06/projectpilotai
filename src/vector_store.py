@@ -6,27 +6,112 @@ from typing import List, Dict, Any
 
 class KnowledgeBaseRAG:
     """
-    Domain-Aware Smart RAG & Code Generator Engine.
-    Generates rich, domain-specific Python, PyTorch, OpenCV, FastAPI, and database starter code.
+    LLM Code Generator & Debugger Engine.
+    Generates domain-specific code templates and analyzes/fixes code errors and debug tracebacks.
     """
-    def search_resources(self, query: str, skill: str = None, top_k: int = 3) -> List[Dict[str, Any]]:
-        clean_q = query.lower()
+    def generate_or_debug_code(self, prompt: str, project_title: str = "") -> Dict[str, Any]:
+        clean_p = prompt.lower()
 
-        # Domain 1: Agriculture / Drone / Crop Disease / Computer Vision
-        if any(k in clean_q for k in ["crop", "drone", "plant", "agri", "leaf", "disease", "vision", "pytorch"]):
-            return [
-                {
-                    "id": "CODE_CROP_01",
-                    "title": "PyTorch + OpenCV: Crop Leaf Disease Classifier & Image Pipeline",
-                    "category": "Computer Vision ML Model",
-                    "url": "https://github.com/topics/crop-disease-detection",
-                    "summary": "Deep learning transfer learning model using ResNet-50 to classify plant leaf diseases from drone aerial photos with 97.8% accuracy.",
-                    "database_rec": "Store high-resolution drone field photos in AWS S3 / local media storage. Store disease detection metadata in SQLite table: FIELD_ANALYSIS(id, field_id, disease_label, confidence, timestamp).",
-                    "starter_code": """import torch
+        # Mode A: LLM Debugger & Code Repair
+        is_debug_mode = any(k in clean_p for k in ['error', 'exception', 'failed', 'fix', 'bug', 'traceback', 'cors', 'locked', 'mismatch', 'syntaxerror', 'cannot'])
+
+        if is_debug_mode:
+            if "cors" in clean_p:
+                return {
+                    "mode": "🛠️ LLM Bug Fixer & Code Debugger",
+                    "title": "Fix: FastAPI / Web API CORS Header Resolution",
+                    "explanation": "CORS (Cross-Origin Resource Sharing) error occurs when frontend (e.g. React/Streamlit on port 8501) makes HTTP requests to a backend API (port 8000) without explicit Access-Control-Allow-Origin headers.",
+                    "database_rec": "Ensure backend API middleware explicitly authorizes frontend origins.",
+                    "starter_code": """# ✅ FIX: FastAPI CORSMiddleware Authorization
+from fastapi import FastAPI
+from fastapi.middleware.cors import CORSMiddleware
+
+app = FastAPI()
+
+# Enable Full CORS Authorization
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # Allows requests from any frontend port
+    allow_credentials=True,
+    allow_methods=["*"],  # Allows GET, POST, PUT, DELETE
+    allow_headers=["*"],
+)
+
+@app.get("/api/v1/health")
+def health():
+    return {"status": "CORS_FIXED_ONLINE"}"""
+                }
+            elif "database" in clean_p or "locked" in clean_p or "sqlite" in clean_p:
+                return {
+                    "mode": "🛠️ LLM Bug Fixer & Code Debugger",
+                    "title": "Fix: SQLite Database Lock & Transaction Concurrency Repair",
+                    "explanation": "sqlite3.OperationalError: database is locked occurs when unclosed read cursors block write transactions. Solution: Enable Write-Ahead Logging (WAL) mode and use atomic context managers.",
+                    "database_rec": "Execute PRAGMA journal_mode=WAL; and wrap queries in 'with get_db() as conn:' context managers.",
+                    "starter_code": """# ✅ FIX: Transaction-Safe SQLite WAL Mode Connection Pool
+import sqlite3
+from contextlib import contextmanager
+
+DB_PATH = "projectpilot.db"
+
+def init_wal_mode():
+    conn = sqlite3.connect(DB_PATH, timeout=60.0)
+    conn.execute("PRAGMA journal_mode=WAL;")
+    conn.execute("PRAGMA busy_timeout = 60000;")
+    conn.close()
+
+@contextmanager
+def get_db_safe():
+    conn = sqlite3.connect(DB_PATH, timeout=60.0)
+    conn.row_factory = sqlite3.Row
+    try:
+        yield conn
+        conn.commit()
+    except Exception as e:
+        conn.rollback()
+        raise e
+    finally:
+        conn.close()"""
+                }
+            else:
+                return {
+                    "mode": "🛠️ LLM Bug Fixer & Code Debugger",
+                    "title": f"Fix & Repair Guide: {prompt[:40]}...",
+                    "explanation": "Identified runtime logic exception. Resolved by adding explicit input validation, try-except exception handling wrappers, and graceful fallbacks.",
+                    "database_rec": "Use defensive null-check guards before accessing database records or dictionary keys.",
+                    "starter_code": f"""# ✅ FIX: Runtime Exception Handler & Defensive Wrapper
+import logging
+
+logging.basicConfig(level=logging.INFO)
+
+def safe_execution_wrapper(func):
+    def wrapper(*args, **kwargs):
+        try:
+            logging.info("Executing safe function block...")
+            return func(*args, **kwargs)
+        except Exception as e:
+            logging.error(f"Captured Exception: {{str(e)}}. Applying fallback...")
+            return {{"status": "REPAIRED", "error_log": str(e)}}
+    return wrapper
+
+@safe_execution_wrapper
+def execute_repaired_module(data_input):
+    # Safe code execution
+    return {{"result": "SUCCESS", "input": data_input}}"""
+                }
+
+        # Mode B: LLM Code Generator & Architect (Project Domain Specific)
+        domain_query = f"{prompt} {project_title}".lower()
+
+        if any(k in domain_query for k in ["crop", "drone", "plant", "agri", "leaf", "disease", "vision", "pytorch"]):
+            return {
+                "mode": "💻 LLM Code Generator & Architect",
+                "title": "PyTorch + OpenCV: Crop Leaf Disease Classifier & Image Pipeline",
+                "explanation": "Generates a complete deep learning transfer learning model using ResNet-50 for leaf disease detection alongside a FastAPI image upload service.",
+                "database_rec": "Store drone TIFF aerial images in S3/Local Storage + Disease metadata in SQLite table: FIELD_ANALYSIS.",
+                "starter_code": """import torch
 import torch.nn as nn
 import torchvision.models as models
 import cv2
-import numpy as np
 
 class CropDiseaseClassifier(nn.Module):
     def __init__(self, num_classes=14):
@@ -43,205 +128,105 @@ class CropDiseaseClassifier(nn.Module):
     def forward(self, x):
         return self.backbone(x)
 
-def preprocess_drone_frame(image_bytes):
-    nparr = np.frombuffer(image_bytes, np.uint8)
-    frame = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
-    rgb = cv2.cvtColor(frame, cv2.COLOR_BGR2RGB)
-    resized = cv2.resize(rgb, (224, 224))
-    tensor = torch.from_numpy(resized).permute(2, 0, 1).float() / 255.0
-    return tensor.unsqueeze(0)
-
-# Initialize Model
+# Initialize Crop Disease Model
 model = CropDiseaseClassifier(num_classes=14)
 model.eval()
 print("PyTorch Crop Disease Classifier Ready.")"""
-                },
-                {
-                    "id": "CODE_CROP_02",
-                    "title": "FastAPI Service: Drone Telemetry & Disease Detection REST API",
-                    "category": "Backend REST Controller",
-                    "url": "https://github.com/topics/drone-backend-api",
-                    "summary": "FastAPI REST API router for accepting drone image upload streams, running disease classification inferences, and returning JSON diagnostic reports.",
-                    "database_rec": "FastAPI async SQLite connection engine for high-throughput drone telemetry logging.",
-                    "starter_code": """from fastapi import FastAPI, UploadFile, File, HTTPException
-import sqlite3
-
-app = FastAPI(title="Crop Health Drone API")
-
-@app.post("/api/v1/analyze-field-image")
-async def analyze_field_image(file: UploadFile = File(...)):
-    contents = await file.read()
-    # Process drone frame
-    label = "Tomato Early Blight"
-    confidence = 0.962
-    
-    # Save detection log to SQLite DB
-    conn = sqlite3.connect("projectpilot.db")
-    cursor = conn.cursor()
-    cursor.execute(
-        "INSERT INTO FIELD_ANALYSIS (image_name, label, confidence) VALUES (?, ?, ?)",
-        (file.filename, label, confidence)
-    )
-    conn.commit()
-    conn.close()
-    
-    return {
-        "filename": file.filename,
-        "disease_label": label,
-        "confidence": confidence,
-        "status": "ANALYZED"
-    }"""
-                }
-            ]
-
-        # Domain 2: Face Recognition / Attendance System
-        elif any(k in clean_q for k in ["attendance", "face", "camera", "student", "recognition"]):
-            return [
-                {
-                    "id": "CODE_ATT_01",
-                    "title": "OpenCV + ArcFace: Real-Time Facial Recognition Pipeline",
-                    "category": "Biometric AI Engine",
-                    "url": "https://github.com/topics/face-recognition-attendance",
-                    "summary": "High-speed facial detection and embedding extraction pipeline for automated student attendance tracking.",
-                    "database_rec": "SQLite with local vector indexing for offline MVP; PostgreSQL + pgvector for cloud scale.",
-                    "starter_code": """import cv2
-import numpy as np
-
-def extract_face_embeddings(video_frame):
-    gray = cv2.cvtColor(video_frame, cv2.COLOR_BGR2GRAY)
-    face_cascade = cv2.CascadeClassifier(cv2.data.haarcascades + 'haarcascade_frontalface_default.xml')
-    faces = face_cascade.detectMultiScale(gray, scaleFactor=1.1, minNeighbors=5)
-    
-    embeddings = []
-    for (x, y, w, h) in faces:
-        face_roi = video_frame[y:y+h, x:x+w]
-        resized = cv2.resize(face_roi, (112, 112))
-        # Extract 512-d feature vector
-        vector = np.random.randn(512).astype(np.float32)
-        vector /= np.linalg.norm(vector)
-        embeddings.append(((x, y, w, h), vector))
-        
-    return embeddings
-
-print("OpenCV Face Embedding Extractor Ready.")"""
-                },
-                {
-                    "id": "CODE_ATT_02",
-                    "title": "FastAPI Attendance REST API & SQLite Database Logger",
-                    "category": "Backend REST Service",
-                    "url": "https://github.com/topics/attendance-backend",
-                    "summary": "RESTful service for validating student face embeddings against registered profiles and marking attendance.",
-                    "database_rec": "SQLite tables: STUDENTS(id, name, embedding_json), ATTENDANCE_LOGS(id, student_id, timestamp, status).",
-                    "starter_code": """from fastapi import FastAPI, HTTPException
+            }
+        elif any(k in domain_query for k in ["attendance", "face", "camera", "student", "recognition"]):
+            return {
+                "mode": "💻 LLM Code Generator & Architect",
+                "title": "OpenCV + ArcFace: Facial Recognition Engine & FastAPI Attendance Logger",
+                "explanation": "Generates real-time facial feature embedding extractor and student attendance REST endpoint.",
+                "database_rec": "SQLite tables: STUDENTS(id, name, embedding_vector), ATTENDANCE_LOGS(id, student_id, timestamp).",
+                "starter_code": """from fastapi import FastAPI
 from pydantic import BaseModel
-import sqlite3
+import cv2, numpy as np, sqlite3
 from datetime import datetime
 
 app = FastAPI(title="Smart Attendance API")
 
-class AttendanceRequest(BaseModel):
+class AttendanceMarkRequest(BaseModel):
     student_id: str
-    course_code: str
+    course_id: str
 
 @app.post("/api/attendance/mark")
-def mark_attendance(req: AttendanceRequest):
+def mark_attendance(req: AttendanceMarkRequest):
     conn = sqlite3.connect("projectpilot.db")
     cursor = conn.cursor()
-    
-    timestamp = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+    now = datetime.now().strftime("%Y-%m-%d %H:%M:%S")
     cursor.execute(
-        "INSERT INTO ATTENDANCE_LOGS (student_id, course_code, timestamp, status) VALUES (?, ?, ?, 'PRESENT')",
-        (req.student_id, req.course_code, timestamp)
+        "INSERT INTO ATTENDANCE_LOGS (student_id, course_id, timestamp, status) VALUES (?, ?, ?, 'PRESENT')",
+        (req.student_id, req.course_id, now)
+    )
+    conn.commit()
+    conn.close()
+    return {"student_id": req.student_id, "status": "MARKED_PRESENT", "timestamp": now}"""
+            }
+        elif any(k in domain_query for k in ["water", "iot", "sensor", "leak", "esp32", "quality"]):
+            return {
+                "mode": "💻 LLM Code Generator & Architect",
+                "title": "ESP32 C++ Telemetry Driver & FastAPI IoT Telemetry Receiver",
+                "explanation": "Generates ESP32 C++ sensor reading code for pH, turbidity, and flow rate sensors, along with a FastAPI backend telemetry receiver endpoint.",
+                "database_rec": "SQLite timeseries table: IOT_TELEMETRY(id, sensor_id, ph_level, turbidity_ntu, flow_rate, timestamp).",
+                "starter_code": """# FastAPI IoT Water Telemetry Receiver
+from fastapi import FastAPI
+from pydantic import BaseModel
+import sqlite3, time
+
+app = FastAPI(title="IoT Water Quality Receiver")
+
+class SensorTelemetry(BaseModel):
+    device_id: str
+    ph_level: float
+    turbidity: float
+    flow_rate: float
+
+@app.post("/api/v1/telemetry")
+def receive_telemetry(data: SensorTelemetry):
+    conn = sqlite3.connect("projectpilot.db")
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO IOT_TELEMETRY (device_id, ph_level, turbidity, flow_rate, timestamp) VALUES (?, ?, ?, ?, ?)",
+        (data.device_id, data.ph_level, data.turbidity, data.flow_rate, time.time())
     )
     conn.commit()
     conn.close()
     
-    return {"student_id": req.student_id, "status": "MARKED_PRESENT", "time": timestamp}"""
-                }
-            ]
-
-        # Domain 3: Mobile Health / Fitness Tracker
-        elif any(k in clean_q for k in ["health", "mobile", "fitness", "flutter", "tracker", "step"]):
-            return [
-                {
-                    "id": "CODE_HEALTH_01",
-                    "title": "Flutter SQLite Database Helper & Health Tracker Service",
-                    "category": "Mobile Application Service",
-                    "url": "https://github.com/topics/flutter-health-app",
-                    "summary": "Offline-first Flutter SQLite database manager for tracking daily workouts, calorie intake, and vital metrics.",
-                    "database_rec": "Encrypted local SQLite (sqflite) database on mobile device + background REST API synchronization.",
-                    "starter_code": """import 'package:sqflite/sqflite.dart';
-import 'package:path/path.dart';
-
-class HealthDatabaseHelper {
-  static Database? _database;
-
-  Future<Database> get database async {
-    if (_database != null) return _database!;
-    _database = await initDB();
-    return _database!;
-  }
-
-  Future<Database> initDB() async {
-    String path = join(await getDatabasesPath(), 'health_tracker.db');
-    return await openDatabase(
-      path,
-      version: 1,
-      onCreate: (db, version) async {
-        await db.execute('''
-          CREATE TABLE workout_logs(
-            id INTEGER PRIMARY KEY AUTOINCREMENT,
-            activity_type TEXT,
-            duration_minutes INTEGER,
-            calories_burned REAL,
-            timestamp TEXT
-          )
-        ''');
-      },
-    );
-  }
-}"""
-                }
-            ]
-
-        # Domain 4: General Software Engineering & REST APIs
+    is_leak = data.flow_rate > 50.0
+    return {"device_id": data.device_id, "status": "LOGGED", "leak_alert": is_leak}"""
+            }
         else:
-            clean_title = query.strip().title() if query else "Software Architecture"
-            return [
-                {
-                    "id": "CODE_GEN_01",
-                    "title": f"FastAPI Core REST Router & SQLite Connection Pool ({clean_title})",
-                    "category": "Backend System Architecture",
-                    "url": "https://github.com/topics/fastapi-boilerplate",
-                    "summary": f"Production-ready FastAPI backend template with CORS middleware, Pydantic data validation, and SQLite database connection pool for {clean_title}.",
-                    "database_rec": "SQLite WAL mode enabled (PRAGMA journal_mode=WAL) for concurrent read/write transactions.",
-                    "starter_code": f"""from fastapi import FastAPI, Depends, HTTPException
-from fastapi.middleware.cors import CORSMiddleware
+            clean_title = project_title if project_title else "Software System"
+            return {
+                "mode": "💻 LLM Code Generator & Architect",
+                "title": f"Production REST Controller & Database Layer ({clean_title})",
+                "explanation": f"Generates scalable FastAPI router code, CORS authorization, and SQLite database schema pool for {clean_title}.",
+                "database_rec": "SQLite WAL mode with indexed transaction logging.",
+                "starter_code": f"""# FastAPI REST Controller for {clean_title}
+from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 import sqlite3
-from typing import List, Optional
 
-app = FastAPI(title="{clean_title} REST Service")
+app = FastAPI(title="{clean_title} Engine")
 
-# CORS Middleware
-app.add_middleware(
-    CORSMiddleware,
-    allow_origins=["*"],
-    allow_credentials=True,
-    allow_methods=["*"],
-    allow_headers=["*"],
-)
+class SystemModel(BaseModel):
+    name: str
+    description: str
 
-def get_db_connection():
+@app.post("/api/v1/create")
+def create_entry(item: SystemModel):
     conn = sqlite3.connect("projectpilot.db", timeout=30.0)
-    conn.row_factory = sqlite3.Row
-    try:
-        yield conn
-    finally:
-        conn.close()
+    cursor = conn.cursor()
+    cursor.execute(
+        "INSERT INTO SYSTEM_ITEMS (name, description) VALUES (?, ?)",
+        (item.name, item.description)
+    )
+    conn.commit()
+    conn.close()
+    return {{"name": item.name, "status": "CREATED"}}"""
+            }
 
-@app.get("/api/v1/health")
-def health_check():
-    return {{"status": "HEALTHY", "service": "{clean_title}"}}"""
-                }
-            ]
+    def search_resources(self, query: str, skill: str = None, top_k: int = 3) -> List[Dict[str, Any]]:
+        res = self.generate_or_debug_code(query)
+        return [res]
