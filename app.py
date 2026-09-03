@@ -14,6 +14,17 @@ try:
 except ImportError:
     PLOTLY_AVAILABLE = False
 
+# Add project root path
+sys.path.insert(0, os.path.dirname(__file__))
+
+from src.database import init_db, get_db, get_agent_logs
+from src.data_analyzer import analyze_raw_datasets, generate_master_dataset, train_and_evaluate_ml_pipeline
+from src.agents import ProjectPilotOrchestrator
+from tests.run_tests import run_all_tests
+
+# Initialize Database Schema
+init_db()
+
 API_BASE_URL = "http://localhost:8000"
 
 # Page configuration
@@ -95,37 +106,107 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-# Helper functions to query REST API
-def api_get(endpoint):
-    try:
-        resp = requests.get(f"{API_BASE_URL}{endpoint}")
-        if resp.status_code == 200:
-            return resp.json()
-    except Exception as e:
-        st.error(f"Backend API Error ({endpoint}): {e}")
-    return None
+# Instantiate Orchestrator for in-memory Cloud execution
+@st.cache_resource
+def get_orchestrator():
+    return ProjectPilotOrchestrator()
 
-def api_post(endpoint, payload):
+orchestrator = get_orchestrator()
+
+# Smart REST API or In-Memory Execution Handler (Cloud-Proof)
+def handle_project_create(payload):
     try:
-        resp = requests.post(f"{API_BASE_URL}{endpoint}", json=payload)
+        resp = requests.post(f"{API_BASE_URL}/api/projects/create", json=payload, timeout=2)
         if resp.status_code == 200:
             return resp.json()
-        else:
-            st.error(f"API Failed ({resp.status_code}): {resp.text}")
-    except Exception as e:
-        st.error(f"Backend Connection Error ({endpoint}): {e}")
-    return None
+    except Exception:
+        pass
+    
+    # Fallback to direct Python in-memory execution on Cloud
+    members = payload["team_members"]
+    sched, workloads, achievable, end_date = orchestrator.run_initial_planning(
+        payload["project_id"], payload["title"], payload["goal"],
+        payload["start_date"], payload["deadline"], payload.get("tech_stack", ""), members
+    )
+    return {
+        "status": "SUCCESS",
+        "project_id": payload["project_id"],
+        "projected_completion_date": end_date,
+        "deadline_achievable": achievable,
+        "tasks_count": len(sched),
+        "member_workloads": workloads
+    }
+
+def handle_get_project_details(project_id):
+    try:
+        resp = requests.get(f"{API_BASE_URL}/api/projects/{project_id}", timeout=2)
+        if resp.status_code == 200:
+            return resp.json()
+    except Exception:
+        pass
+
+    # Fallback to direct SQLite read in-memory on Cloud
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM PROJECTS WHERE project_id = ?", (project_id,))
+        proj = cursor.fetchone()
+        if not proj:
+            return None
+
+        cursor.execute("SELECT * FROM TASKS WHERE project_id = ? ORDER BY task_id ASC", (project_id,))
+        tasks = [dict(r) for r in cursor.fetchall()]
+
+        cursor.execute("SELECT * FROM TEAM_MEMBERS WHERE project_id = ?", (project_id,))
+        members = [dict(r) for r in cursor.fetchall()]
+
+        cursor.execute("SELECT * FROM APPROVALS WHERE project_id = ? ORDER BY approval_id DESC LIMIT 1", (project_id,))
+        appr = cursor.fetchone()
+
+    return {
+        "project": dict(proj),
+        "tasks": tasks,
+        "team_members": members,
+        "active_approval": dict(appr) if appr else None
+    }
+
+def handle_update_progress(project_id, updates):
+    try:
+        resp = requests.post(f"{API_BASE_URL}/api/projects/{project_id}/progress", json={"progress_updates": updates}, timeout=2)
+        if resp.status_code == 200:
+            return resp.json()
+    except Exception:
+        pass
+
+    # Fallback in-memory Reviewer Agent call
+    eval_res = orchestrator.run_reviewer_agent(project_id, updates)
+    return {"status": "SUCCESS", "evaluation": eval_res}
+
+def handle_assistant_prompt(project_id, user_prompt):
+    try:
+        resp = requests.post(f"{API_BASE_URL}/api/projects/{project_id}/assistant-prompt", json={"prompt": user_prompt}, timeout=2)
+        if resp.status_code == 200:
+            return resp.json()
+    except Exception:
+        pass
+
+    # Fallback in-memory Assistant prompt call
+    res = orchestrator.process_natural_language_assistant(project_id, user_prompt)
+    return {"status": "SUCCESS", "result": res}
+
+def handle_rescue_approval(project_id, action):
+    try:
+        resp = requests.post(f"{API_BASE_URL}/api/projects/{project_id}/rescue-approval", json={"action": action}, timeout=2)
+        if resp.status_code == 200:
+            return resp.json()
+    except Exception:
+        pass
+
+    orchestrator.handle_rescue_approval(project_id, action)
+    return {"status": "SUCCESS"}
 
 # Application Header
 st.markdown('<div class="main-header">PROJECTPILOT AI</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">Autonomous Software Project Mentor & Adaptive Team Rescue Manager (FastAPI REST API Connected)</div>', unsafe_allow_html=True)
-
-# Check API Health
-api_health = api_get("/")
-if not api_health or api_health.get("status") != "ONLINE":
-    st.error("🚨 FastAPI REST Backend API is offline! Re-connecting to http://localhost:8000...")
-else:
-    st.caption("🟢 **REST API Status**: Connected to `http://localhost:8000` (FastAPI Server Online)")
+st.markdown('<div class="sub-header">Autonomous Software Project Mentor & Adaptive Team Rescue Manager</div>', unsafe_allow_html=True)
 
 # Sidebar - Project Selector & Demo Shortcuts
 with st.sidebar:
@@ -146,10 +227,10 @@ with st.sidebar:
                 {"name": "Priya", "skills": ["Backend", "AI Model", "API"]}
             ]
         }
-        res = api_post("/api/projects/create", payload)
+        res = handle_project_create(payload)
         if res and res.get("status") == "SUCCESS":
             st.session_state["active_project_id"] = "DEMO_ATTENDANCE"
-            st.success("Smart Attendance Demo Loaded & Planned via REST API!")
+            st.success("Smart Attendance Demo Loaded & Planned!")
             st.rerun()
 
     if st.button("📱 Demo 2: Mobile Health App (3 Members)", use_container_width=True):
@@ -166,10 +247,10 @@ with st.sidebar:
                 {"name": "Chris", "skills": ["API Integration", "Testing"]}
             ]
         }
-        res = api_post("/api/projects/create", payload)
+        res = handle_project_create(payload)
         if res and res.get("status") == "SUCCESS":
             st.session_state["active_project_id"] = "DEMO_HEALTH"
-            st.success("Mobile Health App Demo Loaded & Planned via REST API!")
+            st.success("Mobile Health App Demo Loaded & Planned!")
             st.rerun()
 
 # Ensure active project ID in session state
@@ -177,7 +258,7 @@ if "active_project_id" not in st.session_state:
     st.session_state["active_project_id"] = "DEMO_ATTENDANCE"
 
 # Auto-plan default demo project if not exists
-proj_data = api_get(f"/api/projects/{st.session_state['active_project_id']}")
+proj_data = handle_get_project_details(st.session_state["active_project_id"])
 if not proj_data:
     payload = {
         "project_id": "DEMO_ATTENDANCE",
@@ -191,8 +272,8 @@ if not proj_data:
             {"name": "Priya", "skills": ["Backend", "AI Model", "API"]}
         ]
     }
-    api_post("/api/projects/create", payload)
-    proj_data = api_get(f"/api/projects/{st.session_state['active_project_id']}")
+    handle_project_create(payload)
+    proj_data = handle_get_project_details(st.session_state["active_project_id"])
 
 # Navigation Tabs
 tab_setup, tab_tracker, tab_resources, tab_feed = st.tabs([
@@ -206,7 +287,7 @@ tab_setup, tab_tracker, tab_resources, tab_feed = st.tabs([
 # TAB 1: PROJECT SETUP & TAILORED ROADMAP
 # ----------------------------------------------------
 with tab_setup:
-    st.subheader("Plan Custom Project via FastAPI Backend")
+    st.subheader("Plan Custom Project with AI Mentor")
     col_l, col_r = st.columns([1, 1])
 
     with col_l:
@@ -237,7 +318,7 @@ with tab_setup:
                 m_skills = st.text_input(f"Member {i+1} Skills", value=default_skills, key=f"api_mskills_{i}")
             team_payload.append({"name": m_name, "skills": [s.strip() for s in m_skills.split(",")]})
 
-    if st.button("✨ Decompose Project & Allocate via REST API", type="primary", use_container_width=True):
+    if st.button("✨ Decompose Project & Allocate Schedule", type="primary", use_container_width=True):
         payload = {
             "project_id": p_code,
             "title": p_title,
@@ -247,13 +328,13 @@ with tab_setup:
             "tech_stack": p_stack,
             "team_members": team_payload
         }
-        res = api_post("/api/projects/create", payload)
+        res = handle_project_create(payload)
         if res and res.get("status") == "SUCCESS":
             st.session_state["active_project_id"] = p_code
-            st.success(f"Project Created & Planned via FastAPI! Projected Completion: {res['projected_completion_date']}")
+            st.success(f"Project Created & Planned! Projected Completion: {res['projected_completion_date']}")
             st.rerun()
 
-    # Render Project Roadmap & Tasks from API response
+    # Render Project Roadmap & Tasks
     if proj_data:
         p_info = proj_data["project"]
         tasks = proj_data["tasks"]
@@ -308,7 +389,7 @@ with tab_tracker:
         cm4.markdown(f'<div class="metric-card"><div class="metric-value" style="color:#00cec9;">HEALTHY</div><div class="metric-label">Project Status</div></div>', unsafe_allow_html=True)
 
         st.markdown("---")
-        st.subheader("Update Member Task Progress via API")
+        st.subheader("Update Member Task Progress")
         
         updates = {}
         with st.form("api_progress_form"):
@@ -322,7 +403,7 @@ with tab_tracker:
             btn_save = st.form_submit_button("💾 Save Progress & Evaluate Health", use_container_width=True)
 
         if btn_save:
-            res = api_post(f"/api/projects/{active_id}/progress", {"progress_updates": updates})
+            res = handle_update_progress(active_id, updates)
             if res and res.get("status") == "SUCCESS":
                 eval_res = res["evaluation"]
                 st.success(f"Progress Saved! Reviewer Agent evaluated project health. Risk Level: {eval_res['risk_level']}")
@@ -336,7 +417,7 @@ with tab_tracker:
 
         user_prompt = st.text_input("Enter question or blocker:", "Priya is delayed by 3 days on Backend API Setup due to database connection errors.")
         if st.button("🤖 Ask AI Mentor & Rescue Assistant", type="secondary", use_container_width=True):
-            res = api_post(f"/api/projects/{active_id}/assistant-prompt", {"prompt": user_prompt})
+            res = handle_assistant_prompt(active_id, user_prompt)
             if res and res.get("status") == "SUCCESS":
                 a_res = res["result"]
                 if a_res["type"] == "RESCUE_TRIGGERED":
@@ -358,13 +439,13 @@ with tab_tracker:
             ca, cb = st.columns(2)
             with ca:
                 if st.button("✅ APPROVE & ACTIVATE RECOVERY SCHEDULE", type="primary", use_container_width=True):
-                    res = api_post(f"/api/projects/{active_id}/rescue-approval", {"action": "APPROVE"})
+                    res = handle_rescue_approval(active_id, "APPROVE")
                     if res:
-                        st.success("Recovery plan APPROVED! Project plan version updated via REST API.")
+                        st.success("Recovery plan APPROVED! Project plan version updated.")
                         st.rerun()
             with cb:
                 if st.button("❌ REJECT RECOVERY SCHEDULE", use_container_width=True):
-                    res = api_post(f"/api/projects/{active_id}/rescue-approval", {"action": "REJECT"})
+                    res = handle_rescue_approval(active_id, "REJECT")
                     if res:
                         st.info("Recovery plan rejected.")
                         st.rerun()
@@ -375,12 +456,16 @@ with tab_tracker:
 with tab_resources:
     st.subheader("Technical Documentation & API References (ChromaDB RAG)")
     active_id = st.session_state["active_project_id"]
-    rag_data = api_get(f"/api/projects/{active_id}/rag-resources")
     
-    if not rag_data or not rag_data.get("resources"):
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM RESEARCH_RESOURCES WHERE project_id = ?", (active_id,))
+        res_rows = [dict(r) for r in cursor.fetchall()]
+
+    if not res_rows:
         st.info("No technical research resources logged yet for this project.")
     else:
-        for r in rag_data["resources"]:
+        for r in res_rows:
             with st.expander(f"📚 {r['title']} ({r['url']})", expanded=True):
                 st.write(f"**Target Skill:** {r['query']}")
                 st.write(f"**Summary:** {r['summary']}")
@@ -401,12 +486,12 @@ with tab_feed:
     """)
     
     active_id = st.session_state["active_project_id"]
-    log_data = api_get(f"/api/projects/{active_id}/logs")
+    logs = get_agent_logs(active_id)
 
-    if not log_data or not log_data.get("logs"):
+    if not logs:
         st.info("No agent actions logged for this project yet.")
     else:
-        for l in log_data["logs"]:
+        for l in logs:
             pill_class = "pill-planner" if "Planner" in l['agent_name'] else ("pill-researcher" if "Research" in l['agent_name'] else "pill-reviewer")
             st.markdown(f"""
             <div style="background: rgba(30, 27, 60, 0.4); border-left: 4px solid #6c5ce7; padding: 0.8rem; margin-bottom: 0.6rem; border-radius: 4px;">
@@ -425,19 +510,18 @@ with st.expander("🔬 Advanced System Diagnostics, Dataset Analysis & ML Metric
     col_d1, col_d2 = st.columns(2)
     with col_d1:
         st.write("### Dataset Analysis & Decision")
-        ds_data = api_get("/api/eval/dataset-analysis")
+        ds_data, _, _ = analyze_raw_datasets()
         if ds_data:
             st.json(ds_data)
 
-        if st.button("⚡ Evaluate 80/10/10 ML Delay Model via API", use_container_width=True):
-            ml_data = api_get("/api/eval/ml-metrics")
+        if st.button("⚡ Evaluate 80/10/10 ML Delay Model", use_container_width=True):
+            ml_data = train_and_evaluate_ml_pipeline()
             if ml_data:
                 st.json(ml_data)
 
     with col_d2:
         st.write("### Self-Test Suite Runner")
-        if st.button("🧪 Run Self-Tests via API", use_container_width=True):
-            test_res = api_post("/api/eval/run-tests", {})
-            if test_res:
-                st.success("Tests Executed via FastAPI Backend!")
-                st.json(test_res)
+        if st.button("🧪 Run Self-Tests", use_container_width=True):
+            test_res = run_all_tests()
+            st.success("Tests Executed!")
+            st.json(test_res)
