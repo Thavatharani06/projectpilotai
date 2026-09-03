@@ -91,7 +91,7 @@ def generate_schedule(tasks: List[Dict[str, Any]], team_members: List[Dict[str, 
     achievable = max_end_date <= deadline_date
     projected_end_str = max_end_date.strftime("%Y-%m-%d")
 
-    return scheduled_tasks, member_workloads, achievable projected_end_str
+    return scheduled_tasks, member_workloads, achievable, projected_end_str
 
 def generate_rescue_plan(tasks: List[Dict[str, Any]], current_progress: Dict[str, float], team_members: List[Dict[str, Any]], deadline_str: str) -> Tuple[List[Dict[str, Any]], Dict[str, float], Dict[str, Any]]:
     """Re-analyzes bottlenecks and redistributes remaining workload to underutilized members."""
