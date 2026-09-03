@@ -84,6 +84,15 @@ st.markdown("""
         text-transform: uppercase;
     }
 
+    .member-group-card {
+        background: rgba(30, 27, 60, 0.5);
+        border: 1px solid rgba(108, 92, 231, 0.3);
+        border-left: 4px solid #6c5ce7;
+        border-radius: 10px;
+        padding: 1.2rem;
+        margin-bottom: 1.2rem;
+    }
+
     .rescue-card {
         background: rgba(235, 77, 75, 0.12);
         border: 2px solid #eb4d4b;
@@ -367,13 +376,14 @@ with tab_setup:
             )
 
 # ----------------------------------------------------
-# TAB 2: PROGRESS TRACKER, HEALTH MONITOR & INTEGRATED RECOVERY
+# TAB 2: PROGRESS TRACKER (GROUPED BY TEAM MEMBER) & HEALTH MONITOR
 # ----------------------------------------------------
 with tab_tracker:
     if not proj_data or not proj_data.get("tasks"):
         st.info("No active project loaded.")
     else:
         tasks = proj_data["tasks"]
+        members = proj_data.get("team_members", [])
         active_id = st.session_state["active_project_id"]
         appr = proj_data.get("active_approval")
 
@@ -393,17 +403,33 @@ with tab_tracker:
         cm4.markdown(f'<div class="metric-card"><div class="metric-value" style="color:{status_color};">{status_text}</div><div class="metric-label">Project Status</div></div>', unsafe_allow_html=True)
 
         st.markdown("---")
-        st.subheader("Update Member Task Progress")
+        st.subheader("Update Member Task Progress (Grouped By Team Member)")
+        st.caption("Each team member's assigned tasks are neatly grouped below:")
         
+        # Group tasks by assigned team member name
+        tasks_by_member = {}
+        for t in tasks:
+            m_name = t['assigned_member_name']
+            tasks_by_member.setdefault(m_name, []).append(t)
+
         updates = {}
         with st.form("api_progress_form"):
-            cols = st.columns(2)
-            for idx, t in enumerate(tasks):
-                with cols[idx % 2]:
-                    updates[t['task_id']] = st.slider(
-                        f"📌 {t['task_name']} ({t['assigned_member_name']})",
-                        min_value=0.0, max_value=100.0, value=float(t['actual_progress_pct']), step=10.0, key=f"api_prog_{t['task_id']}"
-                    )
+            for m_name, m_tasks in tasks_by_member.items():
+                st.markdown(f"""
+                <div class="member-group-card">
+                    <h4 style="color:#a29bfe; margin-top:0; margin-bottom:0.4rem;">👤 Member: {m_name} ({len(m_tasks)} Assigned Tasks)</h4>
+                </div>
+                """, unsafe_allow_html=True)
+                
+                m_cols = st.columns(min(2, len(m_tasks)))
+                for idx, t in enumerate(m_tasks):
+                    with m_cols[idx % len(m_cols)]:
+                        updates[t['task_id']] = st.slider(
+                            f"📌 {t['task_name']}",
+                            min_value=0.0, max_value=100.0, value=float(t['actual_progress_pct']), step=10.0, key=f"api_prog_{t['task_id']}"
+                        )
+                st.write("")
+
             btn_save = st.form_submit_button("💾 Save Progress & Evaluate Health", use_container_width=True)
 
         if btn_save:
