@@ -11,7 +11,7 @@ class ProjectPilotOrchestrator:
         self.rag = KnowledgeBaseRAG()
 
     def run_scispace_research_copilot(self, project_id, user_query):
-        """SciSpace Research Co-Pilot: Fetches IEEE literature papers, database recommendations, architecture, and starter code."""
+        """Fetches project-tailored IEEE literature papers, GitHub public repos, arXiv preprints, database recommendations, and starter code."""
         resources = self.rag.search_resources(user_query, top_k=3)
         
         with get_db() as conn:
@@ -22,23 +22,23 @@ class ProjectPilotOrchestrator:
                 cursor.execute("""
                     INSERT INTO RESEARCH_RESOURCES (project_id, query, title, url, summary)
                     VALUES (?, ?, ?, ?, ?)
-                """, (project_id, user_query, res['title'], res['url'], f"{res['summary']} | DB Rec: {res.get('database_rec', '')}"))
+                """, (project_id, user_query, res['title'], res['url'], f"[{res['category']}] {res['summary']} | DB Spec: {res.get('database_rec', '')}"))
 
             conn.commit()
 
         log_agent_decision(
             project_id=project_id,
-            agent_name="Research Agent (SciSpace Co-Pilot)",
-            action="Executed SciSpace Research Paper Retrieval",
-            reasoning=f"Searched IEEE literature for query: '{user_query}'. Retrieved {len(resources)} research papers, architecture guidelines, database recommendations, and code templates."
+            agent_name="Research Agent",
+            action="Retrieved Relevant Papers & Public GitHub Repositories",
+            reasoning=f"Retrieved {len(resources)} project-tailored IEEE papers, GitHub open-source repos, arXiv preprints, and database specs for '{user_query}'."
         )
 
         return resources
 
     def run_initial_planning(self, project_id, title, goal, start_date, deadline, tech_stack, team_members):
-        """Planner Agent: Decomposes goal, allocates work dynamically, and creates timeline."""
-        # 1. SciSpace-style research retrieval
-        self.run_scispace_research_copilot(project_id, f"{title} {goal} {tech_stack}")
+        """Planner Agent: Decomposes goal, allocates work dynamically, and populates relevant papers & resources."""
+        # 1. Fetch project-tailored IEEE papers & GitHub open-source project repos
+        self.run_scispace_research_copilot(project_id, f"{title} {goal}")
 
         # 2. Decompose into modules and tasks
         tasks = decompose_project_goal(title, goal, tech_stack, team_members)
@@ -139,18 +139,18 @@ class ProjectPilotOrchestrator:
             }
         else:
             rag_docs = self.rag.search_resources(prompt_text, top_k=2)
-            summaries = "\n\n".join([f"• **{d['title']}**: {d['summary']} (DB Rec: {d.get('database_rec', 'N/A')})" for d in rag_docs])
+            summaries = "\n\n".join([f"• **{d['title']}**: {d['summary']} (DB Spec: {d.get('database_rec', 'N/A')})" for d in rag_docs])
             
             log_agent_decision(
                 project_id=project_id,
-                agent_name="Research Agent (SciSpace Co-Pilot)",
+                agent_name="Research Agent",
                 action="Answered Student Technical Query",
-                reasoning=f"Answered student question: '{prompt_text}' using IEEE papers & ChromaDB RAG store."
+                reasoning=f"Answered student question: '{prompt_text}' using IEEE papers & public GitHub repos."
             )
             
             return {
                 "type": "TECHNICAL_GUIDANCE",
-                "message": f"SciSpace AI Guidance for '{prompt_text}':\n\n{summaries}",
+                "message": f"Technical Guidance for '{prompt_text}':\n\n{summaries}",
                 "resources": rag_docs
             }
 
