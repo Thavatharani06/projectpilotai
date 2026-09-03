@@ -29,8 +29,8 @@ API_BASE_URL = "http://localhost:8000"
 
 # Page configuration
 st.set_page_config(
-    page_title="ProjectPilot AI - Autonomous Software Project Manager",
-    page_icon="🚀",
+    page_title="ProjectPilot AI - Powered by CHITTI",
+    page_icon="🤖",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -215,7 +215,7 @@ def handle_rescue_approval(project_id, action):
 
 # Application Header
 st.markdown('<div class="main-header">PROJECTPILOT AI</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">Autonomous Software Project Planning, Dynamic Task Allocation & Adaptive Rescue System</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">Powered by CHITTI - Autonomous Project Planning & LLM Code Assistant</div>', unsafe_allow_html=True)
 
 # Sidebar - Project Controls & Demo Shortcuts
 with st.sidebar:
@@ -289,15 +289,15 @@ tab_setup, tab_tracker, tab_resources, tab_assistant, tab_feed = st.tabs([
     "🎯 1. Project Setup & AI Roadmap",
     "📋 2. Student Progress & Health Monitor",
     "📚 3. Relevant Papers & Open-Source Projects",
-    "🤖 4. Technical LLM Assistant & Code Debugger",
-    "📜 5. Agent Decision Log"
+    "🤖 4. CHITTI: LLM Code Generator & Debugger",
+    "📜 5. CHITTI Agent Decision Log"
 ])
 
 # ----------------------------------------------------
 # TAB 1: PROJECT SETUP & TAILORED ROADMAP
 # ----------------------------------------------------
 with tab_setup:
-    st.subheader("Plan Your Software Project with AI Mentor")
+    st.subheader("Plan Your Software Project with CHITTI AI Mentor")
     col_l, col_r = st.columns([1, 1])
 
     with col_l:
@@ -436,9 +436,9 @@ with tab_tracker:
             res = handle_update_progress(active_id, updates)
             if res and res.get("status") == "SUCCESS":
                 eval_res = res["evaluation"]
-                st.success(f"Progress Saved! Reviewer Agent evaluated project health. Risk Level: {eval_res['risk_level']}")
+                st.success(f"Progress Saved! CHITTI Reviewer Agent evaluated project health. Risk Level: {eval_res['risk_level']}")
                 if eval_res["rescue_mode_triggered"]:
-                    st.warning("⚠️ Reviewer Agent detected bottleneck and triggered Project Rescue Recovery below!")
+                    st.warning("⚠️ CHITTI Reviewer Agent detected bottleneck and triggered Project Rescue Recovery below!")
                 st.rerun()
 
         # Integrated Project Rescue & Recovery Panel inside Tab 2
@@ -447,7 +447,7 @@ with tab_tracker:
             st.markdown("""
             <div class="rescue-card">
                 <h3 style="color:#eb4d4b; margin-top:0;">🚨 PROJECT RESCUE RECOVERY PLAN PENDING APPROVAL</h3>
-                <p>The Reviewer Agent detected a project bottleneck. The Planner Agent re-balanced remaining workload across team members.</p>
+                <p>CHITTI detected a project bottleneck and re-balanced remaining workload across team members.</p>
             </div>
             """, unsafe_allow_html=True)
             st.write(f"**Proposed Recovery Strategy:** {appr['user_comment']}")
@@ -482,23 +482,23 @@ with tab_resources:
 
     if res_docs:
         st.markdown("---")
-        st.write("### 📄 Relevant IEEE Papers & Open-Source Repositories")
+        st.write("### 📄 Relevant Papers & Open-Source Repositories")
         for r in res_docs:
             st.markdown(f"""
             <div class="paper-card">
-                <h4 style="color:#00cec9; margin-top:0;">📄 {r['title']}</h4>
-                <p><strong>URL:</strong> <a href="{r['url']}" target="_blank" style="color:#a29bfe;">{r['url']}</a></p>
-                <p><strong>Methodology & Specs:</strong> {r['summary']}</p>
+                <h4 style="color:#00cec9; margin-top:0;">📄 {r.get('title', 'Technical Spec')}</h4>
+                <p><strong>URL:</strong> <a href="{r.get('url', '#')}" target="_blank" style="color:#a29bfe;">{r.get('url', '#')}</a></p>
+                <p><strong>Methodology & Specs:</strong> {r.get('summary', r.get('explanation', ''))}</p>
                 <p><strong>Database Recommendation:</strong> {r.get('database_rec', 'SQLite for MVP, PostgreSQL for cloud.')}</p>
             </div>
             """, unsafe_allow_html=True)
 
 # ----------------------------------------------------
-# TAB 4: TECHNICAL LLM ASSISTANT & CODE DEBUGGER (DEDICATED TAB)
+# TAB 4: CHITTI LLM CODE GENERATOR & DEBUGGER
 # ----------------------------------------------------
 with tab_assistant:
-    st.subheader("🤖 Technical LLM Assistant, Code Generator & Debugger")
-    st.caption("Ask technical questions, request starter code, OR paste broken code/error logs to generate instant code fixes:")
+    st.subheader("🤖 CHITTI: LLM Code Generator & Debugger")
+    st.caption("Ask CHITTI to generate starter code OR paste broken code/error logs to generate instant code fixes:")
 
     active_id = st.session_state["active_project_id"]
     active_proj_title = proj_data["project"]["title"] if proj_data else "Smart Attendance System"
@@ -506,12 +506,12 @@ with tab_assistant:
     st.markdown(f"**Active Context:** `<span style='color:#a29bfe;'>{active_proj_title}</span>`", unsafe_allow_html=True)
 
     asst_prompt = st.text_area(
-        "Ask LLM Assistant (Generate starter code OR paste broken code/error log to debug):", 
+        "Ask CHITTI (Generate starter code OR paste broken code/error log to debug):", 
         value=st.session_state.get("last_llm_prompt", f"Generate starter code and architecture guidelines for {active_proj_title}"),
         height=100
     )
 
-    if st.button("🚀 Run LLM Code Generator & Debugger", type="primary", use_container_width=True):
+    if st.button("🚀 Ask CHITTI to Generate / Debug Code", type="primary", use_container_width=True):
         st.session_state["last_llm_prompt"] = asst_prompt
         st.rerun()
 
@@ -519,10 +519,10 @@ with tab_assistant:
     llm_res = orchestrator.rag.generate_or_debug_code(current_prompt, active_proj_title)
 
     st.markdown("---")
-    st.markdown(f"### {llm_res.get('mode', '💻 LLM Code Assistant')}: `{llm_res.get('title', 'Generated Code')}`")
+    st.markdown(f"### CHITTI Engine: `{llm_res.get('mode', '💻 LLM Code Assistant')}` - {llm_res.get('title', 'Generated Output')}")
     
-    st.info(f"💡 **Explanation & Fix:** {llm_res.get('explanation', '')}")
-    st.write(f"📌 **Database & Spec:** {llm_res.get('database_rec', '')}")
+    st.info(f"💡 **CHITTI Explanation & Fix:** {llm_res.get('explanation', '')}")
+    st.write(f"📌 **CHITTI Database Spec:** {llm_res.get('database_rec', '')}")
 
     st.write("### 💻 Working Code Template / Fixed Code")
     st.code(llm_res.get("starter_code", "# Code block\nimport os"), language="python")
@@ -531,11 +531,11 @@ with tab_assistant:
 # TAB 5: AGENT DECISION LOG
 # ----------------------------------------------------
 with tab_feed:
-    st.subheader("📜 Agentic Reasoning & Decision Log")
+    st.subheader("📜 CHITTI Agentic Reasoning & Decision Log")
     
     st.info("""
     💡 **What is this tab?**  
-    This tab is your **AI Activity Feed & Transparent Decision Log**. It records every action taken behind the scenes by your specialized AI Agents (**Planner Agent**, **Research Agent**, and **Reviewer Agent**).
+    This tab is your **AI Activity Feed & Transparent Decision Log**. It records every action taken behind the scenes by **CHITTI's specialized AI Agents** (**Planner Agent**, **Research Agent**, and **Reviewer Agent**).
     """)
     
     active_id = st.session_state["active_project_id"]
