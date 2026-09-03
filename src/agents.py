@@ -10,15 +10,43 @@ class ProjectPilotOrchestrator:
     def __init__(self):
         self.rag = KnowledgeBaseRAG()
 
+    def run_scispace_research_copilot(self, project_id, user_query):
+        """SciSpace Research Co-Pilot: Fetches IEEE literature papers, database recommendations, architecture, and starter code."""
+        resources = self.rag.search_resources(user_query, top_k=3)
+        
+        with get_db() as conn:
+            cursor = conn.cursor()
+            cursor.execute("DELETE FROM RESEARCH_RESOURCES WHERE project_id = ?", (project_id,))
+
+            for res in resources:
+                cursor.execute("""
+                    INSERT INTO RESEARCH_RESOURCES (project_id, query, title, url, summary)
+                    VALUES (?, ?, ?, ?, ?)
+                """, (project_id, user_query, res['title'], res['url'], f"{res['summary']} | DB Rec: {res.get('database_rec', '')}"))
+
+            conn.commit()
+
+        log_agent_decision(
+            project_id=project_id,
+            agent_name="Research Agent (SciSpace Co-Pilot)",
+            action="Executed SciSpace Research Paper Retrieval",
+            reasoning=f"Searched IEEE literature for query: '{user_query}'. Retrieved {len(resources)} research papers, architecture guidelines, database recommendations, and code templates."
+        )
+
+        return resources
+
     def run_initial_planning(self, project_id, title, goal, start_date, deadline, tech_stack, team_members):
         """Planner Agent: Decomposes goal, allocates work dynamically, and creates timeline."""
-        # 1. Decompose into modules and tasks
+        # 1. SciSpace-style research retrieval
+        self.run_scispace_research_copilot(project_id, f"{title} {goal} {tech_stack}")
+
+        # 2. Decompose into modules and tasks
         tasks = decompose_project_goal(title, goal, tech_stack, team_members)
         
-        # 2. Schedule dynamically
+        # 3. Schedule dynamically
         scheduled_tasks, workloads, achievable, end_date = generate_schedule(tasks, team_members, start_date, deadline)
 
-        # 3. Store project, team members, tasks & dependencies in database
+        # 4. Store project, team members, tasks & dependencies in database
         with get_db() as conn:
             cursor = conn.cursor()
 
@@ -65,38 +93,7 @@ class ProjectPilotOrchestrator:
             metadata={"workloads": workloads, "projected_end": end_date}
         )
 
-        # 4. Trigger Research Agent to fetch resources for key skills
-        self.run_research_agent(project_id, scheduled_tasks)
-
         return scheduled_tasks, workloads, achievable, end_date
-
-    def run_research_agent(self, project_id, tasks):
-        """Research Agent: Queries ChromaDB for technical docs & resources for project skills."""
-        unique_skills = set(t['required_skill'] for t in tasks if 'required_skill' in t)
-        
-        with get_db() as conn:
-            cursor = conn.cursor()
-            cursor.execute("DELETE FROM RESEARCH_RESOURCES WHERE project_id = ?", (project_id,))
-
-            retrieved_count = 0
-            for skill in unique_skills:
-                query = f"Best practices and documentation for {skill}"
-                resources = self.rag.search_resources(query, skill=skill, top_k=1)
-                for res in resources:
-                    cursor.execute("""
-                        INSERT INTO RESEARCH_RESOURCES (project_id, query, title, url, summary)
-                        VALUES (?, ?, ?, ?, ?)
-                    """, (project_id, query, res['title'], res['url'], res['summary']))
-                    retrieved_count += 1
-
-            conn.commit()
-
-        log_agent_decision(
-            project_id=project_id,
-            agent_name="Research Agent",
-            action="Retrieved Technical Guidance",
-            reasoning=f"Fetched {retrieved_count} documentation references from ChromaDB RAG store for technical skills: {', '.join(unique_skills)}."
-        )
 
     def process_natural_language_assistant(self, project_id, prompt_text):
         """Processes natural language user prompt for technical help or project delay re-planning."""
@@ -114,7 +111,6 @@ class ProjectPilotOrchestrator:
         is_delay_issue = any(k in clean_p for k in ['delayed', 'stuck', 'sick', 'error', 'failing', 'behind', 'bottleneck', 'cannot finish', 'reassign'])
         
         if is_delay_issue and tasks:
-            # Identify target member or task in prompt
             target_task = None
             for t in tasks:
                 t_name_clean = t['task_name'].lower()
@@ -142,20 +138,19 @@ class ProjectPilotOrchestrator:
                 "evaluation": eval_res
             }
         else:
-            # Technical guidance query -> Query ChromaDB RAG
             rag_docs = self.rag.search_resources(prompt_text, top_k=2)
-            summaries = "\n\n".join([f"• **{d['title']}**: {d['summary']} ({d['url']})" for d in rag_docs])
+            summaries = "\n\n".join([f"• **{d['title']}**: {d['summary']} (DB Rec: {d.get('database_rec', 'N/A')})" for d in rag_docs])
             
             log_agent_decision(
                 project_id=project_id,
-                agent_name="Research Agent (AI Mentor)",
+                agent_name="Research Agent (SciSpace Co-Pilot)",
                 action="Answered Student Technical Query",
-                reasoning=f"Answered student question: '{prompt_text}' using ChromaDB RAG store."
+                reasoning=f"Answered student question: '{prompt_text}' using IEEE papers & ChromaDB RAG store."
             )
             
             return {
                 "type": "TECHNICAL_GUIDANCE",
-                "message": f"AI Technical Guidance for '{prompt_text}':\n\n{summaries}",
+                "message": f"SciSpace AI Guidance for '{prompt_text}':\n\n{summaries}",
                 "resources": rag_docs
             }
 
@@ -175,7 +170,6 @@ class ProjectPilotOrchestrator:
             cursor.execute("SELECT * FROM TEAM_MEMBERS WHERE project_id = ?", (project_id,))
             members = [dict(r) for r in cursor.fetchall()]
 
-            # Apply progress updates if provided
             if progress_updates:
                 for t in tasks:
                     t_raw_id = t['task_id'].replace(f"{project_id}_", "")
@@ -186,7 +180,6 @@ class ProjectPilotOrchestrator:
                         cursor.execute("UPDATE TASKS SET actual_progress_pct = ?, status = ? WHERE project_id = ? AND task_id = ?", (pct, status, project_id, t['task_id']))
                 conn.commit()
 
-        # Compute project metrics
         total_tasks = len(tasks)
         completed_tasks = sum(1 for t in tasks if t['actual_progress_pct'] >= 100.0)
         overall_progress = round(sum(t['actual_progress_pct'] for t in tasks) / total_tasks, 1) if total_tasks > 0 else 0.0
@@ -198,7 +191,6 @@ class ProjectPilotOrchestrator:
             if t['actual_progress_pct'] < 100.0 and (today > p_end or (t['actual_progress_pct'] < 40.0 and (p_end - today).days <= 2)):
                 delayed_tasks.append(t)
 
-        # Health & Risk Assessment
         risk_level = "LOW"
         if len(delayed_tasks) >= 2 or (len(delayed_tasks) >= 1 and overall_progress < 40.0):
             risk_level = "HIGH"

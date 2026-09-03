@@ -59,6 +59,10 @@ class RescueApprovalRequest(BaseModel):
 class AssistantPromptRequest(BaseModel):
     prompt: str
 
+class ResearchQueryRequest(BaseModel):
+    project_id: Optional[str] = "DEMO_ATTENDANCE"
+    query: str
+
 @app.on_event("startup")
 def startup_event():
     """Seed default demo project on API startup so data is immediately available to frontend."""
@@ -86,6 +90,19 @@ def root():
         "version": "1.0.0",
         "docs_url": "http://localhost:8000/docs"
     }
+
+@app.post("/api/research/query")
+def research_query(req: ResearchQueryRequest):
+    """SciSpace-style Research Co-Pilot: Query IEEE literature, database recommendations, and code templates."""
+    try:
+        resources = orchestrator.run_scispace_research_copilot(req.project_id or "DEMO_ATTENDANCE", req.query)
+        return {
+            "status": "SUCCESS",
+            "query": req.query,
+            "resources": resources
+        }
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(e))
 
 @app.post("/api/projects/create")
 def create_project(req: CreateProjectRequest):
