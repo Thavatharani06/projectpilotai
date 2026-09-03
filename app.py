@@ -279,11 +279,11 @@ if not proj_data:
     proj_data = handle_get_project_details(st.session_state["active_project_id"])
 
 # Main Clean Navigation Tabs
-tab_setup, tab_tracker, tab_rescue, tab_scispace, tab_feed = st.tabs([
+tab_setup, tab_tracker, tab_rescue, tab_resources, tab_feed = st.tabs([
     "🎯 1. Project Setup & AI Roadmap",
     "📋 2. Student Progress & Health",
     "🚨 3. Project Rescue Mode",
-    "🔬 4. SciSpace Research & IEEE Docs",
+    "📚 4. Relevant Resources & Papers",
     "🤖 5. Agent Decision Log"
 ])
 
@@ -463,18 +463,18 @@ with tab_rescue:
                     st.rerun()
 
 # ----------------------------------------------------
-# TAB 4: SCISPACE RESEARCH & IEEE LITERATURE (NEW FEATURE)
+# TAB 4: RELEVANT RESOURCES & PAPERS (RAG KNOWLEDGE STORE)
 # ----------------------------------------------------
-with tab_scispace:
-    st.subheader("🔬 SciSpace Research Co-Pilot & IEEE Literature Search")
-    st.caption("Search IEEE papers, research literature, database recommendations, and starter code templates:")
+with tab_resources:
+    st.subheader("📚 Relevant Resources & Research Papers")
+    st.caption("Search literature papers, database recommendations, and starter code templates:")
 
     active_id = st.session_state["active_project_id"]
     sci_query = st.text_input("Enter research topic or paper query:", "Real-Time Face Recognition & Automated Attendance with FastAPI & React")
 
-    if st.button("🔎 Search IEEE Papers & Technical Specs", use_container_width=True):
+    if st.button("🔎 Search Relevant Resources & Technical Specs", use_container_width=True):
         res_docs = orchestrator.run_scispace_research_copilot(active_id, sci_query)
-        st.success(f"Retrieved {len(res_docs)} IEEE research references, database recommendations, and code templates!")
+        st.success(f"Retrieved {len(res_docs)} relevant paper references, database recommendations, and code templates!")
         st.rerun()
 
     with get_db() as conn:
@@ -484,7 +484,7 @@ with tab_scispace:
 
     if res_rows:
         st.markdown("---")
-        st.write("### 📄 Retrieved IEEE Papers & Literature Summaries")
+        st.write("### 📄 Relevant Research Papers & Literature Summaries")
         for r in res_rows:
             st.markdown(f"""
             <div class="paper-card">
