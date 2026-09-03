@@ -114,11 +114,8 @@ st.markdown("""
 </style>
 """, unsafe_allow_html=True)
 
-@st.cache_resource
-def get_orchestrator():
-    return ProjectPilotOrchestrator()
-
-orchestrator = get_orchestrator()
+# Safe Orchestrator Singleton
+orchestrator = ProjectPilotOrchestrator()
 
 # Execution Handlers (REST API or In-Memory Cloud Fallback)
 def handle_project_create(payload):
@@ -463,28 +460,37 @@ with tab_rescue:
                     st.rerun()
 
 # ----------------------------------------------------
-# TAB 4: RELEVANT RESOURCES & PAPERS (RAG KNOWLEDGE STORE)
+# TAB 4: RELEVANT RESOURCES & PAPERS (DIRECTLY LINKED TO TAB 1)
 # ----------------------------------------------------
 with tab_resources:
     st.subheader("📚 Relevant Resources & Research Papers")
-    st.caption("Search literature papers, database recommendations, and starter code templates:")
-
     active_id = st.session_state["active_project_id"]
-    sci_query = st.text_input("Enter research topic or paper query:", "Real-Time Face Recognition & Automated Attendance with FastAPI & React")
+    active_proj_title = proj_data["project"]["title"] if proj_data else "Smart Attendance System"
+    active_proj_goal = proj_data["project"]["goal"] if proj_data else "Face recognition"
 
-    if st.button("🔎 Search Relevant Resources & Technical Specs", use_container_width=True):
-        res_docs = orchestrator.run_scispace_research_copilot(active_id, sci_query)
-        st.success(f"Retrieved {len(res_docs)} relevant paper references, database recommendations, and code templates!")
-        st.rerun()
+    st.markdown(f"**Active Project:** `<span style='color:#00cec9;'>{active_proj_title}</span>` *(Automatically linked from Tab 1)*", unsafe_allow_html=True)
 
+    # Optional manual search override
+    with st.expander("🔍 Optional: Search Additional Custom Query"):
+        custom_query = st.text_input("Custom query override:", value=f"{active_proj_title} {active_proj_goal}")
+        if st.button("🔎 Search Custom Query", use_container_width=True):
+            orchestrator.run_scispace_research_copilot(active_id, custom_query)
+            st.success("Updated relevant papers for custom query!")
+            st.rerun()
+
+    # Automatically fetch or query papers for the active Tab 1 project
     with get_db() as conn:
         cursor = conn.cursor()
         cursor.execute("SELECT * FROM RESEARCH_RESOURCES WHERE project_id = ?", (active_id,))
         res_rows = [dict(r) for r in cursor.fetchall()]
 
+    if not res_rows:
+        # Populate automatically if empty
+        res_rows = orchestrator.run_scispace_research_copilot(active_id, f"{active_proj_title} {active_proj_goal}")
+
     if res_rows:
         st.markdown("---")
-        st.write("### 📄 Relevant Research Papers & Literature Summaries")
+        st.write("### 📄 Relevant Research Papers & Open-Source Projects")
         for r in res_rows:
             st.markdown(f"""
             <div class="paper-card">
@@ -498,13 +504,13 @@ with tab_resources:
         c_code1, c_code2 = st.columns(2)
         with c_code1:
             st.write("### 🗄️ Database & Storage Recommendations")
-            rag_docs = orchestrator.rag.search_resources(sci_query, top_k=2)
+            rag_docs = orchestrator.rag.search_resources(f"{active_proj_title} {active_proj_goal}", top_k=2)
             for d in rag_docs:
                 st.info(f"**{d['title']}**\n\n📌 **Database Spec:** {d.get('database_rec', 'SQLite for MVP, PostgreSQL for production.')}")
 
         with c_code2:
             st.write("### 💻 Starter Code Snippets")
-            rag_docs = orchestrator.rag.search_resources(sci_query, top_k=2)
+            rag_docs = orchestrator.rag.search_resources(f"{active_proj_title} {active_proj_goal}", top_k=2)
             for d in rag_docs:
                 st.code(d.get('starter_code', '# Starter Code Snippet\nimport sys'), language="python")
 
