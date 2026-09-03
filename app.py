@@ -29,8 +29,8 @@ API_BASE_URL = "http://localhost:8000"
 
 # Page configuration
 st.set_page_config(
-    page_title="ProjectPilot AI - SciSpace Academic Co-Pilot & Team Manager",
-    page_icon="🔬",
+    page_title="ProjectPilot AI - Autonomous Software Project Manager",
+    page_icon="🚀",
     layout="wide",
     initial_sidebar_state="expanded"
 )
@@ -64,22 +64,6 @@ st.markdown("""
         margin-bottom: 1.2rem;
     }
 
-    .search-box {
-        background: rgba(30, 27, 60, 0.7);
-        border: 2px solid #6c5ce7;
-        border-radius: 12px;
-        padding: 1.2rem;
-        margin-bottom: 1.5rem;
-    }
-
-    .paper-card {
-        background: rgba(30, 27, 60, 0.5);
-        border-left: 4px solid #00cec9;
-        border-radius: 8px;
-        padding: 1.2rem;
-        margin-bottom: 1rem;
-    }
-
     .metric-card {
         background: rgba(30, 27, 60, 0.6);
         border: 1px solid rgba(108, 92, 231, 0.25);
@@ -108,6 +92,14 @@ st.markdown("""
         margin-bottom: 1rem;
     }
 
+    .paper-card {
+        background: rgba(30, 27, 60, 0.5);
+        border-left: 4px solid #00cec9;
+        border-radius: 8px;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
     .agent-pill {
         display: inline-block;
         padding: 0.2rem 0.6rem;
@@ -128,7 +120,7 @@ def get_orchestrator():
 
 orchestrator = get_orchestrator()
 
-# Smart Execution Handler (REST API or In-Memory Cloud Fallback)
+# Execution Handlers (REST API or In-Memory Cloud Fallback)
 def handle_project_create(payload):
     try:
         resp = requests.post(f"{API_BASE_URL}/api/projects/create", json=payload, timeout=2)
@@ -217,23 +209,9 @@ def handle_rescue_approval(project_id, action):
 
 # Application Header
 st.markdown('<div class="main-header">PROJECTPILOT AI</div>', unsafe_allow_html=True)
-st.markdown('<div class="sub-header">SciSpace-Style Academic Research Co-Pilot & Dynamic Team Manager</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">Autonomous Software Project Planning, Dynamic Task Allocation & Adaptive Rescue System</div>', unsafe_allow_html=True)
 
-# Central SciSpace-Style Research Co-Pilot Query Bar
-with st.container():
-    st.markdown('<div class="search-box">', unsafe_allow_html=True)
-    st.subheader("🔬 SciSpace Academic Research Co-Pilot")
-    query_input = st.text_input("Enter research topic, IEEE paper query, or project idea:", "Real-Time Face Recognition & Automated Attendance with FastAPI & React")
-    
-    col_q1, col_q2 = st.columns([1, 1])
-    with col_q1:
-        if st.button("🔎 Search IEEE Literature & Technical Architecture", type="primary", use_container_width=True):
-            res_docs = orchestrator.run_scispace_research_copilot(st.session_state.get("active_project_id", "DEMO_ATTENDANCE"), query_input)
-            st.success(f"Retrieved {len(res_docs)} IEEE research papers, database recommendations, and starter code templates!")
-            st.rerun()
-    st.markdown('</div>', unsafe_allow_html=True)
-
-# Sidebar Controls
+# Sidebar - Project Controls & Demo Shortcuts
 with st.sidebar:
     st.image("https://img.icons8.com/isometric/96/6c5ce7/rocket.png", width=64)
     st.title("Project Controls")
@@ -300,58 +278,20 @@ if not proj_data:
     handle_project_create(payload)
     proj_data = handle_get_project_details(st.session_state["active_project_id"])
 
-# Navigation Tabs
-tab_scispace, tab_team, tab_health, tab_feed = st.tabs([
-    "🔬 1. SciSpace Research & Code Specs",
-    "👥 2. Dynamic Team Work Allocation",
-    "📈 3. Live Health Monitor & Rescue Mode",
-    "🤖 4. Agent Decision Feed"
+# Main Clean Navigation Tabs
+tab_setup, tab_tracker, tab_rescue, tab_scispace, tab_feed = st.tabs([
+    "🎯 1. Project Setup & AI Roadmap",
+    "📋 2. Student Progress & Health",
+    "🚨 3. Project Rescue Mode",
+    "🔬 4. SciSpace Research & IEEE Docs",
+    "🤖 5. Agent Decision Log"
 ])
 
 # ----------------------------------------------------
-# TAB 1: SCISPACE RESEARCH, DATABASE & CODE SPECS
+# TAB 1: PROJECT SETUP & TAILORED ROADMAP
 # ----------------------------------------------------
-with tab_scispace:
-    st.subheader("IEEE Literature Papers, Database Specs & Starter Code")
-    active_id = st.session_state["active_project_id"]
-    
-    with get_db() as conn:
-        cursor = conn.cursor()
-        cursor.execute("SELECT * FROM RESEARCH_RESOURCES WHERE project_id = ?", (active_id,))
-        res_rows = [dict(r) for r in cursor.fetchall()]
-
-    if not res_rows:
-        st.info("No research papers retrieved yet. Enter a query in the top search bar above!")
-    else:
-        for r in res_rows:
-            st.markdown(f"""
-            <div class="paper-card">
-                <h4 style="color:#00cec9; margin-top:0;">📄 {r['title']}</h4>
-                <p><strong>URL:</strong> <a href="{r['url']}" target="_blank" style="color:#a29bfe;">{r['url']}</a></p>
-                <p><strong>Methodology Summary:</strong> {r['summary']}</p>
-            </div>
-            """, unsafe_allow_html=True)
-
-        st.markdown("---")
-        st.subheader("💡 Database & Code Recommendations")
-        rag_docs = orchestrator.rag.search_resources(query_input, top_k=2)
-        
-        c_code1, c_code2 = st.columns(2)
-        with c_code1:
-            st.write("### 🗄️ Recommended Database & Storage Specs")
-            for d in rag_docs:
-                st.info(f"**{d['title']}**\n\n📌 **Recommendation:** {d.get('database_rec', 'SQLite for MVP, PostgreSQL for cloud.')}")
-        
-        with c_code2:
-            st.write("### 💻 Starter Code Snippets")
-            for d in rag_docs:
-                st.code(d.get('starter_code', '# Starter Code Snippet\nimport sys'), language="python")
-
-# ----------------------------------------------------
-# TAB 2: DYNAMIC TEAM WORK ALLOCATION
-# ----------------------------------------------------
-with tab_team:
-    st.subheader("Plan Custom Project & Allocate Team Workload")
+with tab_setup:
+    st.subheader("Plan Your Software Project with AI Mentor")
     col_l, col_r = st.columns([1, 1])
 
     with col_l:
@@ -377,9 +317,9 @@ with tab_team:
             
             mc1, mc2 = st.columns([1, 1])
             with mc1:
-                m_name = st.text_input(f"Member {i+1} Name", value=default_name, key=f"team_mname_{i}")
+                m_name = st.text_input(f"Member {i+1} Name", value=default_name, key=f"t1_mname_{i}")
             with mc2:
-                m_skills = st.text_input(f"Member {i+1} Skills", value=default_skills, key=f"team_mskills_{i}")
+                m_skills = st.text_input(f"Member {i+1} Skills", value=default_skills, key=f"t1_mskills_{i}")
             team_payload.append({"name": m_name, "skills": [s.strip() for s in m_skills.split(",")]})
 
     if st.button("✨ Decompose Project & Allocate Schedule", type="primary", use_container_width=True):
@@ -430,14 +370,13 @@ with tab_team:
             )
 
 # ----------------------------------------------------
-# TAB 3: LIVE HEALTH MONITOR & RESCUE MODE
+# TAB 2: PROGRESS TRACKER & HEALTH MONITOR
 # ----------------------------------------------------
-with tab_health:
+with tab_tracker:
     if not proj_data or not proj_data.get("tasks"):
         st.info("No active project loaded.")
     else:
         tasks = proj_data["tasks"]
-        appr = proj_data.get("active_approval")
         active_id = st.session_state["active_project_id"]
 
         st.subheader("Student Progress & Live Health Monitor")
@@ -472,15 +411,15 @@ with tab_health:
                 eval_res = res["evaluation"]
                 st.success(f"Progress Saved! Reviewer Agent evaluated project health. Risk Level: {eval_res['risk_level']}")
                 if eval_res["rescue_mode_triggered"]:
-                    st.warning("⚠️ Reviewer Agent detected bottleneck and triggered Project Rescue Mode!")
+                    st.warning("⚠️ Reviewer Agent detected bottleneck and triggered Project Rescue Mode! Check Tab 3.")
                 st.rerun()
 
         st.markdown("---")
-        st.subheader("🚨 Interactive AI Mentor & Rescue Assistant")
-        st.caption("Ask ANY technical question OR report a project delay/blocker in plain English:")
+        st.subheader("🤖 Interactive AI Mentor Assistant")
+        st.caption("Ask ANY technical question OR report a project delay in plain English:")
 
         user_prompt = st.text_input("Enter question or blocker:", "Priya is delayed by 3 days on Backend API Setup due to database connection errors.")
-        if st.button("🤖 Ask AI Mentor & Rescue Assistant", type="secondary", use_container_width=True):
+        if st.button("🤖 Ask AI Mentor", type="secondary", use_container_width=True):
             res = handle_assistant_prompt(active_id, user_prompt)
             if res and res.get("status") == "SUCCESS":
                 a_res = res["result"]
@@ -490,32 +429,87 @@ with tab_health:
                     st.info(f"💡 {a_res['message']}")
                 st.rerun()
 
-        # Render Rescue Approval Panel if active
-        if appr and appr.get('status') == 'PENDING':
-            st.markdown("""
-            <div class="rescue-card">
-                <h3 style="color:#eb4d4b; margin-top:0;">⚠️ PROJECT RESCUE PLAN PENDING APPROVAL</h3>
-                <p>The Planner Agent analyzed the bottleneck and re-balanced the remaining workload across team members.</p>
-            </div>
-            """, unsafe_allow_html=True)
-            st.write(f"**Proposed Recovery Strategy:** {appr['user_comment']}")
+# ----------------------------------------------------
+# TAB 3: PROJECT RESCUE MODE (HUMAN-IN-THE-LOOP)
+# ----------------------------------------------------
+with tab_rescue:
+    st.subheader("Project Rescue Mode & Human-in-the-Loop Re-Planning")
+    active_id = st.session_state["active_project_id"]
+    appr = proj_data.get("active_approval") if proj_data else None
 
-            ca, cb = st.columns(2)
-            with ca:
-                if st.button("✅ APPROVE & ACTIVATE RECOVERY SCHEDULE", type="primary", use_container_width=True):
-                    res = handle_rescue_approval(active_id, "APPROVE")
-                    if res:
-                        st.success("Recovery plan APPROVED! Project plan version updated.")
-                        st.rerun()
-            with cb:
-                if st.button("❌ REJECT RECOVERY SCHEDULE", use_container_width=True):
-                    res = handle_rescue_approval(active_id, "REJECT")
-                    if res:
-                        st.info("Recovery plan rejected.")
-                        st.rerun()
+    if not appr or appr.get('status') != 'PENDING':
+        st.info("No active Project Rescue recovery plan pending approval. The project schedule is currently on track.")
+    else:
+        st.markdown("""
+        <div class="rescue-card">
+            <h3 style="color:#eb4d4b; margin-top:0;">⚠️ PROJECT RESCUE MODE ACTIVATED</h3>
+            <p>The Planner Agent analyzed the bottleneck and re-balanced the remaining workload across team members.</p>
+        </div>
+        """, unsafe_allow_html=True)
+        st.write(f"**Proposed Recovery Strategy:** {appr['user_comment']}")
+
+        ca, cb = st.columns(2)
+        with ca:
+            if st.button("✅ APPROVE & ACTIVATE RECOVERY SCHEDULE", type="primary", use_container_width=True):
+                res = handle_rescue_approval(active_id, "APPROVE")
+                if res:
+                    st.success("Recovery plan APPROVED! Project plan version updated.")
+                    st.rerun()
+        with cb:
+            if st.button("❌ REJECT RECOVERY SCHEDULE", use_container_width=True):
+                res = handle_rescue_approval(active_id, "REJECT")
+                if res:
+                    st.info("Recovery plan rejected.")
+                    st.rerun()
 
 # ----------------------------------------------------
-# TAB 4: AGENT DECISION FEED
+# TAB 4: SCISPACE RESEARCH & IEEE LITERATURE (NEW FEATURE)
+# ----------------------------------------------------
+with tab_scispace:
+    st.subheader("🔬 SciSpace Research Co-Pilot & IEEE Literature Search")
+    st.caption("Search IEEE papers, research literature, database recommendations, and starter code templates:")
+
+    active_id = st.session_state["active_project_id"]
+    sci_query = st.text_input("Enter research topic or paper query:", "Real-Time Face Recognition & Automated Attendance with FastAPI & React")
+
+    if st.button("🔎 Search IEEE Papers & Technical Specs", use_container_width=True):
+        res_docs = orchestrator.run_scispace_research_copilot(active_id, sci_query)
+        st.success(f"Retrieved {len(res_docs)} IEEE research references, database recommendations, and code templates!")
+        st.rerun()
+
+    with get_db() as conn:
+        cursor = conn.cursor()
+        cursor.execute("SELECT * FROM RESEARCH_RESOURCES WHERE project_id = ?", (active_id,))
+        res_rows = [dict(r) for r in cursor.fetchall()]
+
+    if res_rows:
+        st.markdown("---")
+        st.write("### 📄 Retrieved IEEE Papers & Literature Summaries")
+        for r in res_rows:
+            st.markdown(f"""
+            <div class="paper-card">
+                <h4 style="color:#00cec9; margin-top:0;">📄 {r['title']}</h4>
+                <p><strong>URL:</strong> <a href="{r['url']}" target="_blank" style="color:#a29bfe;">{r['url']}</a></p>
+                <p><strong>Methodology Summary:</strong> {r['summary']}</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+        st.markdown("---")
+        c_code1, c_code2 = st.columns(2)
+        with c_code1:
+            st.write("### 🗄️ Database & Storage Recommendations")
+            rag_docs = orchestrator.rag.search_resources(sci_query, top_k=2)
+            for d in rag_docs:
+                st.info(f"**{d['title']}**\n\n📌 **Database Spec:** {d.get('database_rec', 'SQLite for MVP, PostgreSQL for production.')}")
+
+        with c_code2:
+            st.write("### 💻 Starter Code Snippets")
+            rag_docs = orchestrator.rag.search_resources(sci_query, top_k=2)
+            for d in rag_docs:
+                st.code(d.get('starter_code', '# Starter Code Snippet\nimport sys'), language="python")
+
+# ----------------------------------------------------
+# TAB 5: AGENT DECISION LOG
 # ----------------------------------------------------
 with tab_feed:
     st.subheader("Agentic Reasoning & Decision Log")
