@@ -1,0 +1,121 @@
+Project_Name,Project_Type,Department,Project_Cost_USD,Project_Benefit_Score,Priority
+Project_001,Mobile App,Data Science,16775,7.78,Critical
+Project_002,Mobile App,DevOps,31063,7.22,Low
+Project_003,Mobile App,DevOps,36947,5.36,Low
+Project_004,Cloud Infrastructure,IT Operations,24201,9.29,Medium
+Project_005,Mobile App,Data Science,49788,8.13,High
+Project_006,Database Migration,IT Operations,34213,9.19,High
+Project_007,Mobile App,DevOps,41540,7.81,Critical
+Project_008,Database Migration,IT Operations,42858,7.0,High
+Project_009,Database Migration,IT Operations,23214,6.04,High
+Project_010,Web App,Data Science,38561,9.64,Medium
+Project_011,Database Migration,Software Engineering,28390,9.39,High
+Project_012,Mobile App,DevOps,24537,7.39,Low
+Project_013,AI/ML Service,Data Science,18239,7.5,Low
+Project_014,Mobile App,Data Science,20624,9.31,Low
+Project_015,AI/ML Service,Data Science,15441,5.94,Low
+Project_016,Cloud Infrastructure,Software Engineering,36423,5.63,Low
+Project_017,AI/ML Service,DevOps,23200,9.06,Medium
+Project_018,Web App,Data Science,34306,5.28,Low
+Project_019,Web App,Software Engineering,25353,7.01,Critical
+Project_020,AI/ML Service,Software Engineering,39382,7.57,High
+Project_021,Cloud Infrastructure,Data Science,6247,5.61,High
+Project_022,Mobile App,IT Operations,48143,6.34,Low
+Project_023,Mobile App,DevOps,47748,6.35,High
+Project_024,AI/ML Service,Data Science,42320,5.39,Medium
+Project_025,Mobile App,Data Science,36239,8.02,Low
+Project_026,AI/ML Service,DevOps,40151,7.52,Critical
+Project_027,AI/ML Service,Software Engineering,20591,6.11,High
+Project_028,Database Migration,Software Engineering,45093,6.75,Low
+Project_029,Database Migration,IT Operations,23028,5.67,High
+Project_030,Mobile App,DevOps,14735,9.17,Medium
+Project_031,AI/ML Service,IT Operations,37690,6.52,Low
+Project_032,Web App,DevOps,37906,5.93,Critical
+Project_033,AI/ML Service,DevOps,9695,8.33,Medium
+Project_034,Mobile App,IT Operations,30502,9.59,Medium
+Project_035,Database Migration,Software Engineering,20043,8.94,Low
+Project_036,Database Migration,IT Operations,11506,7.86,High
+Project_037,Mobile App,DevOps,29045,7.46,Critical
+Project_038,Mobile App,Data Science,46324,7.91,High
+Project_039,Cloud Infrastructure,Data Science,17157,7.41,Critical
+Project_040,Web App,Software Engineering,39806,9.49,Critical
+Project_041,Cloud Infrastructure,DevOps,7085,9.1,Low
+Project_042,Cloud Infrastructure,DevOps,9855,9.58,Critical
+Project_043,Cloud Infrastructure,Data Science,26237,6.11,Critical
+Project_044,AI/ML Service,Data Science,24890,5.8,Critical
+Project_045,Database Migration,IT Operations,22282,7.05,High
+Project_046,Mobile App,IT Operations,30580,8.58,High
+Project_047,Database Migration,Software Engineering,6756,7.75,High
+Project_048,Web App,IT Operations,12016,8.96,High
+Project_049,Database Migration,Software Engineering,18629,8.15,High
+Project_050,Mobile App,DevOps,42356,5.05,Critical
+Project_051,Cloud Infrastructure,Software Engineering,33872,9.75,High
+Project_052,Database Migration,Data Science,46452,7.37,Low
+Project_053,AI/ML Service,Data Science,47186,7.84,Low
+Project_054,Web App,Data Science,9033,5.66,High
+Project_055,AI/ML Service,Data Science,14707,7.39,Medium
+Project_056,Web App,Data Science,42646,7.02,Low
+Project_057,Mobile App,DevOps,45665,5.92,Critical
+Project_058,AI/ML Service,IT Operations,12793,7.67,Critical
+Project_059,Mobile App,IT Operations,41913,6.98,Low
+Project_060,AI/ML Service,DevOps,31089,8.44,Low
+Project_061,Cloud Infrastructure,IT Operations,25092,9.46,Medium
+Project_062,Web App,DevOps,15798,7.24,Low
+Project_063,Mobile App,Data Science,46810,6.61,Medium
+Project_064,Cloud Infrastructure,DevOps,10903,7.17,Medium
+Project_065,AI/ML Service,Software Engineering,48737,9.18,Low
+Project_066,Mobile App,DevOps,14923,5.84,Critical
+Project_067,Web App,Software Engineering,12296,9.47,Low
+Project_068,Mobile App,Data Science,45822,8.57,Low
+Project_069,Cloud Infrastructure,IT Operations,41799,8.08,Critical
+Project_070,AI/ML Service,Software Engineering,28240,9.14,High
+Project_071,Cloud Infrastructure,IT Operations,46546,5.93,Medium
+Project_072,Mobile App,Software Engineering,33413,9.16,Low
+Project_073,Cloud Infrastructure,DevOps,38072,7.3,Low
+Project_074,Cloud Infrastructure,IT Operations,26926,8.63,Low
+Project_075,Cloud Infrastructure,DevOps,13036,9.05,Medium
+Project_076,Web App,Software Engineering,16734,8.16,Critical
+Project_077,Database Migration,DevOps,49430,7.74,Low
+Project_078,AI/ML Service,Data Science,42568,5.6,High
+Project_079,Database Migration,DevOps,47573,7.96,Low
+Project_080,Mobile App,Data Science,49506,8.4,Critical
+Project_081,Web App,IT Operations,35494,7.98,Medium
+Project_082,Cloud Infrastructure,Data Science,44144,6.85,High
+Project_083,Mobile App,Software Engineering,33360,7.65,Critical
+Project_084,AI/ML Service,DevOps,36358,8.06,Low
+Project_085,AI/ML Service,Software Engineering,8141,7.79,Medium
+Project_086,Mobile App,DevOps,28798,6.72,Medium
+Project_087,Mobile App,IT Operations,49754,9.76,Critical
+Project_088,Cloud Infrastructure,Data Science,42042,5.93,Medium
+Project_089,Database Migration,Software Engineering,15447,9.87,Critical
+Project_090,Database Migration,IT Operations,5753,7.03,Low
+Project_091,AI/ML Service,DevOps,6482,9.58,High
+Project_092,AI/ML Service,DevOps,36015,8.43,Medium
+Project_093,Mobile App,IT Operations,24252,8.71,Critical
+Project_094,Web App,Software Engineering,30950,9.19,Medium
+Project_095,Web App,Software Engineering,49808,9.53,High
+Project_096,AI/ML Service,IT Operations,40418,8.96,High
+Project_097,Web App,Software Engineering,47818,9.77,Critical
+Project_098,Mobile App,DevOps,23611,5.84,Medium
+Project_099,Cloud Infrastructure,DevOps,17166,5.26,High
+Project_100,Database Migration,IT Operations,26398,7.58,Low
+Project_101,Mobile App,Software Engineering,43940,9.04,Critical
+Project_102,Web App,IT Operations,15502,6.6,High
+Project_103,Database Migration,IT Operations,46648,6.98,Low
+Project_104,AI/ML Service,IT Operations,12455,6.4,Medium
+Project_105,Mobile App,DevOps,42068,7.78,Critical
+Project_106,Cloud Infrastructure,DevOps,33519,8.7,High
+Project_107,Mobile App,IT Operations,27026,7.96,High
+Project_108,Mobile App,DevOps,44076,6.93,Medium
+Project_109,Database Migration,IT Operations,47645,9.61,High
+Project_110,Database Migration,DevOps,41137,8.08,Low
+Project_111,Database Migration,Data Science,48296,6.67,Low
+Project_112,AI/ML Service,IT Operations,41947,6.29,High
+Project_113,Web App,IT Operations,10012,7.88,Medium
+Project_114,Mobile App,IT Operations,9837,7.35,Low
+Project_115,Web App,Software Engineering,26943,9.1,Low
+Project_116,Database Migration,IT Operations,37590,6.87,Low
+Project_117,Database Migration,DevOps,41858,5.49,High
+Project_118,Cloud Infrastructure,Software Engineering,6367,6.05,High
+Project_119,Mobile App,Software Engineering,41250,7.89,Critical
+Project_120,Web App,Software Engineering,6479,6.56,Critical

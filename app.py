@@ -1,0 +1,443 @@
+import os
+import sys
+import json
+import requests
+from datetime import datetime, timedelta
+import pandas as pd
+import numpy as np
+import streamlit as st
+
+try:
+    import plotly.express as px
+    import plotly.graph_objects as go
+    PLOTLY_AVAILABLE = True
+except ImportError:
+    PLOTLY_AVAILABLE = False
+
+API_BASE_URL = "http://localhost:8000"
+
+# Page configuration
+st.set_page_config(
+    page_title="ProjectPilot AI - Autonomous Software Project Manager",
+    page_icon="🚀",
+    layout="wide",
+    initial_sidebar_state="expanded"
+)
+
+# Custom CSS for modern dark UI
+st.markdown("""
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+    
+    html, body, [class*="css"] {
+        font-family: 'Inter', sans-serif;
+    }
+    
+    .stApp {
+        background: linear-gradient(135deg, #0f0c20 0%, #1a1635 100%);
+        color: #e2e8f0;
+    }
+
+    .main-header {
+        background: linear-gradient(90deg, #6c5ce7 0%, #a29bfe 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+        font-weight: 700;
+        font-size: 2.3rem;
+        margin-bottom: 0.1rem;
+    }
+
+    .sub-header {
+        color: #94a3b8;
+        font-size: 1.0rem;
+        margin-bottom: 1.2rem;
+    }
+
+    .metric-card {
+        background: rgba(30, 27, 60, 0.6);
+        border: 1px solid rgba(108, 92, 231, 0.25);
+        border-radius: 12px;
+        padding: 1.0rem;
+        box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+        backdrop-filter: blur(8px);
+        text-align: center;
+    }
+    .metric-value {
+        font-size: 1.7rem;
+        font-weight: 700;
+        color: #00cec9;
+    }
+    .metric-label {
+        font-size: 0.8rem;
+        color: #94a3b8;
+        text-transform: uppercase;
+    }
+
+    .rescue-card {
+        background: rgba(235, 77, 75, 0.12);
+        border: 2px solid #eb4d4b;
+        border-radius: 12px;
+        padding: 1.2rem;
+        margin-bottom: 1rem;
+    }
+
+    .agent-pill {
+        display: inline-block;
+        padding: 0.2rem 0.6rem;
+        border-radius: 20px;
+        font-size: 0.75rem;
+        font-weight: 600;
+        margin-right: 0.5rem;
+    }
+    .pill-planner { background: rgba(108, 92, 231, 0.3); color: #a29bfe; border: 1px solid #6c5ce7; }
+    .pill-researcher { background: rgba(0, 206, 201, 0.3); color: #81ecec; border: 1px solid #00cec9; }
+    .pill-reviewer { background: rgba(253, 121, 168, 0.3); color: #ff7675; border: 1px solid #fd79a8; }
+</style>
+""", unsafe_allow_html=True)
+
+# Helper functions to query REST API
+def api_get(endpoint):
+    try:
+        resp = requests.get(f"{API_BASE_URL}{endpoint}")
+        if resp.status_code == 200:
+            return resp.json()
+    except Exception as e:
+        st.error(f"Backend API Error ({endpoint}): {e}")
+    return None
+
+def api_post(endpoint, payload):
+    try:
+        resp = requests.post(f"{API_BASE_URL}{endpoint}", json=payload)
+        if resp.status_code == 200:
+            return resp.json()
+        else:
+            st.error(f"API Failed ({resp.status_code}): {resp.text}")
+    except Exception as e:
+        st.error(f"Backend Connection Error ({endpoint}): {e}")
+    return None
+
+# Application Header
+st.markdown('<div class="main-header">PROJECTPILOT AI</div>', unsafe_allow_html=True)
+st.markdown('<div class="sub-header">Autonomous Software Project Mentor & Adaptive Team Rescue Manager (FastAPI REST API Connected)</div>', unsafe_allow_html=True)
+
+# Check API Health
+api_health = api_get("/")
+if not api_health or api_health.get("status") != "ONLINE":
+    st.error("🚨 FastAPI REST Backend API is offline! Re-connecting to http://localhost:8000...")
+else:
+    st.caption("🟢 **REST API Status**: Connected to `http://localhost:8000` (FastAPI Server Online)")
+
+# Sidebar - Project Selector & Demo Shortcuts
+with st.sidebar:
+    st.image("https://img.icons8.com/isometric/96/6c5ce7/rocket.png", width=64)
+    st.title("Project Controls")
+    
+    st.subheader("1-Click Demo Projects")
+    if st.button("🚀 Demo 1: Smart Attendance (2 Members)", use_container_width=True):
+        payload = {
+            "project_id": "DEMO_ATTENDANCE",
+            "title": "Smart Attendance System",
+            "goal": "AI Face recognition attendance system with FastAPI backend, React dashboard, and camera stream.",
+            "start_date": datetime.now().strftime("%Y-%m-%d"),
+            "deadline": (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d"),
+            "tech_stack": "Python, FastAPI, OpenCV, React, Pytest",
+            "team_members": [
+                {"name": "Tharani", "skills": ["Frontend", "UI Design"]},
+                {"name": "Priya", "skills": ["Backend", "AI Model", "API"]}
+            ]
+        }
+        res = api_post("/api/projects/create", payload)
+        if res and res.get("status") == "SUCCESS":
+            st.session_state["active_project_id"] = "DEMO_ATTENDANCE"
+            st.success("Smart Attendance Demo Loaded & Planned via REST API!")
+            st.rerun()
+
+    if st.button("📱 Demo 2: Mobile Health App (3 Members)", use_container_width=True):
+        payload = {
+            "project_id": "DEMO_HEALTH",
+            "title": "Mobile Health & Fitness Tracker",
+            "goal": "Cross-platform mobile app for workout tracking, SQLite storage, and Node.js APIs.",
+            "start_date": datetime.now().strftime("%Y-%m-%d"),
+            "deadline": (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d"),
+            "tech_stack": "Flutter, Node.js, SQLite, Firebase",
+            "team_members": [
+                {"name": "Alex", "skills": ["Frontend", "Mobile UI"]},
+                {"name": "Bhavya", "skills": ["Backend", "Database"]},
+                {"name": "Chris", "skills": ["API Integration", "Testing"]}
+            ]
+        }
+        res = api_post("/api/projects/create", payload)
+        if res and res.get("status") == "SUCCESS":
+            st.session_state["active_project_id"] = "DEMO_HEALTH"
+            st.success("Mobile Health App Demo Loaded & Planned via REST API!")
+            st.rerun()
+
+# Ensure active project ID in session state
+if "active_project_id" not in st.session_state:
+    st.session_state["active_project_id"] = "DEMO_ATTENDANCE"
+
+# Auto-plan default demo project if not exists
+proj_data = api_get(f"/api/projects/{st.session_state['active_project_id']}")
+if not proj_data:
+    payload = {
+        "project_id": "DEMO_ATTENDANCE",
+        "title": "Smart Attendance System",
+        "goal": "AI Face recognition attendance system with FastAPI backend, React dashboard, and camera stream.",
+        "start_date": datetime.now().strftime("%Y-%m-%d"),
+        "deadline": (datetime.now() + timedelta(days=14)).strftime("%Y-%m-%d"),
+        "tech_stack": "Python, FastAPI, OpenCV, React, Pytest",
+        "team_members": [
+            {"name": "Tharani", "skills": ["Frontend", "UI Design"]},
+            {"name": "Priya", "skills": ["Backend", "AI Model", "API"]}
+        ]
+    }
+    api_post("/api/projects/create", payload)
+    proj_data = api_get(f"/api/projects/{st.session_state['active_project_id']}")
+
+# Navigation Tabs
+tab_setup, tab_tracker, tab_resources, tab_feed = st.tabs([
+    "🎯 1. Project Setup & AI Roadmap",
+    "📋 2. Student Progress & AI Rescue Assistant",
+    "📚 3. AI Technical Resources",
+    "🤖 4. Agent Activity Feed"
+])
+
+# ----------------------------------------------------
+# TAB 1: PROJECT SETUP & TAILORED ROADMAP
+# ----------------------------------------------------
+with tab_setup:
+    st.subheader("Plan Custom Project via FastAPI Backend")
+    col_l, col_r = st.columns([1, 1])
+
+    with col_l:
+        p_code = st.text_input("Project Code", st.session_state.get("active_project_id", "PROJ_001"))
+        p_title = st.text_input("Project Title", "Autonomous Crop Disease Drone")
+        p_goal = st.text_area("Project Goal & Features", "Drone-based computer vision crop health analyzer using OpenCV, PyTorch, and a Web Dashboard.", height=90)
+        p_stack = st.text_input("Technology Stack", "Python, PyTorch, OpenCV, React, FastAPI")
+
+    with col_r:
+        c1, c2 = st.columns(2)
+        with c1:
+            p_start = st.date_input("Start Date", datetime.now().date())
+        with c2:
+            p_deadline = st.date_input("Deadline", (datetime.now() + timedelta(days=14)).date())
+
+        st.write("**Dynamic Team Setup (Supports Any Team Size)**")
+        num_m = st.number_input("Team Size", min_value=1, max_value=15, value=2, step=1)
+        
+        team_payload = []
+        for i in range(int(num_m)):
+            default_name = "Tharani" if i == 0 else ("Priya" if i == 1 else f"Member {i+1}")
+            default_skills = "Frontend, UI Design" if i == 0 else ("Backend, AI Model" if i == 1 else "Fullstack")
+            
+            mc1, mc2 = st.columns([1, 1])
+            with mc1:
+                m_name = st.text_input(f"Member {i+1} Name", value=default_name, key=f"api_mname_{i}")
+            with mc2:
+                m_skills = st.text_input(f"Member {i+1} Skills", value=default_skills, key=f"api_mskills_{i}")
+            team_payload.append({"name": m_name, "skills": [s.strip() for s in m_skills.split(",")]})
+
+    if st.button("✨ Decompose Project & Allocate via REST API", type="primary", use_container_width=True):
+        payload = {
+            "project_id": p_code,
+            "title": p_title,
+            "goal": p_goal,
+            "start_date": p_start.strftime("%Y-%m-%d"),
+            "deadline": p_deadline.strftime("%Y-%m-%d"),
+            "tech_stack": p_stack,
+            "team_members": team_payload
+        }
+        res = api_post("/api/projects/create", payload)
+        if res and res.get("status") == "SUCCESS":
+            st.session_state["active_project_id"] = p_code
+            st.success(f"Project Created & Planned via FastAPI! Projected Completion: {res['projected_completion_date']}")
+            st.rerun()
+
+    # Render Project Roadmap & Tasks from API response
+    if proj_data:
+        p_info = proj_data["project"]
+        tasks = proj_data["tasks"]
+        
+        st.markdown("---")
+        st.subheader(f"Calendar Schedule: {p_info['title']} (Plan Version {p_info['active_plan_version']})")
+        
+        if PLOTLY_AVAILABLE and tasks:
+            fig = px.timeline(
+                tasks,
+                x_start="planned_start",
+                x_end="planned_end",
+                y="assigned_member_name",
+                color="module_name",
+                hover_name="task_name",
+                text="task_name",
+                title="Team Task Allocation & Calendar Schedule",
+                labels={"assigned_member_name": "Team Member", "planned_start": "Start Date", "planned_end": "End Date"}
+            )
+            fig.update_yaxes(autorange="reversed")
+            fig.update_layout(template="plotly_dark", height=380, margin=dict(l=20, r=20, t=40, b=20))
+            st.plotly_chart(fig, use_container_width=True)
+
+        if tasks:
+            df_t = pd.DataFrame(tasks)
+            st.dataframe(
+                df_t[["task_name", "module_name", "assigned_member_name", "required_skill", "estimated_days", "planned_start", "planned_end", "actual_progress_pct", "status"]],
+                use_container_width=True
+            )
+
+# ----------------------------------------------------
+# TAB 2: PROGRESS TRACKER & AI RESCUE ASSISTANT
+# ----------------------------------------------------
+with tab_tracker:
+    if not proj_data or not proj_data.get("tasks"):
+        st.info("No active project loaded.")
+    else:
+        tasks = proj_data["tasks"]
+        appr = proj_data.get("active_approval")
+        active_id = st.session_state["active_project_id"]
+
+        st.subheader("Student Progress & Live Health Monitor")
+
+        total = len(tasks)
+        completed = sum(1 for t in tasks if t['actual_progress_pct'] >= 100.0)
+        avg_progress = round(sum(t['actual_progress_pct'] for t in tasks) / total, 1) if total > 0 else 0.0
+
+        cm1, cm2, cm3, cm4 = st.columns(4)
+        cm1.markdown(f'<div class="metric-card"><div class="metric-value">{avg_progress}%</div><div class="metric-label">Overall Completion</div></div>', unsafe_allow_html=True)
+        cm2.markdown(f'<div class="metric-card"><div class="metric-value">{completed}/{total}</div><div class="metric-label">Tasks Completed</div></div>', unsafe_allow_html=True)
+        cm3.markdown(f'<div class="metric-card"><div class="metric-value">{total - completed}</div><div class="metric-label">Tasks In-Progress</div></div>', unsafe_allow_html=True)
+        cm4.markdown(f'<div class="metric-card"><div class="metric-value" style="color:#00cec9;">HEALTHY</div><div class="metric-label">Project Status</div></div>', unsafe_allow_html=True)
+
+        st.markdown("---")
+        st.subheader("Update Member Task Progress via API")
+        
+        updates = {}
+        with st.form("api_progress_form"):
+            cols = st.columns(2)
+            for idx, t in enumerate(tasks):
+                with cols[idx % 2]:
+                    updates[t['task_id']] = st.slider(
+                        f"📌 {t['task_name']} ({t['assigned_member_name']})",
+                        min_value=0.0, max_value=100.0, value=float(t['actual_progress_pct']), step=10.0, key=f"api_prog_{t['task_id']}"
+                    )
+            btn_save = st.form_submit_button("💾 Save Progress & Evaluate Health", use_container_width=True)
+
+        if btn_save:
+            res = api_post(f"/api/projects/{active_id}/progress", {"progress_updates": updates})
+            if res and res.get("status") == "SUCCESS":
+                eval_res = res["evaluation"]
+                st.success(f"Progress Saved! Reviewer Agent evaluated project health. Risk Level: {eval_res['risk_level']}")
+                if eval_res["rescue_mode_triggered"]:
+                    st.warning("⚠️ Reviewer Agent detected bottleneck and triggered Project Rescue Mode!")
+                st.rerun()
+
+        st.markdown("---")
+        st.subheader("🚨 Interactive AI Mentor & Rescue Assistant")
+        st.caption("Ask ANY technical question OR report a project delay/blocker in plain English:")
+
+        user_prompt = st.text_input("Enter question or blocker:", "Priya is delayed by 3 days on Backend API Setup due to database connection errors.")
+        if st.button("🤖 Ask AI Mentor & Rescue Assistant", type="secondary", use_container_width=True):
+            res = api_post(f"/api/projects/{active_id}/assistant-prompt", {"prompt": user_prompt})
+            if res and res.get("status") == "SUCCESS":
+                a_res = res["result"]
+                if a_res["type"] == "RESCUE_TRIGGERED":
+                    st.warning(f"🚨 {a_res['message']}")
+                else:
+                    st.info(f"💡 {a_res['message']}")
+                st.rerun()
+
+        # Render Rescue Approval Panel if active
+        if appr and appr.get('status') == 'PENDING':
+            st.markdown("""
+            <div class="rescue-card">
+                <h3 style="color:#eb4d4b; margin-top:0;">⚠️ PROJECT RESCUE PLAN PENDING APPROVAL</h3>
+                <p>The Planner Agent analyzed the bottleneck and re-balanced the remaining workload across team members.</p>
+            </div>
+            """, unsafe_allow_html=True)
+            st.write(f"**Proposed Recovery Strategy:** {appr['user_comment']}")
+
+            ca, cb = st.columns(2)
+            with ca:
+                if st.button("✅ APPROVE & ACTIVATE RECOVERY SCHEDULE", type="primary", use_container_width=True):
+                    res = api_post(f"/api/projects/{active_id}/rescue-approval", {"action": "APPROVE"})
+                    if res:
+                        st.success("Recovery plan APPROVED! Project plan version updated via REST API.")
+                        st.rerun()
+            with cb:
+                if st.button("❌ REJECT RECOVERY SCHEDULE", use_container_width=True):
+                    res = api_post(f"/api/projects/{active_id}/rescue-approval", {"action": "REJECT"})
+                    if res:
+                        st.info("Recovery plan rejected.")
+                        st.rerun()
+
+# ----------------------------------------------------
+# TAB 3: TECHNICAL RAG RESOURCES
+# ----------------------------------------------------
+with tab_resources:
+    st.subheader("Technical Documentation & API References (ChromaDB RAG)")
+    active_id = st.session_state["active_project_id"]
+    rag_data = api_get(f"/api/projects/{active_id}/rag-resources")
+    
+    if not rag_data or not rag_data.get("resources"):
+        st.info("No technical research resources logged yet for this project.")
+    else:
+        for r in rag_data["resources"]:
+            with st.expander(f"📚 {r['title']} ({r['url']})", expanded=True):
+                st.write(f"**Target Skill:** {r['query']}")
+                st.write(f"**Summary:** {r['summary']}")
+
+# ----------------------------------------------------
+# TAB 4: AGENT DECISION FEED (EXPLAINABLE AI FEED)
+# ----------------------------------------------------
+with tab_feed:
+    st.subheader("Agentic Reasoning & Decision Log")
+    
+    st.info("""
+    💡 **What is this tab?**  
+    This tab is your **AI Activity Feed & Transparent Decision Log**. It records every action taken behind the scenes by your 3 AI Agents (**Planner Agent**, **Research Agent**, and **Reviewer Agent**).  
+    
+    **Why is it used?**  
+    - **Transparency**: Gives students and team leaders full visibility into *why* the AI created a specific schedule or triggered a project rescue mode.  
+    - **Audit Trail**: Shows a chronological timeline of every AI decision, including timestamped risk evaluations, RAG technical lookups, and workload re-allocations.
+    """)
+    
+    active_id = st.session_state["active_project_id"]
+    log_data = api_get(f"/api/projects/{active_id}/logs")
+
+    if not log_data or not log_data.get("logs"):
+        st.info("No agent actions logged for this project yet.")
+    else:
+        for l in log_data["logs"]:
+            pill_class = "pill-planner" if "Planner" in l['agent_name'] else ("pill-researcher" if "Research" in l['agent_name'] else "pill-reviewer")
+            st.markdown(f"""
+            <div style="background: rgba(30, 27, 60, 0.4); border-left: 4px solid #6c5ce7; padding: 0.8rem; margin-bottom: 0.6rem; border-radius: 4px;">
+                <span class="agent-pill {pill_class}">{l['agent_name']}</span>
+                <strong style="color:#00cec9;">{l['action']}</strong>
+                <span style="float:right; font-size:0.75rem; color:#64748b;">{l['created_at']}</span>
+                <p style="margin-top:0.4rem; font-size:0.9rem; color:#cbd5e1;">{l['reasoning']}</p>
+            </div>
+            """, unsafe_allow_html=True)
+
+# ----------------------------------------------------
+# BOTTOM EXPANDER: ADVANCED TECHNICAL DIAGNOSTICS
+# ----------------------------------------------------
+st.markdown("---")
+with st.expander("🔬 Advanced System Diagnostics, Dataset Analysis & ML Metrics"):
+    col_d1, col_d2 = st.columns(2)
+    with col_d1:
+        st.write("### Dataset Analysis & Decision")
+        ds_data = api_get("/api/eval/dataset-analysis")
+        if ds_data:
+            st.json(ds_data)
+
+        if st.button("⚡ Evaluate 80/10/10 ML Delay Model via API", use_container_width=True):
+            ml_data = api_get("/api/eval/ml-metrics")
+            if ml_data:
+                st.json(ml_data)
+
+    with col_d2:
+        st.write("### Self-Test Suite Runner")
+        if st.button("🧪 Run Self-Tests via API", use_container_width=True):
+            test_res = api_post("/api/eval/run-tests", {})
+            if test_res:
+                st.success("Tests Executed via FastAPI Backend!")
+                st.json(test_res)

@@ -1,0 +1,28 @@
+{
+  "dataset_total_records": 500,
+  "train_size": 400,
+  "validation_size": 50,
+  "test_size": 50,
+  "accuracy": 0.66,
+  "precision": 0.6667,
+  "recall": 0.2105,
+  "f1_score": 0.32,
+  "roc_auc": 0.6231,
+  "feature_importances": {
+    "Estimated_Duration_Days": 0.2761,
+    "Workload_Ratio": 0.269,
+    "Dependency_Count": 0.0704,
+    "Project_Type_Cloud Infrastructure": 0.0282,
+    "Project_Type_Database Migration": 0.0231,
+    "Project_Type_Mobile App": 0.0288,
+    "Project_Type_Web App": 0.0285,
+    "Task_Category_API Integration": 0.0184,
+    "Task_Category_Backend": 0.0212,
+    "Task_Category_Database": 0.0283,
+    "Task_Category_Deployment": 0.015,
+    "Task_Category_Frontend": 0.0133,
+    "Task_Category_Testing/QA": 0.0275,
+    "Complexity_Low": 0.1028,
+    "Complexity_Medium": 0.0493
+  }
+}

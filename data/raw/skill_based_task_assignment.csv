@@ -1,0 +1,351 @@
+Category,Sub_Category,Required_Skill,Complexity,Estimated_Effort_Hours
+Frontend,Frontend Task Module 8,TypeScript,Medium,8
+API Integration,API Integration Task Module 8,WebSockets,High,31
+Backend,Backend Task Module 6,FastAPI,High,14
+Testing/QA,Testing/QA Task Module 2,Cypress,Low,37
+API Integration,API Integration Task Module 7,OAuth2,High,7
+AI Model,AI Model Task Module 3,PyTorch,High,17
+Deployment,Deployment Task Module 2,Kubernetes,Medium,8
+AI Model,AI Model Task Module 1,TensorFlow,High,31
+Deployment,Deployment Task Module 2,Docker,Low,14
+Frontend,Frontend Task Module 8,JavaScript,Medium,25
+Testing/QA,Testing/QA Task Module 7,Selenium,Medium,4
+Frontend,Frontend Task Module 3,JavaScript,High,4
+Testing/QA,Testing/QA Task Module 4,Cypress,Medium,15
+Backend,Backend Task Module 3,Python,High,25
+Deployment,Deployment Task Module 6,Kubernetes,High,9
+Database,Database Task Module 1,Redis,Low,14
+AI Model,AI Model Task Module 5,OpenAI API,Medium,21
+Backend,Backend Task Module 9,Flask,High,29
+API Integration,API Integration Task Module 1,WebSockets,Medium,16
+Database,Database Task Module 7,Redis,Medium,38
+API Integration,API Integration Task Module 1,GraphQL,Low,21
+API Integration,API Integration Task Module 7,WebSockets,High,33
+API Integration,API Integration Task Module 1,OAuth2,High,16
+AI Model,AI Model Task Module 1,PyTorch,Low,18
+Testing/QA,Testing/QA Task Module 1,Cypress,Medium,11
+API Integration,API Integration Task Module 7,GraphQL,High,35
+Deployment,Deployment Task Module 1,Kubernetes,High,7
+Deployment,Deployment Task Module 9,AWS,Medium,8
+API Integration,API Integration Task Module 1,GraphQL,Low,9
+AI Model,AI Model Task Module 3,Scikit-Learn,Medium,39
+Backend,Backend Task Module 6,Python,Low,17
+Backend,Backend Task Module 7,Django,Medium,24
+Backend,Backend Task Module 9,Flask,High,26
+Deployment,Deployment Task Module 8,Kubernetes,High,9
+Backend,Backend Task Module 3,Django,Low,27
+Frontend,Frontend Task Module 7,Vue,Low,14
+Backend,Backend Task Module 5,Flask,Low,37
+AI Model,AI Model Task Module 5,TensorFlow,Medium,20
+Testing/QA,Testing/QA Task Module 6,Pytest,High,28
+Backend,Backend Task Module 7,FastAPI,High,26
+API Integration,API Integration Task Module 5,REST API,Low,37
+Database,Database Task Module 6,Redis,Low,33
+AI Model,AI Model Task Module 4,PyTorch,Low,9
+AI Model,AI Model Task Module 7,Scikit-Learn,High,38
+Frontend,Frontend Task Module 3,Vue,Medium,29
+AI Model,AI Model Task Module 6,PyTorch,High,9
+Testing/QA,Testing/QA Task Module 1,Pytest,High,9
+Backend,Backend Task Module 7,Node.js,Low,11
+AI Model,AI Model Task Module 2,OpenAI API,Medium,8
+API Integration,API Integration Task Module 8,WebSockets,Low,39
+Database,Database Task Module 4,Redis,High,33
+Testing/QA,Testing/QA Task Module 6,Jest,Medium,33
+Testing/QA,Testing/QA Task Module 1,Selenium,High,17
+Deployment,Deployment Task Module 8,GitHub Actions,Medium,33
+Database,Database Task Module 5,PostgreSQL,High,16
+Deployment,Deployment Task Module 4,AWS,Low,27
+Frontend,Frontend Task Module 7,TypeScript,High,9
+Frontend,Frontend Task Module 1,TypeScript,Medium,19
+API Integration,API Integration Task Module 2,WebSockets,Low,12
+Testing/QA,Testing/QA Task Module 9,Pytest,High,17
+AI Model,AI Model Task Module 6,OpenAI API,Low,9
+Backend,Backend Task Module 3,Node.js,Low,15
+Testing/QA,Testing/QA Task Module 6,Pytest,Medium,27
+AI Model,AI Model Task Module 6,OpenAI API,Low,5
+API Integration,API Integration Task Module 8,OAuth2,Low,23
+Deployment,Deployment Task Module 1,Docker,High,39
+Database,Database Task Module 2,SQLite,Low,19
+Testing/QA,Testing/QA Task Module 1,Pytest,Medium,18
+AI Model,AI Model Task Module 3,Scikit-Learn,High,21
+Deployment,Deployment Task Module 9,GitHub Actions,High,18
+API Integration,API Integration Task Module 3,GraphQL,Low,16
+Testing/QA,Testing/QA Task Module 1,Pytest,Medium,26
+Database,Database Task Module 5,MongoDB,Low,30
+Database,Database Task Module 8,MongoDB,Low,13
+Testing/QA,Testing/QA Task Module 1,Jest,High,28
+Testing/QA,Testing/QA Task Module 6,Jest,Low,26
+Database,Database Task Module 4,Redis,High,27
+Backend,Backend Task Module 6,Flask,Low,4
+Backend,Backend Task Module 9,Node.js,Low,21
+Database,Database Task Module 7,SQLite,Medium,11
+Database,Database Task Module 4,Redis,Low,33
+Database,Database Task Module 6,MongoDB,Medium,21
+Frontend,Frontend Task Module 3,JavaScript,Medium,6
+Database,Database Task Module 5,MongoDB,High,10
+Frontend,Frontend Task Module 2,TypeScript,Medium,6
+AI Model,AI Model Task Module 5,Scikit-Learn,Medium,35
+AI Model,AI Model Task Module 6,PyTorch,Medium,5
+API Integration,API Integration Task Module 5,OAuth2,High,34
+API Integration,API Integration Task Module 1,WebSockets,High,24
+Testing/QA,Testing/QA Task Module 8,Jest,High,20
+Backend,Backend Task Module 2,Flask,Medium,32
+API Integration,API Integration Task Module 3,WebSockets,High,16
+Database,Database Task Module 6,MongoDB,Medium,18
+Frontend,Frontend Task Module 4,JavaScript,High,29
+Frontend,Frontend Task Module 3,JavaScript,High,17
+Testing/QA,Testing/QA Task Module 7,Jest,High,6
+API Integration,API Integration Task Module 4,GraphQL,Low,20
+Frontend,Frontend Task Module 9,HTML/CSS,High,11
+API Integration,API Integration Task Module 9,OAuth2,High,28
+Backend,Backend Task Module 7,Flask,Low,38
+Backend,Backend Task Module 2,Python,Medium,37
+Deployment,Deployment Task Module 2,Kubernetes,High,12
+Database,Database Task Module 1,PostgreSQL,High,16
+Testing/QA,Testing/QA Task Module 3,Cypress,High,21
+Database,Database Task Module 6,SQLite,Medium,21
+API Integration,API Integration Task Module 7,WebSockets,Low,35
+Testing/QA,Testing/QA Task Module 1,Jest,High,35
+Deployment,Deployment Task Module 4,Docker,Medium,16
+Testing/QA,Testing/QA Task Module 6,Selenium,Low,23
+Backend,Backend Task Module 3,Python,Low,31
+Deployment,Deployment Task Module 5,AWS,Low,34
+Deployment,Deployment Task Module 6,GitHub Actions,Low,22
+Frontend,Frontend Task Module 4,TypeScript,Medium,28
+Database,Database Task Module 5,PostgreSQL,Low,12
+Database,Database Task Module 8,Redis,Medium,4
+Testing/QA,Testing/QA Task Module 6,Cypress,High,27
+API Integration,API Integration Task Module 8,WebSockets,High,12
+Testing/QA,Testing/QA Task Module 7,Jest,Medium,14
+Testing/QA,Testing/QA Task Module 8,Jest,Low,27
+AI Model,AI Model Task Module 2,Scikit-Learn,High,33
+Testing/QA,Testing/QA Task Module 2,Selenium,High,32
+Frontend,Frontend Task Module 5,TypeScript,Medium,31
+Deployment,Deployment Task Module 9,GitHub Actions,High,39
+API Integration,API Integration Task Module 1,OAuth2,Low,38
+Frontend,Frontend Task Module 7,Vue,Low,17
+API Integration,API Integration Task Module 9,OAuth2,High,24
+Testing/QA,Testing/QA Task Module 7,Selenium,Low,11
+Backend,Backend Task Module 3,Python,Medium,10
+Testing/QA,Testing/QA Task Module 2,Pytest,Low,15
+Database,Database Task Module 3,PostgreSQL,Low,26
+API Integration,API Integration Task Module 9,WebSockets,High,36
+Backend,Backend Task Module 8,Python,Medium,21
+Database,Database Task Module 1,Redis,Medium,22
+API Integration,API Integration Task Module 9,WebSockets,Medium,30
+API Integration,API Integration Task Module 5,OAuth2,Low,38
+API Integration,API Integration Task Module 2,GraphQL,Low,20
+API Integration,API Integration Task Module 3,OAuth2,Medium,28
+Database,Database Task Module 4,MongoDB,Medium,14
+API Integration,API Integration Task Module 8,REST API,Low,19
+API Integration,API Integration Task Module 9,OAuth2,Low,15
+API Integration,API Integration Task Module 6,GraphQL,High,24
+Frontend,Frontend Task Module 7,TypeScript,High,24
+Database,Database Task Module 3,MongoDB,High,17
+Database,Database Task Module 3,MongoDB,High,11
+Frontend,Frontend Task Module 1,TypeScript,Low,32
+Database,Database Task Module 4,PostgreSQL,High,23
+API Integration,API Integration Task Module 7,OAuth2,Low,5
+AI Model,AI Model Task Module 2,PyTorch,High,5
+Deployment,Deployment Task Module 1,Docker,Medium,12
+Backend,Backend Task Module 8,FastAPI,Medium,29
+Frontend,Frontend Task Module 2,TypeScript,High,10
+Testing/QA,Testing/QA Task Module 7,Selenium,Medium,5
+Backend,Backend Task Module 4,Flask,High,13
+Backend,Backend Task Module 4,Django,Medium,18
+API Integration,API Integration Task Module 1,REST API,Low,18
+Frontend,Frontend Task Module 8,HTML/CSS,Low,29
+Frontend,Frontend Task Module 9,TypeScript,Low,36
+Frontend,Frontend Task Module 4,Vue,Low,25
+Testing/QA,Testing/QA Task Module 2,Selenium,High,22
+Testing/QA,Testing/QA Task Module 7,Pytest,High,34
+API Integration,API Integration Task Module 9,REST API,Low,22
+Deployment,Deployment Task Module 5,AWS,Low,8
+Backend,Backend Task Module 5,Django,Medium,18
+Frontend,Frontend Task Module 6,TypeScript,High,7
+AI Model,AI Model Task Module 3,Scikit-Learn,Low,22
+Testing/QA,Testing/QA Task Module 4,Jest,Medium,28
+Database,Database Task Module 5,Redis,Low,21
+Testing/QA,Testing/QA Task Module 9,Cypress,High,25
+AI Model,AI Model Task Module 9,PyTorch,High,19
+Testing/QA,Testing/QA Task Module 8,Jest,Low,14
+Testing/QA,Testing/QA Task Module 7,Selenium,Low,21
+API Integration,API Integration Task Module 2,OAuth2,Low,18
+Deployment,Deployment Task Module 9,Kubernetes,Medium,23
+Deployment,Deployment Task Module 4,Docker,Medium,18
+Backend,Backend Task Module 8,Django,Low,18
+Backend,Backend Task Module 8,Node.js,Low,31
+Backend,Backend Task Module 5,Django,High,38
+Deployment,Deployment Task Module 2,Docker,Low,39
+Frontend,Frontend Task Module 7,JavaScript,Medium,15
+API Integration,API Integration Task Module 1,OAuth2,High,26
+Deployment,Deployment Task Module 2,AWS,High,28
+Backend,Backend Task Module 6,Flask,Low,38
+Testing/QA,Testing/QA Task Module 7,Cypress,High,14
+Frontend,Frontend Task Module 9,JavaScript,High,32
+Database,Database Task Module 9,Redis,High,5
+API Integration,API Integration Task Module 6,REST API,Low,12
+Backend,Backend Task Module 9,FastAPI,High,7
+AI Model,AI Model Task Module 8,PyTorch,Medium,14
+API Integration,API Integration Task Module 9,GraphQL,Low,4
+Frontend,Frontend Task Module 9,TypeScript,High,21
+Deployment,Deployment Task Module 6,Kubernetes,High,26
+AI Model,AI Model Task Module 6,Scikit-Learn,High,36
+AI Model,AI Model Task Module 3,Scikit-Learn,High,35
+Frontend,Frontend Task Module 9,TypeScript,High,24
+Backend,Backend Task Module 6,Node.js,High,6
+AI Model,AI Model Task Module 8,PyTorch,Medium,9
+Backend,Backend Task Module 2,Node.js,High,33
+Frontend,Frontend Task Module 7,TypeScript,Medium,36
+AI Model,AI Model Task Module 3,OpenAI API,Medium,20
+Deployment,Deployment Task Module 8,Kubernetes,High,32
+Backend,Backend Task Module 3,Python,Low,39
+Backend,Backend Task Module 1,Python,Low,22
+Frontend,Frontend Task Module 9,HTML/CSS,Medium,27
+Testing/QA,Testing/QA Task Module 2,Cypress,High,22
+API Integration,API Integration Task Module 1,GraphQL,Low,20
+API Integration,API Integration Task Module 4,WebSockets,Medium,4
+Testing/QA,Testing/QA Task Module 7,Selenium,High,4
+Backend,Backend Task Module 2,Python,Medium,28
+API Integration,API Integration Task Module 8,GraphQL,Medium,36
+Database,Database Task Module 5,SQLite,Medium,11
+API Integration,API Integration Task Module 5,WebSockets,High,38
+Frontend,Frontend Task Module 9,Vue,High,18
+Backend,Backend Task Module 7,Django,High,21
+Backend,Backend Task Module 7,FastAPI,High,21
+Deployment,Deployment Task Module 2,GitHub Actions,Low,39
+AI Model,AI Model Task Module 2,Scikit-Learn,Medium,24
+Backend,Backend Task Module 4,FastAPI,Medium,12
+Backend,Backend Task Module 2,Node.js,Low,23
+API Integration,API Integration Task Module 7,WebSockets,Medium,39
+Frontend,Frontend Task Module 2,Vue,Low,32
+Testing/QA,Testing/QA Task Module 7,Jest,Low,23
+Backend,Backend Task Module 3,FastAPI,Medium,7
+Database,Database Task Module 4,SQLite,Medium,32
+Testing/QA,Testing/QA Task Module 3,Jest,Medium,35
+AI Model,AI Model Task Module 9,OpenAI API,Medium,38
+Backend,Backend Task Module 6,Python,High,31
+Deployment,Deployment Task Module 9,GitHub Actions,Medium,23
+Deployment,Deployment Task Module 2,Kubernetes,Medium,33
+AI Model,AI Model Task Module 4,Scikit-Learn,Low,8
+Database,Database Task Module 4,SQLite,High,17
+Frontend,Frontend Task Module 3,TypeScript,High,9
+Frontend,Frontend Task Module 3,Vue,Medium,28
+AI Model,AI Model Task Module 8,TensorFlow,Medium,24
+AI Model,AI Model Task Module 9,OpenAI API,High,18
+Database,Database Task Module 1,Redis,Low,13
+Testing/QA,Testing/QA Task Module 3,Jest,Low,5
+AI Model,AI Model Task Module 9,PyTorch,High,34
+Deployment,Deployment Task Module 9,GitHub Actions,High,28
+API Integration,API Integration Task Module 9,GraphQL,High,32
+Frontend,Frontend Task Module 2,React,Medium,16
+API Integration,API Integration Task Module 3,WebSockets,Medium,38
+Frontend,Frontend Task Module 8,TypeScript,Low,16
+Testing/QA,Testing/QA Task Module 3,Jest,Medium,37
+API Integration,API Integration Task Module 3,WebSockets,Low,29
+Testing/QA,Testing/QA Task Module 2,Jest,Low,4
+Backend,Backend Task Module 7,FastAPI,High,21
+API Integration,API Integration Task Module 2,GraphQL,High,23
+Database,Database Task Module 1,MongoDB,High,38
+API Integration,API Integration Task Module 3,GraphQL,Low,26
+Frontend,Frontend Task Module 2,TypeScript,Medium,31
+Frontend,Frontend Task Module 7,TypeScript,Medium,20
+Database,Database Task Module 7,SQLite,High,17
+Testing/QA,Testing/QA Task Module 3,Pytest,Low,22
+Backend,Backend Task Module 2,Django,Low,38
+Deployment,Deployment Task Module 3,AWS,Medium,31
+Deployment,Deployment Task Module 1,Kubernetes,High,25
+Deployment,Deployment Task Module 6,Kubernetes,Medium,31
+Backend,Backend Task Module 2,FastAPI,Low,25
+Frontend,Frontend Task Module 9,Vue,Medium,39
+Testing/QA,Testing/QA Task Module 9,Cypress,High,5
+Deployment,Deployment Task Module 7,GitHub Actions,Low,21
+Deployment,Deployment Task Module 3,AWS,Medium,30
+Backend,Backend Task Module 9,FastAPI,Low,15
+Deployment,Deployment Task Module 4,Docker,High,26
+Frontend,Frontend Task Module 6,JavaScript,Medium,23
+Deployment,Deployment Task Module 9,Kubernetes,Medium,31
+API Integration,API Integration Task Module 3,WebSockets,Low,34
+Frontend,Frontend Task Module 5,Vue,High,35
+API Integration,API Integration Task Module 1,OAuth2,Low,22
+API Integration,API Integration Task Module 7,OAuth2,Low,30
+Database,Database Task Module 3,Redis,High,38
+API Integration,API Integration Task Module 8,WebSockets,Medium,34
+API Integration,API Integration Task Module 4,GraphQL,Low,36
+Database,Database Task Module 7,Redis,Medium,6
+AI Model,AI Model Task Module 7,Scikit-Learn,Medium,17
+Deployment,Deployment Task Module 4,Docker,High,35
+API Integration,API Integration Task Module 6,GraphQL,Low,15
+API Integration,API Integration Task Module 4,GraphQL,High,25
+Database,Database Task Module 5,MongoDB,High,38
+Frontend,Frontend Task Module 8,React,Medium,19
+API Integration,API Integration Task Module 1,WebSockets,High,23
+AI Model,AI Model Task Module 2,PyTorch,Medium,21
+AI Model,AI Model Task Module 9,Scikit-Learn,Medium,25
+Deployment,Deployment Task Module 6,GitHub Actions,High,39
+Database,Database Task Module 2,MongoDB,High,9
+Backend,Backend Task Module 6,Flask,Low,39
+Deployment,Deployment Task Module 9,Docker,High,29
+Frontend,Frontend Task Module 9,JavaScript,High,12
+API Integration,API Integration Task Module 8,GraphQL,Medium,18
+AI Model,AI Model Task Module 2,Scikit-Learn,Medium,25
+AI Model,AI Model Task Module 9,TensorFlow,Low,11
+Database,Database Task Module 9,MongoDB,Low,39
+Deployment,Deployment Task Module 9,Kubernetes,Medium,5
+Database,Database Task Module 5,PostgreSQL,Medium,29
+Testing/QA,Testing/QA Task Module 1,Cypress,Medium,39
+AI Model,AI Model Task Module 5,OpenAI API,Low,13
+Database,Database Task Module 1,PostgreSQL,High,11
+Database,Database Task Module 5,Redis,Medium,39
+Backend,Backend Task Module 8,Django,High,15
+Deployment,Deployment Task Module 6,Docker,Low,27
+AI Model,AI Model Task Module 2,PyTorch,Medium,20
+Frontend,Frontend Task Module 7,Vue,Low,17
+Frontend,Frontend Task Module 1,HTML/CSS,Medium,18
+AI Model,AI Model Task Module 3,TensorFlow,Medium,36
+Backend,Backend Task Module 3,Django,Medium,26
+Backend,Backend Task Module 9,Django,Medium,38
+Deployment,Deployment Task Module 8,GitHub Actions,Medium,6
+Backend,Backend Task Module 2,FastAPI,High,22
+Database,Database Task Module 1,SQLite,Low,38
+API Integration,API Integration Task Module 9,OAuth2,High,12
+API Integration,API Integration Task Module 5,OAuth2,Low,34
+Deployment,Deployment Task Module 9,Docker,Low,17
+Frontend,Frontend Task Module 6,JavaScript,Medium,8
+AI Model,AI Model Task Module 3,OpenAI API,Medium,18
+Backend,Backend Task Module 2,FastAPI,Medium,33
+Backend,Backend Task Module 8,Flask,Medium,34
+Frontend,Frontend Task Module 2,JavaScript,Medium,10
+API Integration,API Integration Task Module 8,WebSockets,High,31
+Testing/QA,Testing/QA Task Module 8,Cypress,Low,4
+Deployment,Deployment Task Module 9,Docker,Medium,4
+Database,Database Task Module 6,Redis,Low,32
+Testing/QA,Testing/QA Task Module 8,Cypress,Medium,13
+Frontend,Frontend Task Module 7,Vue,Low,35
+Backend,Backend Task Module 5,Python,Low,4
+Backend,Backend Task Module 8,Python,Low,22
+Deployment,Deployment Task Module 9,Docker,Low,16
+Deployment,Deployment Task Module 1,Docker,High,39
+Frontend,Frontend Task Module 3,Vue,Medium,32
+Deployment,Deployment Task Module 6,Docker,High,10
+API Integration,API Integration Task Module 5,GraphQL,Low,4
+Testing/QA,Testing/QA Task Module 2,Selenium,Low,9
+API Integration,API Integration Task Module 5,GraphQL,High,39
+API Integration,API Integration Task Module 4,GraphQL,Medium,39
+Frontend,Frontend Task Module 3,TypeScript,Medium,26
+Backend,Backend Task Module 8,FastAPI,Low,16
+Backend,Backend Task Module 1,FastAPI,Low,13
+AI Model,AI Model Task Module 1,Scikit-Learn,Medium,35
+Testing/QA,Testing/QA Task Module 8,Cypress,Medium,17
+AI Model,AI Model Task Module 1,OpenAI API,Low,5
+AI Model,AI Model Task Module 9,Scikit-Learn,High,15
+Deployment,Deployment Task Module 8,Kubernetes,High,5
+Frontend,Frontend Task Module 4,Vue,High,22
+API Integration,API Integration Task Module 6,WebSockets,Low,16
+Testing/QA,Testing/QA Task Module 2,Jest,Medium,13
+AI Model,AI Model Task Module 5,OpenAI API,Low,36
+Deployment,Deployment Task Module 8,Kubernetes,Medium,20
+API Integration,API Integration Task Module 7,GraphQL,Low,27
+Testing/QA,Testing/QA Task Module 1,Cypress,Low,4
+AI Model,AI Model Task Module 7,TensorFlow,Medium,11
+Deployment,Deployment Task Module 7,GitHub Actions,Low,11

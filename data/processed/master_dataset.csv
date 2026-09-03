@@ -1,0 +1,501 @@
+Record_ID,Project_Type,Task_Category,Complexity,Required_Skill,Estimated_Duration_Days,Actual_Duration_Days,Workload_Ratio,Dependency_Count,Is_Delayed,Risk_Level,Record_Type
+REC_0001,Web App,Database,High,Redis,5.4,8.2,1.37,0,1,High,synthetic
+REC_0002,Mobile App,Database,High,FastAPI,5.0,7.2,1.27,0,1,High,synthetic
+REC_0003,Cloud Infrastructure,API Integration,Medium,Redis,3.2,4.1,1.3,2,1,Medium,synthetic
+REC_0004,Database Migration,Deployment,High,SQLite,5.1,4.7,1.08,3,0,Low,synthetic
+REC_0005,Cloud Infrastructure,Testing/QA,Medium,Django,3.0,2.7,0.72,3,0,Low,synthetic
+REC_0006,Cloud Infrastructure,Database,Medium,Cypress,3.3,2.9,0.92,0,0,Low,synthetic
+REC_0007,Database Migration,AI Model,Medium,Vue,3.2,4.4,1.2,0,1,Medium,synthetic
+REC_0008,Mobile App,Deployment,High,Python,5.4,5.4,0.67,2,0,Low,synthetic
+REC_0009,AI/ML Service,Testing/QA,High,Kubernetes,4.9,6.4,1.15,2,1,Medium,synthetic
+REC_0010,AI/ML Service,AI Model,Medium,Kubernetes,3.4,5.5,0.79,0,1,High,synthetic
+REC_0011,Database Migration,Testing/QA,Medium,FastAPI,3.2,2.8,1.03,2,0,Low,synthetic
+REC_0012,AI/ML Service,Backend,Medium,PyTorch,3.0,4.4,1.11,1,1,Medium,synthetic
+REC_0013,Cloud Infrastructure,API Integration,Medium,MongoDB,3.6,4.7,1.04,2,1,Medium,synthetic
+REC_0014,Mobile App,Frontend,Low,Vue,1.5,1.8,1.22,0,1,Medium,synthetic
+REC_0015,Mobile App,Database,Medium,GraphQL,2.8,2.4,0.87,0,0,Low,synthetic
+REC_0016,AI/ML Service,Frontend,Low,FastAPI,1.4,1.2,1.11,0,0,Low,synthetic
+REC_0017,Cloud Infrastructure,AI Model,Low,Cypress,1.7,1.4,0.94,0,0,Low,synthetic
+REC_0018,Web App,Backend,Medium,Vue,3.1,3.0,1.12,1,0,Low,synthetic
+REC_0019,Web App,Testing/QA,Low,Redis,1.4,1.2,1.0,4,0,Low,synthetic
+REC_0020,Cloud Infrastructure,AI Model,Medium,GitHub Actions,3.0,4.5,1.31,0,1,Medium,synthetic
+REC_0021,AI/ML Service,Testing/QA,Medium,GraphQL,3.2,3.3,0.89,2,0,Low,synthetic
+REC_0022,Cloud Infrastructure,Deployment,High,AWS,5.3,5.0,0.78,2,0,Low,synthetic
+REC_0023,Cloud Infrastructure,Frontend,Medium,Jest,2.9,2.5,1.16,0,0,Low,synthetic
+REC_0024,AI/ML Service,Frontend,Medium,OpenAI API,2.8,2.7,1.02,0,0,Low,synthetic
+REC_0025,Database Migration,Frontend,High,Selenium,6.0,9.4,1.3,0,1,High,synthetic
+REC_0026,AI/ML Service,Deployment,Low,Django,1.6,1.5,0.97,2,0,Low,synthetic
+REC_0027,Mobile App,Deployment,Medium,Selenium,3.1,2.7,1.11,3,0,Low,synthetic
+REC_0028,Mobile App,Database,Medium,OAuth2,2.9,2.7,0.82,0,0,Low,synthetic
+REC_0029,Database Migration,Frontend,Medium,AWS,2.8,2.5,0.91,0,0,Low,synthetic
+REC_0030,Mobile App,Deployment,High,Scikit-Learn,5.8,10.4,1.13,4,1,High,synthetic
+REC_0031,Database Migration,Database,Medium,PostgreSQL,3.2,3.1,0.62,0,0,Low,synthetic
+REC_0032,Mobile App,Frontend,Medium,Kubernetes,3.2,5.1,1.25,0,1,Medium,synthetic
+REC_0033,AI/ML Service,Database,Low,HTML/CSS,1.5,1.4,1.2,0,0,Low,synthetic
+REC_0034,Cloud Infrastructure,Testing/QA,Medium,Django,3.3,5.8,0.69,3,1,High,synthetic
+REC_0035,Mobile App,AI Model,Low,PostgreSQL,1.5,1.3,0.9,0,0,Low,synthetic
+REC_0036,Cloud Infrastructure,Backend,Low,OAuth2,1.8,1.6,1.11,2,0,Low,synthetic
+REC_0037,Database Migration,Testing/QA,Low,GitHub Actions,1.6,1.4,0.65,4,0,Low,synthetic
+REC_0038,Mobile App,Frontend,High,MongoDB,4.8,6.1,0.9,0,1,Medium,synthetic
+REC_0039,Mobile App,AI Model,Medium,Selenium,3.5,3.0,1.36,0,0,Low,synthetic
+REC_0040,AI/ML Service,API Integration,High,Python,4.8,4.0,0.79,1,0,Low,synthetic
+REC_0041,Mobile App,AI Model,Medium,Cypress,3.4,2.9,1.32,0,0,Low,synthetic
+REC_0042,Web App,Testing/QA,Low,Node.js,1.7,1.7,1.12,3,0,Low,synthetic
+REC_0043,Cloud Infrastructure,AI Model,Low,Selenium,1.7,1.4,1.37,0,0,Low,synthetic
+REC_0044,Web App,AI Model,Medium,JavaScript,3.2,2.8,0.81,0,0,Low,synthetic
+REC_0045,Web App,Database,Low,HTML/CSS,1.7,1.6,1.37,0,0,Low,synthetic
+REC_0046,Mobile App,API Integration,Medium,MongoDB,2.9,2.5,1.39,1,0,Low,synthetic
+REC_0047,Mobile App,Frontend,Low,Python,1.4,1.4,1.31,0,0,Low,synthetic
+REC_0048,Mobile App,AI Model,Low,TensorFlow,1.6,1.3,0.85,0,0,Low,synthetic
+REC_0049,Web App,Deployment,Low,FastAPI,1.4,1.3,1.15,4,0,Low,synthetic
+REC_0050,Mobile App,Database,Medium,Kubernetes,2.9,2.8,1.2,0,0,Low,synthetic
+REC_0051,Web App,API Integration,High,GitHub Actions,5.8,5.2,0.87,1,0,Low,synthetic
+REC_0052,Web App,Testing/QA,Low,OpenAI API,1.4,1.4,0.82,3,0,Low,synthetic
+REC_0053,AI/ML Service,Backend,Medium,PostgreSQL,2.9,2.4,1.37,1,0,Low,synthetic
+REC_0054,Mobile App,API Integration,Medium,Node.js,2.8,3.8,0.67,1,1,Medium,synthetic
+REC_0055,Database Migration,API Integration,Medium,Flask,3.4,2.7,1.17,1,0,Low,synthetic
+REC_0056,Cloud Infrastructure,Deployment,Medium,Pytest,2.9,2.7,1.25,2,0,Low,synthetic
+REC_0057,Database Migration,Backend,Medium,HTML/CSS,3.1,4.7,0.8,2,1,Medium,synthetic
+REC_0058,Cloud Infrastructure,Backend,Medium,TypeScript,2.7,2.7,1.13,2,0,Low,synthetic
+REC_0059,AI/ML Service,Database,Medium,MongoDB,2.9,2.5,1.39,0,0,Low,synthetic
+REC_0060,Cloud Infrastructure,Testing/QA,High,Vue,4.5,4.3,0.62,3,0,Low,synthetic
+REC_0061,Database Migration,Frontend,Medium,Vue,3.2,3.2,0.65,0,0,Low,synthetic
+REC_0062,AI/ML Service,Frontend,High,Flask,4.8,8.3,0.7,0,1,High,synthetic
+REC_0063,Mobile App,Backend,Medium,Docker,2.9,2.3,0.79,2,0,Low,synthetic
+REC_0064,AI/ML Service,Testing/QA,Medium,Redis,2.9,3.7,1.38,3,1,Medium,synthetic
+REC_0065,Database Migration,AI Model,Low,PyTorch,1.4,2.4,1.09,0,1,Medium,synthetic
+REC_0066,Database Migration,Database,High,Pytest,4.9,5.0,0.71,0,0,Low,synthetic
+REC_0067,Cloud Infrastructure,Backend,Medium,MongoDB,3.1,4.0,1.08,2,1,Medium,synthetic
+REC_0068,AI/ML Service,Testing/QA,Low,JavaScript,1.6,1.3,0.81,2,0,Low,synthetic
+REC_0069,Web App,Database,High,Cypress,5.3,5.5,1.07,0,0,Low,synthetic
+REC_0070,Mobile App,Testing/QA,Medium,TypeScript,3.4,3.3,0.68,2,0,Low,synthetic
+REC_0071,AI/ML Service,Database,Medium,REST API,3.3,3.3,0.95,0,0,Low,synthetic
+REC_0072,Cloud Infrastructure,AI Model,Low,React,1.4,1.2,1.4,0,0,Low,synthetic
+REC_0073,Web App,Frontend,Medium,Jest,3.5,3.6,0.77,0,0,Low,synthetic
+REC_0074,Web App,Deployment,Medium,Node.js,3.3,4.2,0.79,2,1,Medium,synthetic
+REC_0075,Web App,Testing/QA,Low,Scikit-Learn,1.4,1.4,0.78,3,0,Low,synthetic
+REC_0076,Database Migration,Testing/QA,High,OpenAI API,5.0,8.2,1.09,4,1,High,synthetic
+REC_0077,Database Migration,AI Model,Medium,React,3.1,4.6,0.91,0,1,Medium,synthetic
+REC_0078,AI/ML Service,Frontend,Medium,PostgreSQL,3.4,6.1,1.23,0,1,High,synthetic
+REC_0079,Web App,AI Model,High,Selenium,5.6,8.6,0.92,0,1,High,synthetic
+REC_0080,Database Migration,Testing/QA,Medium,React,3.2,5.2,1.2,4,1,Medium,synthetic
+REC_0081,AI/ML Service,Deployment,Medium,TypeScript,3.3,4.9,0.83,3,1,Medium,synthetic
+REC_0082,Web App,Database,Medium,Vue,3.5,4.4,0.92,0,1,Medium,synthetic
+REC_0083,Database Migration,AI Model,Medium,AWS,3.2,4.4,0.78,0,1,Medium,synthetic
+REC_0084,Mobile App,API Integration,High,Django,6.0,8.3,0.92,1,1,High,synthetic
+REC_0085,Mobile App,API Integration,Medium,Vue,3.1,5.6,1.28,1,1,High,synthetic
+REC_0086,Database Migration,API Integration,Medium,Vue,3.5,5.3,0.85,1,1,Medium,synthetic
+REC_0087,AI/ML Service,API Integration,Medium,FastAPI,2.9,3.0,1.06,1,0,Low,synthetic
+REC_0088,Database Migration,Database,Low,GitHub Actions,1.7,1.7,0.62,0,0,Low,synthetic
+REC_0089,AI/ML Service,Testing/QA,Medium,Docker,3.6,4.6,0.83,4,1,Medium,synthetic
+REC_0090,Cloud Infrastructure,AI Model,Medium,OpenAI API,3.3,5.4,1.18,0,1,High,synthetic
+REC_0091,AI/ML Service,API Integration,High,TypeScript,5.4,8.3,0.62,1,1,High,synthetic
+REC_0092,Database Migration,Testing/QA,Low,Cypress,1.4,1.3,0.69,4,0,Low,synthetic
+REC_0093,Web App,API Integration,Medium,WebSockets,2.8,2.8,0.81,1,0,Low,synthetic
+REC_0094,Mobile App,Database,Medium,WebSockets,3.2,3.1,0.65,0,0,Low,synthetic
+REC_0095,Web App,AI Model,High,WebSockets,4.9,6.8,0.89,0,1,Medium,synthetic
+REC_0096,Web App,Database,Medium,Selenium,2.8,2.4,0.9,0,0,Low,synthetic
+REC_0097,Mobile App,Frontend,Low,GitHub Actions,1.7,1.7,0.8,0,0,Low,synthetic
+REC_0098,Database Migration,Deployment,High,GitHub Actions,5.2,8.4,0.97,3,1,High,synthetic
+REC_0099,AI/ML Service,Database,Medium,Jest,3.2,2.7,0.7,0,0,Low,synthetic
+REC_0100,Cloud Infrastructure,AI Model,Low,Jest,1.5,1.5,1.29,0,0,Low,synthetic
+REC_0101,Web App,Testing/QA,Medium,Redis,3.4,4.9,0.94,2,1,Medium,synthetic
+REC_0102,Cloud Infrastructure,AI Model,Medium,Django,2.8,2.6,1.24,0,0,Low,synthetic
+REC_0103,Database Migration,API Integration,Medium,OAuth2,3.6,3.2,0.8,2,0,Low,synthetic
+REC_0104,Web App,API Integration,Low,FastAPI,1.7,2.8,1.3,1,1,Medium,synthetic
+REC_0105,AI/ML Service,AI Model,Low,Pytest,1.4,1.4,0.87,0,0,Low,synthetic
+REC_0106,Database Migration,Backend,Low,GitHub Actions,1.6,1.5,0.72,2,0,Low,synthetic
+REC_0107,Mobile App,Testing/QA,Low,OAuth2,1.5,1.4,0.86,4,0,Low,synthetic
+REC_0108,Web App,AI Model,Medium,HTML/CSS,3.4,2.9,0.82,0,0,Low,synthetic
+REC_0109,Mobile App,Deployment,Low,OAuth2,1.8,1.5,1.27,3,0,Low,synthetic
+REC_0110,Database Migration,Deployment,Medium,MongoDB,2.8,2.3,0.99,4,0,Low,synthetic
+REC_0111,Mobile App,API Integration,High,Scikit-Learn,5.5,7.6,1.22,2,1,High,synthetic
+REC_0112,AI/ML Service,Deployment,Low,Kubernetes,1.7,1.7,1.12,4,0,Low,synthetic
+REC_0113,Mobile App,API Integration,Low,TensorFlow,1.8,1.8,1.34,2,0,Low,synthetic
+REC_0114,Database Migration,API Integration,Medium,GitHub Actions,3.2,2.6,0.67,2,0,Low,synthetic
+REC_0115,Database Migration,Testing/QA,Low,Docker,1.7,1.6,0.82,3,0,Low,synthetic
+REC_0116,Database Migration,API Integration,High,Vue,5.2,8.8,0.64,1,1,High,synthetic
+REC_0117,AI/ML Service,API Integration,Low,Python,1.6,1.5,0.99,2,0,Low,synthetic
+REC_0118,Cloud Infrastructure,Testing/QA,Medium,SQLite,3.2,3.3,1.2,3,0,Low,synthetic
+REC_0119,Database Migration,Testing/QA,Medium,Node.js,3.4,5.6,0.82,4,1,High,synthetic
+REC_0120,Cloud Infrastructure,Frontend,High,OAuth2,5.5,7.8,1.3,0,1,High,synthetic
+REC_0121,Web App,Deployment,Low,Vue,1.5,1.3,0.68,2,0,Low,synthetic
+REC_0122,AI/ML Service,API Integration,High,TypeScript,5.0,7.2,0.9,2,1,High,synthetic
+REC_0123,Web App,Deployment,Low,PostgreSQL,1.4,1.1,1.25,2,0,Low,synthetic
+REC_0124,Database Migration,Database,Medium,Cypress,3.4,3.0,1.17,0,0,Low,synthetic
+REC_0125,Mobile App,Deployment,Low,GraphQL,1.5,1.4,0.73,4,0,Low,synthetic
+REC_0126,Cloud Infrastructure,Deployment,High,Node.js,5.0,6.2,0.65,3,1,Medium,synthetic
+REC_0127,Cloud Infrastructure,AI Model,Medium,Jest,3.5,5.7,1.39,0,1,High,synthetic
+REC_0128,Mobile App,API Integration,Medium,Jest,2.9,2.8,0.98,2,0,Low,synthetic
+REC_0129,AI/ML Service,Database,Medium,JavaScript,2.8,2.6,1.2,0,0,Low,synthetic
+REC_0130,Web App,Database,Low,GraphQL,1.8,1.7,1.31,0,0,Low,synthetic
+REC_0131,Cloud Infrastructure,API Integration,Medium,OpenAI API,3.4,4.4,0.73,2,1,Medium,synthetic
+REC_0132,Database Migration,Frontend,High,Cypress,4.9,8.1,1.03,0,1,High,synthetic
+REC_0133,Database Migration,Database,Low,Node.js,1.6,2.4,1.26,0,1,Medium,synthetic
+REC_0134,Cloud Infrastructure,Backend,Medium,GraphQL,3.0,4.6,0.65,1,1,Medium,synthetic
+REC_0135,Database Migration,Deployment,High,AWS,5.8,9.1,1.12,2,1,High,synthetic
+REC_0136,AI/ML Service,Frontend,High,Node.js,4.6,6.4,1.33,0,1,Medium,synthetic
+REC_0137,Database Migration,Database,Medium,Selenium,3.1,4.5,1.1,0,1,Medium,synthetic
+REC_0138,AI/ML Service,AI Model,Low,AWS,1.5,1.4,0.92,0,0,Low,synthetic
+REC_0139,Web App,Deployment,Medium,OpenAI API,3.3,2.7,1.17,4,0,Low,synthetic
+REC_0140,Database Migration,API Integration,Medium,TypeScript,2.9,3.5,0.7,1,1,Medium,synthetic
+REC_0141,Database Migration,AI Model,Medium,TypeScript,3.4,5.1,0.83,0,1,Medium,synthetic
+REC_0142,Mobile App,Deployment,Medium,Vue,3.6,6.4,0.74,4,1,High,synthetic
+REC_0143,AI/ML Service,Database,Medium,Python,2.8,4.6,1.29,0,1,Medium,synthetic
+REC_0144,Mobile App,Backend,High,PostgreSQL,5.6,10.0,0.86,2,1,High,synthetic
+REC_0145,Cloud Infrastructure,API Integration,Medium,Redis,2.8,4.4,0.62,1,1,Medium,synthetic
+REC_0146,AI/ML Service,Deployment,Low,Vue,1.5,1.2,1.14,4,0,Low,synthetic
+REC_0147,Cloud Infrastructure,API Integration,High,PyTorch,4.9,8.0,1.23,2,1,High,synthetic
+REC_0148,Database Migration,Frontend,Medium,OpenAI API,3.0,4.9,1.33,0,1,Medium,synthetic
+REC_0149,Cloud Infrastructure,API Integration,Low,SQLite,1.8,1.6,1.25,1,0,Low,synthetic
+REC_0150,Mobile App,AI Model,Medium,WebSockets,3.6,3.8,1.0,0,0,Low,synthetic
+REC_0151,Cloud Infrastructure,Backend,Medium,REST API,3.1,4.4,1.37,2,1,Medium,synthetic
+REC_0152,Database Migration,AI Model,Medium,SQLite,3.3,2.7,0.91,0,0,Low,synthetic
+REC_0153,Cloud Infrastructure,Testing/QA,Medium,OpenAI API,3.0,4.7,1.33,4,1,Medium,synthetic
+REC_0154,Cloud Infrastructure,API Integration,Low,TensorFlow,1.4,1.2,0.79,2,0,Low,synthetic
+REC_0155,Mobile App,API Integration,Low,Django,1.4,1.4,1.2,1,0,Low,synthetic
+REC_0156,Database Migration,Deployment,Low,Selenium,1.6,1.5,0.6,4,0,Low,synthetic
+REC_0157,Database Migration,AI Model,Medium,GraphQL,2.7,2.3,0.99,0,0,Low,synthetic
+REC_0158,Cloud Infrastructure,Deployment,Low,WebSockets,1.8,1.5,1.18,4,0,Low,synthetic
+REC_0159,Database Migration,Deployment,High,OpenAI API,4.7,7.3,0.8,2,1,High,synthetic
+REC_0160,AI/ML Service,Testing/QA,Low,Redis,1.6,1.4,0.92,2,0,Low,synthetic
+REC_0161,Web App,Deployment,Low,REST API,1.6,1.4,1.37,4,0,Low,synthetic
+REC_0162,Database Migration,Deployment,High,Python,5.2,8.4,1.34,2,1,High,synthetic
+REC_0163,Database Migration,Testing/QA,Medium,GitHub Actions,3.1,2.9,1.04,2,0,Low,synthetic
+REC_0164,AI/ML Service,Deployment,High,TypeScript,5.8,9.5,1.24,3,1,High,synthetic
+REC_0165,Database Migration,API Integration,High,Pytest,5.2,6.9,1.01,1,1,Medium,synthetic
+REC_0166,AI/ML Service,Database,Medium,TensorFlow,3.2,3.2,0.8,0,0,Low,synthetic
+REC_0167,Cloud Infrastructure,API Integration,Medium,Node.js,3.2,5.4,1.31,1,1,High,synthetic
+REC_0168,Mobile App,Backend,High,Python,5.2,4.8,1.03,2,0,Low,synthetic
+REC_0169,AI/ML Service,Frontend,Medium,WebSockets,3.6,3.1,1.13,0,0,Low,synthetic
+REC_0170,Database Migration,Backend,Low,TensorFlow,1.8,1.5,0.69,2,0,Low,synthetic
+REC_0171,Mobile App,Database,Low,Kubernetes,1.4,1.2,0.65,0,0,Low,synthetic
+REC_0172,Web App,Deployment,Medium,GraphQL,3.4,3.2,1.22,4,0,Low,synthetic
+REC_0173,Mobile App,Database,High,PostgreSQL,5.4,4.5,1.11,0,0,Low,synthetic
+REC_0174,AI/ML Service,Database,Medium,Kubernetes,3.2,4.7,1.05,0,1,Medium,synthetic
+REC_0175,AI/ML Service,AI Model,Low,Redis,1.7,2.9,1.23,0,1,Medium,synthetic
+REC_0176,AI/ML Service,Frontend,Medium,GitHub Actions,3.1,2.7,1.05,0,0,Low,synthetic
+REC_0177,AI/ML Service,AI Model,Medium,JavaScript,3.6,3.0,0.6,0,0,Low,synthetic
+REC_0178,Mobile App,AI Model,Medium,JavaScript,3.3,4.6,1.26,0,1,Medium,synthetic
+REC_0179,Cloud Infrastructure,Backend,Medium,Selenium,2.9,2.8,0.7,2,0,Low,synthetic
+REC_0180,Web App,Deployment,Medium,Flask,3.1,2.8,1.39,4,0,Low,synthetic
+REC_0181,Web App,AI Model,Medium,Django,3.3,3.3,0.76,0,0,Low,synthetic
+REC_0182,Web App,API Integration,Medium,Cypress,3.4,3.6,1.39,1,0,Low,synthetic
+REC_0183,Database Migration,Database,Low,REST API,1.4,1.2,0.79,0,0,Low,synthetic
+REC_0184,Cloud Infrastructure,Deployment,Medium,Redis,3.4,3.3,1.37,4,0,Low,synthetic
+REC_0185,Cloud Infrastructure,API Integration,Medium,Flask,3.3,2.7,0.96,2,0,Low,synthetic
+REC_0186,Mobile App,AI Model,Low,JavaScript,1.4,1.2,0.63,0,0,Low,synthetic
+REC_0187,AI/ML Service,Testing/QA,Medium,PyTorch,3.3,5.1,1.36,3,1,Medium,synthetic
+REC_0188,AI/ML Service,Database,Medium,MongoDB,3.0,2.9,1.01,0,0,Low,synthetic
+REC_0189,Cloud Infrastructure,Backend,High,WebSockets,4.6,7.9,1.0,2,1,High,synthetic
+REC_0190,Mobile App,Database,Medium,Flask,3.1,2.6,0.81,0,0,Low,synthetic
+REC_0191,Database Migration,AI Model,High,Node.js,5.7,8.0,0.64,0,1,High,synthetic
+REC_0192,Web App,AI Model,Low,FastAPI,1.4,1.4,0.84,0,0,Low,synthetic
+REC_0193,AI/ML Service,Deployment,Medium,WebSockets,3.4,5.0,0.98,4,1,Medium,synthetic
+REC_0194,Mobile App,Backend,Medium,JavaScript,3.3,4.0,1.39,2,1,Medium,synthetic
+REC_0195,Database Migration,API Integration,Low,FastAPI,1.5,1.5,0.94,1,0,Low,synthetic
+REC_0196,Mobile App,API Integration,Low,Scikit-Learn,1.4,1.1,1.1,2,0,Low,synthetic
+REC_0197,AI/ML Service,AI Model,Medium,GitHub Actions,3.2,2.7,0.64,0,0,Low,synthetic
+REC_0198,Database Migration,API Integration,High,Python,5.2,5.2,0.9,2,0,Low,synthetic
+REC_0199,Mobile App,Backend,Medium,Cypress,3.0,4.8,0.88,2,1,Medium,synthetic
+REC_0200,Mobile App,Database,Medium,Python,3.2,2.7,1.2,0,0,Low,synthetic
+REC_0201,Cloud Infrastructure,Testing/QA,Medium,Jest,2.7,2.5,0.87,2,0,Low,synthetic
+REC_0202,AI/ML Service,API Integration,High,Cypress,5.7,7.4,0.75,1,1,Medium,synthetic
+REC_0203,Cloud Infrastructure,AI Model,High,JavaScript,5.7,5.5,0.91,0,0,Low,synthetic
+REC_0204,AI/ML Service,Database,Low,Kubernetes,1.4,1.3,0.63,0,0,Low,synthetic
+REC_0205,AI/ML Service,API Integration,High,OpenAI API,4.7,6.1,1.24,2,1,Medium,synthetic
+REC_0206,AI/ML Service,Testing/QA,Medium,REST API,2.7,3.4,1.38,3,1,Medium,synthetic
+REC_0207,Web App,API Integration,Medium,GraphQL,2.8,2.8,0.99,2,0,Low,synthetic
+REC_0208,Cloud Infrastructure,Backend,Medium,MongoDB,3.2,2.9,1.13,2,0,Low,synthetic
+REC_0209,Cloud Infrastructure,Database,Medium,Scikit-Learn,3.0,2.5,0.76,0,0,Low,synthetic
+REC_0210,Database Migration,AI Model,Low,Node.js,1.5,1.4,0.79,0,0,Low,synthetic
+REC_0211,Database Migration,Backend,Medium,OAuth2,3.3,3.3,1.36,2,0,Low,synthetic
+REC_0212,AI/ML Service,Deployment,Medium,Flask,3.0,2.8,1.03,2,0,Low,synthetic
+REC_0213,Database Migration,Database,Medium,PostgreSQL,2.7,2.4,0.66,0,0,Low,synthetic
+REC_0214,Cloud Infrastructure,Testing/QA,Low,REST API,1.5,1.5,0.7,4,0,Low,synthetic
+REC_0215,Mobile App,Database,Medium,Vue,3.4,4.9,1.36,0,1,Medium,synthetic
+REC_0216,Database Migration,Deployment,Medium,Redis,3.4,2.9,0.71,4,0,Low,synthetic
+REC_0217,Mobile App,AI Model,High,Pytest,5.5,7.5,1.25,0,1,Medium,synthetic
+REC_0218,Database Migration,API Integration,Medium,Flask,3.0,3.9,1.03,2,1,Medium,synthetic
+REC_0219,Web App,Database,High,Cypress,5.3,8.0,1.35,0,1,High,synthetic
+REC_0220,AI/ML Service,Backend,Medium,Node.js,3.5,3.6,1.08,1,0,Low,synthetic
+REC_0221,Database Migration,Frontend,Medium,PyTorch,3.2,5.2,1.25,0,1,Medium,synthetic
+REC_0222,Mobile App,Testing/QA,Medium,JavaScript,3.1,4.4,0.72,4,1,Medium,synthetic
+REC_0223,Web App,Database,Medium,React,3.0,2.9,1.2,0,0,Low,synthetic
+REC_0224,Cloud Infrastructure,AI Model,Medium,PyTorch,3.2,2.6,1.09,0,0,Low,synthetic
+REC_0225,Database Migration,Backend,Low,OpenAI API,1.5,1.5,0.79,1,0,Low,synthetic
+REC_0226,Web App,Database,High,Selenium,4.6,4.4,0.62,0,0,Low,synthetic
+REC_0227,Web App,Backend,Medium,React,3.1,2.9,0.92,1,0,Low,synthetic
+REC_0228,Web App,Testing/QA,Low,MongoDB,1.4,2.2,1.19,2,1,Medium,synthetic
+REC_0229,AI/ML Service,Deployment,Medium,GitHub Actions,2.9,4.0,0.96,3,1,Medium,synthetic
+REC_0230,Database Migration,Testing/QA,High,OpenAI API,5.6,9.0,0.61,4,1,High,synthetic
+REC_0231,Cloud Infrastructure,AI Model,High,REST API,4.6,4.6,0.72,0,0,Low,synthetic
+REC_0232,AI/ML Service,Database,High,Python,5.3,4.3,0.63,0,0,Low,synthetic
+REC_0233,AI/ML Service,API Integration,Medium,Redis,3.6,3.8,1.06,1,0,Low,synthetic
+REC_0234,Mobile App,Backend,Medium,SQLite,3.3,4.5,0.89,1,1,Medium,synthetic
+REC_0235,AI/ML Service,Backend,High,OAuth2,4.9,6.7,1.34,1,1,Medium,synthetic
+REC_0236,Mobile App,Database,High,Node.js,5.4,6.6,0.98,0,1,Medium,synthetic
+REC_0237,Database Migration,Testing/QA,High,PyTorch,4.8,6.1,1.18,2,1,Medium,synthetic
+REC_0238,Database Migration,Deployment,High,JavaScript,5.1,4.2,0.73,4,0,Low,synthetic
+REC_0239,Mobile App,Database,Medium,Cypress,2.9,2.6,1.25,0,0,Low,synthetic
+REC_0240,Database Migration,Database,Low,OAuth2,1.6,1.6,1.3,0,0,Low,synthetic
+REC_0241,Mobile App,Deployment,Medium,TensorFlow,2.8,4.8,1.17,2,1,Medium,synthetic
+REC_0242,AI/ML Service,Frontend,Medium,AWS,2.8,2.6,1.02,0,0,Low,synthetic
+REC_0243,Web App,Database,Medium,Flask,3.4,3.6,0.74,0,0,Low,synthetic
+REC_0244,Mobile App,Deployment,Medium,GitHub Actions,2.9,2.9,1.11,3,0,Low,synthetic
+REC_0245,Mobile App,Backend,Medium,Redis,2.8,3.4,0.65,1,1,Medium,synthetic
+REC_0246,Database Migration,Database,Medium,AWS,2.9,2.8,0.88,0,0,Low,synthetic
+REC_0247,Database Migration,Frontend,Low,Kubernetes,1.4,1.1,1.38,0,0,Low,synthetic
+REC_0248,Cloud Infrastructure,Database,Medium,Docker,3.0,3.1,0.93,0,0,Low,synthetic
+REC_0249,Web App,API Integration,Medium,OpenAI API,3.3,3.4,0.88,2,0,Low,synthetic
+REC_0250,Cloud Infrastructure,Deployment,Medium,MongoDB,3.2,4.2,0.76,2,1,Medium,synthetic
+REC_0251,AI/ML Service,Frontend,Medium,REST API,3.3,3.1,0.91,0,0,Low,synthetic
+REC_0252,Database Migration,Testing/QA,Low,GitHub Actions,1.7,1.6,1.16,3,0,Low,synthetic
+REC_0253,Cloud Infrastructure,Database,High,REST API,4.5,5.7,1.27,0,1,Medium,synthetic
+REC_0254,Cloud Infrastructure,Testing/QA,Medium,Python,3.3,3.3,1.0,3,0,Low,synthetic
+REC_0255,Database Migration,AI Model,Medium,HTML/CSS,3.0,4.0,1.05,0,1,Medium,synthetic
+REC_0256,Mobile App,Deployment,Low,MongoDB,1.5,1.5,1.33,2,0,Low,synthetic
+REC_0257,Database Migration,Database,Medium,WebSockets,2.8,2.7,0.78,0,0,Low,synthetic
+REC_0258,AI/ML Service,Backend,Medium,OAuth2,3.4,2.7,0.77,1,0,Low,synthetic
+REC_0259,Database Migration,AI Model,Medium,OpenAI API,3.0,3.9,0.88,0,1,Medium,synthetic
+REC_0260,Database Migration,Backend,Low,JavaScript,1.6,1.7,1.19,2,0,Low,synthetic
+REC_0261,Web App,Deployment,Low,Django,1.4,2.4,1.31,2,1,Medium,synthetic
+REC_0262,AI/ML Service,Database,Medium,GraphQL,3.4,2.8,1.02,0,0,Low,synthetic
+REC_0263,Mobile App,Deployment,Low,Node.js,1.7,1.7,1.07,2,0,Low,synthetic
+REC_0264,Cloud Infrastructure,Database,Medium,Flask,3.1,2.8,0.89,0,0,Low,synthetic
+REC_0265,AI/ML Service,Deployment,Low,FastAPI,1.4,1.1,0.78,2,0,Low,synthetic
+REC_0266,Database Migration,Backend,Medium,OAuth2,3.2,3.2,1.2,1,0,Low,synthetic
+REC_0267,Mobile App,Backend,High,OAuth2,5.3,5.4,0.95,2,0,Low,synthetic
+REC_0268,AI/ML Service,API Integration,Medium,Redis,2.9,2.8,0.79,1,0,Low,synthetic
+REC_0269,AI/ML Service,Frontend,Medium,OAuth2,3.3,3.4,1.25,0,0,Low,synthetic
+REC_0270,Mobile App,Frontend,Medium,Selenium,3.1,4.3,0.65,0,1,Medium,synthetic
+REC_0271,Database Migration,Testing/QA,Medium,Jest,3.3,2.7,0.66,2,0,Low,synthetic
+REC_0272,AI/ML Service,Database,Medium,Docker,3.6,3.5,1.04,0,0,Low,synthetic
+REC_0273,AI/ML Service,Frontend,Low,HTML/CSS,1.5,1.4,0.61,0,0,Low,synthetic
+REC_0274,Mobile App,Backend,High,Vue,5.2,8.2,0.98,1,1,High,synthetic
+REC_0275,Cloud Infrastructure,AI Model,Low,PyTorch,1.6,1.4,0.85,0,0,Low,synthetic
+REC_0276,Mobile App,Database,High,FastAPI,5.9,4.9,0.79,0,0,Low,synthetic
+REC_0277,Database Migration,API Integration,Medium,OAuth2,3.5,5.7,1.05,1,1,High,synthetic
+REC_0278,Cloud Infrastructure,Frontend,Medium,GraphQL,2.9,2.8,1.35,0,0,Low,synthetic
+REC_0279,Mobile App,AI Model,Medium,Django,2.9,3.8,1.25,0,1,Medium,synthetic
+REC_0280,Mobile App,API Integration,High,REST API,5.6,4.7,0.68,2,0,Low,synthetic
+REC_0281,Mobile App,Backend,Medium,Pytest,3.2,3.2,0.97,2,0,Low,synthetic
+REC_0282,AI/ML Service,Deployment,Low,TypeScript,1.5,2.2,1.18,3,1,Medium,synthetic
+REC_0283,Database Migration,Testing/QA,Medium,Jest,2.7,2.3,0.89,4,0,Low,synthetic
+REC_0284,Cloud Infrastructure,AI Model,Medium,Django,3.5,3.2,1.12,0,0,Low,synthetic
+REC_0285,AI/ML Service,Frontend,Medium,OpenAI API,3.3,4.0,1.16,0,1,Medium,synthetic
+REC_0286,AI/ML Service,Backend,Medium,PostgreSQL,3.1,2.8,0.92,2,0,Low,synthetic
+REC_0287,Mobile App,Testing/QA,Medium,Pytest,3.3,5.7,0.96,2,1,High,synthetic
+REC_0288,Database Migration,Deployment,High,OAuth2,5.3,7.4,0.95,3,1,High,synthetic
+REC_0289,Web App,Database,High,PostgreSQL,4.9,6.2,0.95,0,1,Medium,synthetic
+REC_0290,Mobile App,Testing/QA,High,PyTorch,4.9,6.4,1.28,2,1,Medium,synthetic
+REC_0291,Mobile App,API Integration,Medium,PyTorch,3.5,3.2,1.27,2,0,Low,synthetic
+REC_0292,Web App,Backend,Medium,Vue,2.9,2.6,0.61,2,0,Low,synthetic
+REC_0293,Mobile App,Backend,Medium,Selenium,3.1,2.5,0.86,1,0,Low,synthetic
+REC_0294,Mobile App,AI Model,High,JavaScript,5.3,9.5,1.3,0,1,High,synthetic
+REC_0295,Database Migration,AI Model,Low,TensorFlow,1.4,1.2,1.24,0,0,Low,synthetic
+REC_0296,Web App,AI Model,Medium,GraphQL,3.6,3.1,1.36,0,0,Low,synthetic
+REC_0297,Cloud Infrastructure,AI Model,High,MongoDB,5.8,5.5,0.68,0,0,Low,synthetic
+REC_0298,Web App,Frontend,Low,Cypress,1.5,1.6,0.77,0,0,Low,synthetic
+REC_0299,AI/ML Service,Frontend,Medium,Jest,3.2,2.7,0.96,0,0,Low,synthetic
+REC_0300,Database Migration,Database,Medium,Redis,3.1,2.5,1.06,0,0,Low,synthetic
+REC_0301,Cloud Infrastructure,API Integration,Medium,FastAPI,3.1,3.2,0.93,1,0,Low,synthetic
+REC_0302,Database Migration,Frontend,Medium,WebSockets,3.0,2.6,1.37,0,0,Low,synthetic
+REC_0303,Mobile App,AI Model,Low,FastAPI,1.4,2.1,1.04,0,1,Medium,synthetic
+REC_0304,Mobile App,Backend,Low,OAuth2,1.4,1.3,0.85,1,0,Low,synthetic
+REC_0305,AI/ML Service,Database,Medium,Flask,2.9,5.0,0.81,0,1,High,synthetic
+REC_0306,Cloud Infrastructure,Backend,High,Node.js,4.9,5.9,0.98,2,1,Medium,synthetic
+REC_0307,AI/ML Service,Deployment,Medium,FastAPI,3.0,3.0,0.76,2,0,Low,synthetic
+REC_0308,Cloud Infrastructure,Deployment,High,Pytest,5.0,6.2,0.99,2,1,Medium,synthetic
+REC_0309,Database Migration,AI Model,Medium,Vue,3.2,4.3,0.95,0,1,Medium,synthetic
+REC_0310,AI/ML Service,Database,Medium,FastAPI,3.0,5.2,0.8,0,1,High,synthetic
+REC_0311,AI/ML Service,Deployment,Medium,SQLite,3.3,2.7,0.8,2,0,Low,synthetic
+REC_0312,Mobile App,Testing/QA,Medium,OAuth2,3.2,5.2,1.31,2,1,Medium,synthetic
+REC_0313,Database Migration,AI Model,Medium,WebSockets,2.8,2.4,1.19,0,0,Low,synthetic
+REC_0314,Web App,Database,Medium,GraphQL,2.9,2.4,0.75,0,0,Low,synthetic
+REC_0315,Database Migration,Database,High,WebSockets,5.7,4.7,1.06,0,0,Low,synthetic
+REC_0316,Cloud Infrastructure,API Integration,High,AWS,4.5,5.5,0.88,2,1,Medium,synthetic
+REC_0317,Cloud Infrastructure,Testing/QA,Medium,Python,3.3,2.7,1.31,2,0,Low,synthetic
+REC_0318,Mobile App,Testing/QA,Low,TypeScript,1.7,1.4,0.63,4,0,Low,synthetic
+REC_0319,Database Migration,API Integration,High,OpenAI API,5.9,9.3,0.72,2,1,High,synthetic
+REC_0320,Mobile App,API Integration,Low,SQLite,1.8,1.6,0.76,2,0,Low,synthetic
+REC_0321,Mobile App,Deployment,Medium,REST API,3.6,5.3,1.38,3,1,Medium,synthetic
+REC_0322,Database Migration,Testing/QA,Low,PostgreSQL,1.5,1.5,0.77,3,0,Low,synthetic
+REC_0323,Web App,Testing/QA,High,JavaScript,5.9,8.0,1.04,3,1,High,synthetic
+REC_0324,Cloud Infrastructure,Frontend,Medium,Pytest,3.3,5.1,1.03,0,1,Medium,synthetic
+REC_0325,Database Migration,Database,High,TensorFlow,4.7,4.5,0.83,0,0,Low,synthetic
+REC_0326,Web App,Frontend,Low,GraphQL,1.6,1.6,1.34,0,0,Low,synthetic
+REC_0327,Cloud Infrastructure,Testing/QA,Medium,Redis,3.4,3.1,0.88,2,0,Low,synthetic
+REC_0328,Web App,Database,Medium,Docker,3.1,2.7,1.25,0,0,Low,synthetic
+REC_0329,Database Migration,AI Model,Medium,Flask,3.2,2.6,1.37,0,0,Low,synthetic
+REC_0330,Web App,API Integration,Low,GitHub Actions,1.5,1.5,0.86,2,0,Low,synthetic
+REC_0331,AI/ML Service,Testing/QA,Low,GraphQL,1.6,2.2,1.32,2,1,Medium,synthetic
+REC_0332,Cloud Infrastructure,Backend,Medium,Docker,3.0,3.0,0.66,2,0,Low,synthetic
+REC_0333,Database Migration,Frontend,Medium,Vue,3.4,3.2,1.15,0,0,Low,synthetic
+REC_0334,Cloud Infrastructure,Testing/QA,High,REST API,4.6,7.6,1.13,3,1,High,synthetic
+REC_0335,Mobile App,Backend,Medium,TypeScript,3.3,2.7,1.11,2,0,Low,synthetic
+REC_0336,Mobile App,Frontend,Low,Cypress,1.7,1.7,1.05,0,0,Low,synthetic
+REC_0337,Mobile App,Deployment,Low,MongoDB,1.7,1.6,0.64,4,0,Low,synthetic
+REC_0338,Database Migration,Testing/QA,Medium,Kubernetes,2.9,2.5,0.8,3,0,Low,synthetic
+REC_0339,Cloud Infrastructure,API Integration,Medium,Kubernetes,2.7,2.6,1.28,2,0,Low,synthetic
+REC_0340,Database Migration,Backend,Medium,Cypress,2.8,2.4,1.25,1,0,Low,synthetic
+REC_0341,Mobile App,Frontend,Low,Jest,1.6,1.6,1.18,0,0,Low,synthetic
+REC_0342,Database Migration,Frontend,Medium,HTML/CSS,3.1,3.1,0.75,0,0,Low,synthetic
+REC_0343,AI/ML Service,Frontend,Low,PostgreSQL,1.7,1.7,1.29,0,0,Low,synthetic
+REC_0344,Cloud Infrastructure,Testing/QA,Low,PyTorch,1.6,1.5,0.98,2,0,Low,synthetic
+REC_0345,Database Migration,Database,Medium,GitHub Actions,3.4,3.4,0.85,0,0,Low,synthetic
+REC_0346,Web App,Backend,Medium,JavaScript,3.0,2.6,1.24,1,0,Low,synthetic
+REC_0347,Database Migration,API Integration,Medium,Kubernetes,3.5,4.2,1.29,1,1,Medium,synthetic
+REC_0348,AI/ML Service,Backend,Medium,Flask,3.3,2.7,1.22,2,0,Low,synthetic
+REC_0349,Web App,Deployment,Low,React,1.5,1.3,1.02,3,0,Low,synthetic
+REC_0350,AI/ML Service,Frontend,Medium,JavaScript,2.8,2.4,1.39,0,0,Low,synthetic
+REC_0351,Mobile App,Testing/QA,Medium,Jest,3.5,5.4,0.64,4,1,Medium,synthetic
+REC_0352,Cloud Infrastructure,AI Model,Medium,Pytest,3.0,2.4,0.81,0,0,Low,synthetic
+REC_0353,AI/ML Service,Backend,High,Node.js,5.6,5.5,0.84,1,0,Low,synthetic
+REC_0354,Mobile App,Frontend,High,Cypress,4.7,8.0,1.05,0,1,High,synthetic
+REC_0355,Mobile App,API Integration,High,Jest,5.4,4.9,1.14,1,0,Low,synthetic
+REC_0356,Web App,API Integration,Medium,PostgreSQL,3.0,3.1,1.2,2,0,Low,synthetic
+REC_0357,Web App,API Integration,High,Kubernetes,5.1,7.0,0.62,2,1,Medium,synthetic
+REC_0358,Web App,Database,Medium,GitHub Actions,2.9,3.5,0.85,0,1,Medium,synthetic
+REC_0359,Web App,Frontend,Medium,JavaScript,3.3,5.5,0.92,0,1,High,synthetic
+REC_0360,Web App,Database,Medium,OpenAI API,3.2,5.8,0.99,0,1,High,synthetic
+REC_0361,AI/ML Service,AI Model,Medium,REST API,2.9,3.0,0.91,0,0,Low,synthetic
+REC_0362,AI/ML Service,API Integration,Low,MongoDB,1.7,1.5,1.33,2,0,Low,synthetic
+REC_0363,Mobile App,API Integration,Medium,SQLite,3.3,2.8,0.95,2,0,Low,synthetic
+REC_0364,AI/ML Service,Frontend,Low,React,1.4,1.2,1.37,0,0,Low,synthetic
+REC_0365,Web App,Backend,Medium,WebSockets,3.2,3.2,0.82,1,0,Low,synthetic
+REC_0366,Cloud Infrastructure,AI Model,Medium,JavaScript,3.3,2.8,0.69,0,0,Low,synthetic
+REC_0367,Mobile App,Database,Medium,AWS,3.5,3.0,0.87,0,0,Low,synthetic
+REC_0368,Web App,Database,High,Selenium,5.9,8.0,1.35,0,1,High,synthetic
+REC_0369,Web App,Testing/QA,Medium,OAuth2,3.4,3.5,1.25,3,0,Low,synthetic
+REC_0370,Cloud Infrastructure,Database,Low,AWS,1.7,1.4,0.84,0,0,Low,synthetic
+REC_0371,Database Migration,API Integration,Medium,PyTorch,3.5,5.9,1.34,1,1,High,synthetic
+REC_0372,Database Migration,API Integration,High,Python,5.1,4.2,0.76,2,0,Low,synthetic
+REC_0373,AI/ML Service,Database,Low,Python,1.6,2.3,0.64,0,1,Medium,synthetic
+REC_0374,Database Migration,AI Model,Medium,JavaScript,3.3,3.1,0.61,0,0,Low,synthetic
+REC_0375,Web App,Database,Low,Selenium,1.4,1.2,1.32,0,0,Low,synthetic
+REC_0376,Mobile App,API Integration,Medium,HTML/CSS,3.1,2.5,0.65,1,0,Low,synthetic
+REC_0377,Database Migration,Database,Low,Redis,1.4,1.2,0.82,0,0,Low,synthetic
+REC_0378,Web App,Testing/QA,High,React,5.5,8.7,1.38,2,1,High,synthetic
+REC_0379,Cloud Infrastructure,Deployment,Medium,JavaScript,3.0,3.0,0.75,4,0,Low,synthetic
+REC_0380,Mobile App,Database,High,WebSockets,4.8,7.8,1.12,0,1,High,synthetic
+REC_0381,Mobile App,AI Model,Medium,Selenium,3.5,3.1,1.04,0,0,Low,synthetic
+REC_0382,Web App,Deployment,Medium,Docker,3.4,3.2,1.02,3,0,Low,synthetic
+REC_0383,AI/ML Service,Testing/QA,High,Selenium,4.5,7.3,1.04,3,1,High,synthetic
+REC_0384,AI/ML Service,Frontend,Medium,MongoDB,2.9,4.0,1.33,0,1,Medium,synthetic
+REC_0385,Mobile App,AI Model,Medium,React,3.3,4.7,0.77,0,1,Medium,synthetic
+REC_0386,Mobile App,API Integration,Medium,AWS,2.9,3.0,1.34,1,0,Low,synthetic
+REC_0387,AI/ML Service,Testing/QA,High,REST API,5.0,8.6,1.14,3,1,High,synthetic
+REC_0388,Cloud Infrastructure,Deployment,High,PyTorch,5.2,5.3,0.88,4,0,Low,synthetic
+REC_0389,Cloud Infrastructure,AI Model,Medium,GitHub Actions,2.8,4.2,1.28,0,1,Medium,synthetic
+REC_0390,AI/ML Service,Testing/QA,Medium,Node.js,3.0,2.8,0.93,4,0,Low,synthetic
+REC_0391,Web App,Database,Medium,Cypress,3.5,3.0,1.17,0,0,Low,synthetic
+REC_0392,Mobile App,Testing/QA,High,Jest,5.9,5.9,0.8,2,0,Low,synthetic
+REC_0393,Web App,Backend,Low,JavaScript,1.6,2.1,1.21,2,1,Medium,synthetic
+REC_0394,AI/ML Service,Frontend,Medium,Node.js,3.4,3.0,1.17,0,0,Low,synthetic
+REC_0395,Database Migration,Frontend,High,Pytest,5.5,5.6,0.9,0,0,Low,synthetic
+REC_0396,Database Migration,Frontend,Medium,React,3.5,4.7,1.39,0,1,Medium,synthetic
+REC_0397,Database Migration,Backend,Medium,WebSockets,3.4,3.2,0.72,2,0,Low,synthetic
+REC_0398,Database Migration,Deployment,High,JavaScript,6.0,10.5,1.2,2,1,High,synthetic
+REC_0399,Cloud Infrastructure,Frontend,Medium,PostgreSQL,3.1,2.8,0.95,0,0,Low,synthetic
+REC_0400,Database Migration,AI Model,Medium,GraphQL,3.1,4.1,0.95,0,1,Medium,synthetic
+REC_0401,Mobile App,AI Model,High,React,5.1,4.1,0.95,0,0,Low,synthetic
+REC_0402,Web App,Database,High,JavaScript,4.6,3.9,0.95,0,0,Low,synthetic
+REC_0403,Cloud Infrastructure,Deployment,Low,Kubernetes,1.4,1.2,0.86,2,0,Low,synthetic
+REC_0404,Cloud Infrastructure,Backend,Medium,FastAPI,2.8,3.6,0.78,1,1,Medium,synthetic
+REC_0405,AI/ML Service,AI Model,Medium,Scikit-Learn,3.6,3.4,0.91,0,0,Low,synthetic
+REC_0406,Web App,Deployment,Medium,OAuth2,3.2,3.0,0.99,4,0,Low,synthetic
+REC_0407,AI/ML Service,Deployment,High,OAuth2,5.0,6.1,1.16,4,1,Medium,synthetic
+REC_0408,Mobile App,Frontend,Low,Kubernetes,1.7,1.4,1.11,0,0,Low,synthetic
+REC_0409,Cloud Infrastructure,AI Model,High,MongoDB,5.2,9.0,1.27,0,1,High,synthetic
+REC_0410,Mobile App,AI Model,High,MongoDB,5.1,6.7,1.16,0,1,Medium,synthetic
+REC_0411,Mobile App,Backend,Medium,Vue,3.4,4.3,0.89,1,1,Medium,synthetic
+REC_0412,Database Migration,API Integration,Medium,OAuth2,3.2,2.9,1.1,1,0,Low,synthetic
+REC_0413,Mobile App,Database,Medium,React,3.2,3.9,0.6,0,1,Medium,synthetic
+REC_0414,Web App,Backend,Medium,Scikit-Learn,3.0,3.7,1.18,1,1,Medium,synthetic
+REC_0415,Cloud Infrastructure,Database,Low,Redis,1.7,2.5,0.99,0,1,Medium,synthetic
+REC_0416,AI/ML Service,API Integration,Low,React,1.7,1.6,1.07,1,0,Low,synthetic
+REC_0417,Database Migration,AI Model,High,Python,5.6,8.9,1.38,0,1,High,synthetic
+REC_0418,Web App,Testing/QA,Low,FastAPI,1.5,1.4,0.75,2,0,Low,synthetic
+REC_0419,AI/ML Service,API Integration,Medium,Selenium,3.4,3.5,1.21,1,0,Low,synthetic
+REC_0420,AI/ML Service,Frontend,Medium,Cypress,3.4,3.1,1.24,0,0,Low,synthetic
+REC_0421,AI/ML Service,Database,Low,FastAPI,1.6,1.4,1.21,0,0,Low,synthetic
+REC_0422,AI/ML Service,Backend,Medium,Node.js,3.0,2.9,0.69,1,0,Low,synthetic
+REC_0423,Web App,AI Model,High,HTML/CSS,5.8,8.6,1.22,0,1,High,synthetic
+REC_0424,Web App,AI Model,Medium,HTML/CSS,3.2,2.8,0.69,0,0,Low,synthetic
+REC_0425,Mobile App,AI Model,Low,React,1.8,1.7,1.14,0,0,Low,synthetic
+REC_0426,Database Migration,Deployment,Low,Scikit-Learn,1.4,2.1,1.4,3,1,Medium,synthetic
+REC_0427,Database Migration,Deployment,Medium,SQLite,3.5,5.7,0.88,4,1,High,synthetic
+REC_0428,Mobile App,Frontend,Low,REST API,1.6,1.6,0.71,0,0,Low,synthetic
+REC_0429,Database Migration,Backend,Low,Docker,1.5,1.9,1.14,2,1,Medium,synthetic
+REC_0430,Web App,AI Model,High,Python,5.4,5.5,0.73,0,0,Low,synthetic
+REC_0431,Web App,Deployment,Medium,HTML/CSS,3.0,2.5,0.7,4,0,Low,synthetic
+REC_0432,Web App,AI Model,High,Cypress,5.6,8.9,0.96,0,1,High,synthetic
+REC_0433,Cloud Infrastructure,API Integration,High,FastAPI,5.2,6.5,0.79,2,1,Medium,synthetic
+REC_0434,Web App,Deployment,Medium,TensorFlow,2.8,4.6,0.64,2,1,Medium,synthetic
+REC_0435,Database Migration,API Integration,Low,Python,1.4,1.2,1.22,1,0,Low,synthetic
+REC_0436,Mobile App,Deployment,Low,Pytest,1.4,1.5,0.68,3,0,Low,synthetic
+REC_0437,Mobile App,Database,High,Python,5.6,5.8,0.61,0,0,Low,synthetic
+REC_0438,AI/ML Service,AI Model,Medium,OpenAI API,3.3,3.2,0.7,0,0,Low,synthetic
+REC_0439,Mobile App,AI Model,Low,Vue,1.6,1.4,1.19,0,0,Low,synthetic
+REC_0440,Web App,Backend,Medium,FastAPI,3.1,2.6,1.38,2,0,Low,synthetic
+REC_0441,Mobile App,AI Model,Low,Scikit-Learn,1.4,1.2,0.62,0,0,Low,synthetic
+REC_0442,Mobile App,Frontend,Medium,Cypress,3.2,3.1,1.08,0,0,Low,synthetic
+REC_0443,Cloud Infrastructure,Testing/QA,High,Pytest,5.7,5.9,0.72,3,0,Low,synthetic
+REC_0444,AI/ML Service,Database,Medium,Scikit-Learn,3.2,4.1,0.83,0,1,Medium,synthetic
+REC_0445,Mobile App,Database,High,Python,5.5,4.8,1.15,0,0,Low,synthetic
+REC_0446,Web App,Backend,Medium,Jest,3.3,3.4,1.29,2,0,Low,synthetic
+REC_0447,AI/ML Service,Frontend,High,Jest,5.2,7.1,1.19,0,1,Medium,synthetic
+REC_0448,Database Migration,Testing/QA,Medium,SQLite,3.1,3.8,0.66,2,1,Medium,synthetic
+REC_0449,Mobile App,AI Model,Medium,SQLite,3.1,4.0,1.29,0,1,Medium,synthetic
+REC_0450,Database Migration,API Integration,Medium,Python,2.9,3.9,0.74,1,1,Medium,synthetic
+REC_0451,Database Migration,Testing/QA,Medium,PyTorch,3.6,4.6,1.08,4,1,Medium,synthetic
+REC_0452,Cloud Infrastructure,Testing/QA,High,TypeScript,5.9,9.7,1.1,3,1,High,synthetic
+REC_0453,AI/ML Service,Deployment,Medium,GraphQL,3.5,3.4,1.0,2,0,Low,synthetic
+REC_0454,Database Migration,AI Model,Low,Flask,1.6,1.4,0.7,0,0,Low,synthetic
+REC_0455,Database Migration,AI Model,Medium,AWS,3.4,4.9,1.31,0,1,Medium,synthetic
+REC_0456,AI/ML Service,Deployment,Low,PostgreSQL,1.6,1.3,1.27,4,0,Low,synthetic
+REC_0457,Mobile App,AI Model,Low,OAuth2,1.4,1.4,1.17,0,0,Low,synthetic
+REC_0458,Mobile App,Backend,Medium,OAuth2,3.3,4.0,0.94,1,1,Medium,synthetic
+REC_0459,Database Migration,Testing/QA,Low,Docker,1.7,1.7,1.29,4,0,Low,synthetic
+REC_0460,Cloud Infrastructure,Deployment,Low,OpenAI API,1.7,2.9,1.23,4,1,Medium,synthetic
+REC_0461,Database Migration,Backend,Medium,PostgreSQL,3.4,2.8,0.93,2,0,Low,synthetic
+REC_0462,Database Migration,Deployment,Medium,JavaScript,3.4,5.8,1.01,4,1,High,synthetic
+REC_0463,Cloud Infrastructure,Backend,Medium,Docker,2.7,4.6,1.15,2,1,Medium,synthetic
+REC_0464,Database Migration,Backend,Low,JavaScript,1.8,3.2,0.65,1,1,Medium,synthetic
+REC_0465,Web App,Database,Low,JavaScript,1.5,1.4,1.3,0,0,Low,synthetic
+REC_0466,Database Migration,Database,Low,TypeScript,1.7,1.5,0.6,0,0,Low,synthetic
+REC_0467,Cloud Infrastructure,Frontend,Low,FastAPI,1.6,1.6,0.88,0,0,Low,synthetic
+REC_0468,Cloud Infrastructure,Backend,Low,REST API,1.6,1.6,0.98,1,0,Low,synthetic
+REC_0469,Web App,Database,Low,Docker,1.4,1.3,0.77,0,0,Low,synthetic
+REC_0470,Web App,Deployment,Medium,PyTorch,3.3,3.0,1.23,4,0,Low,synthetic
+REC_0471,Cloud Infrastructure,Deployment,Low,Node.js,1.7,1.8,0.67,4,0,Low,synthetic
+REC_0472,Database Migration,API Integration,Medium,PostgreSQL,3.1,2.7,0.6,2,0,Low,synthetic
+REC_0473,Cloud Infrastructure,Backend,Low,REST API,1.6,2.1,1.11,2,1,Medium,synthetic
+REC_0474,Cloud Infrastructure,Deployment,Medium,SQLite,3.0,5.0,1.3,2,1,Medium,synthetic
+REC_0475,Database Migration,Testing/QA,Medium,Kubernetes,3.2,4.9,0.96,3,1,Medium,synthetic
+REC_0476,Mobile App,API Integration,High,Scikit-Learn,5.0,8.6,1.27,1,1,High,synthetic
+REC_0477,AI/ML Service,Backend,Medium,Kubernetes,2.9,2.6,1.07,2,0,Low,synthetic
+REC_0478,AI/ML Service,Deployment,High,JavaScript,5.8,10.3,1.07,4,1,High,synthetic
+REC_0479,Database Migration,API Integration,Low,OAuth2,1.7,1.6,0.65,1,0,Low,synthetic
+REC_0480,Database Migration,AI Model,High,GitHub Actions,4.7,6.2,0.64,0,1,Medium,synthetic
+REC_0481,AI/ML Service,Frontend,Medium,PostgreSQL,2.7,2.5,0.79,0,0,Low,synthetic
+REC_0482,AI/ML Service,Backend,Low,Docker,1.6,1.7,0.63,2,0,Low,synthetic
+REC_0483,AI/ML Service,AI Model,Medium,REST API,3.4,5.4,0.89,0,1,High,synthetic
+REC_0484,AI/ML Service,Deployment,Medium,OpenAI API,3.3,4.9,1.1,2,1,Medium,synthetic
+REC_0485,Database Migration,AI Model,Medium,OAuth2,2.8,4.8,1.25,0,1,Medium,synthetic
+REC_0486,AI/ML Service,Frontend,Low,PyTorch,1.5,2.5,1.05,0,1,Medium,synthetic
+REC_0487,Cloud Infrastructure,Database,High,FastAPI,5.5,5.2,0.88,0,0,Low,synthetic
+REC_0488,AI/ML Service,Database,Medium,FastAPI,2.8,2.9,1.19,0,0,Low,synthetic
+REC_0489,Web App,Database,High,Vue,4.9,7.2,1.16,0,1,High,synthetic
+REC_0490,Mobile App,Backend,Medium,React,3.0,2.4,1.14,2,0,Low,synthetic
+REC_0491,Mobile App,Testing/QA,Medium,OpenAI API,3.3,3.0,1.02,3,0,Low,synthetic
+REC_0492,AI/ML Service,API Integration,Medium,Vue,3.5,3.6,0.69,1,0,Low,synthetic
+REC_0493,Database Migration,Database,Medium,AWS,2.7,4.3,1.32,0,1,Medium,synthetic
+REC_0494,Database Migration,Testing/QA,High,AWS,5.1,6.5,0.89,2,1,Medium,synthetic
+REC_0495,Database Migration,Testing/QA,Medium,Selenium,3.3,5.7,0.89,2,1,High,synthetic
+REC_0496,Cloud Infrastructure,Testing/QA,Medium,React,2.8,3.4,1.33,2,1,Medium,synthetic
+REC_0497,AI/ML Service,Database,Medium,Flask,3.2,2.8,0.92,0,0,Low,synthetic
+REC_0498,Mobile App,API Integration,High,GraphQL,4.6,6.7,1.37,1,1,High,synthetic
+REC_0499,AI/ML Service,Database,Low,GitHub Actions,1.7,1.4,1.39,0,0,Low,synthetic
+REC_0500,Mobile App,Testing/QA,Medium,PostgreSQL,3.3,3.3,0.99,4,0,Low,synthetic
