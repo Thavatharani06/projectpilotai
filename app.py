@@ -477,14 +477,6 @@ with tab_resources:
 
     st.markdown(f"**Active Project:** `<span style='color:#00cec9;'>{active_proj_title}</span>` *(Directly connected to Tab 1)*", unsafe_allow_html=True)
 
-    # Optional Custom Search Override
-    with st.expander("🔍 Optional: Search Custom Query"):
-        custom_query = st.text_input("Custom query override:", value=f"{active_proj_title} {active_proj_goal}")
-        if st.button("🔎 Search Custom Query", use_container_width=True):
-            orchestrator.run_scispace_research_copilot(active_id, custom_query)
-            st.success("Updated relevant papers for custom query!")
-            st.rerun()
-
     # Automatically query RAG store dynamically based on active project title
     res_docs = orchestrator.rag.search_resources(f"{active_proj_title} {active_proj_goal}", top_k=3)
 
@@ -506,7 +498,7 @@ with tab_resources:
 # ----------------------------------------------------
 with tab_assistant:
     st.subheader("🤖 Technical AI Assistant & Code Generator")
-    st.caption("Generate starter code templates, technical documentation summaries, and system architecture specifications:")
+    st.caption("Generate domain-specific starter code templates, technical documentation summaries, and system architecture specifications:")
 
     active_id = st.session_state["active_project_id"]
     active_proj_title = proj_data["project"]["title"] if proj_data else "Smart Attendance System"
@@ -514,8 +506,8 @@ with tab_assistant:
 
     st.markdown(f"**Active Context:** `<span style='color:#a29bfe;'>{active_proj_title}</span>`", unsafe_allow_html=True)
 
-    asst_prompt = st.text_input("Ask Technical Assistant (e.g. 'Generate FastAPI router code' or 'Priya is delayed by 3 days'):", 
-                                f"Generate starter code and system architecture guidelines for {active_proj_title}")
+    asst_prompt = st.text_input("Ask Technical Assistant (or enter custom code request):", 
+                                f"{active_proj_title} code and architecture")
 
     if st.button("🚀 Generate Code & Technical Guidance", type="primary", use_container_width=True):
         res = handle_assistant_prompt(active_id, asst_prompt)
@@ -530,7 +522,10 @@ with tab_assistant:
     st.markdown("---")
     st.subheader("💻 Recommended Starter Code & System Architecture Specs")
     
-    rag_docs = orchestrator.rag.search_resources(asst_prompt, top_k=2)
+    # Use project title + prompt to fetch real domain code
+    query_for_code = f"{asst_prompt} {active_proj_title} {active_proj_goal}"
+    rag_docs = orchestrator.rag.search_resources(query_for_code, top_k=2)
+    
     c_code1, c_code2 = st.columns(2)
 
     with c_code1:
