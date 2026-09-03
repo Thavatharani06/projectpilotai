@@ -34,7 +34,7 @@ class ProjectPilotOrchestrator:
 
         log_agent_decision(
             project_id=project_id,
-            agent_name="CHITTI (Research Agent)",
+            agent_name="Research Agent",
             action="Retrieved Relevant Papers & Public GitHub Repositories",
             reasoning=f"Retrieved {len(resources)} project-tailored papers, GitHub open-source repos, arXiv preprints, and database specs for '{user_query}'."
         )
@@ -93,7 +93,7 @@ class ProjectPilotOrchestrator:
         # Log Planner Agent Action
         log_agent_decision(
             project_id=project_id,
-            agent_name="CHITTI (Planner Agent)",
+            agent_name="Planner Agent",
             action="Created Initial Project Roadmap",
             reasoning=f"Decomposed goal into {len(scheduled_tasks)} modules/tasks. Balanced workload across {len(team_members)} members. Projected completion: {end_date} (Achievable: {achievable}).",
             metadata={"workloads": workloads, "projected_end": end_date}
@@ -102,7 +102,7 @@ class ProjectPilotOrchestrator:
         return scheduled_tasks, workloads, achievable, end_date
 
     def process_natural_language_assistant(self, project_id, prompt_text):
-        """CHITTI Assistant: Processes natural language user prompt for technical help or project delay re-planning."""
+        """Processes natural language user prompt for technical help or project delay re-planning."""
         clean_p = prompt_text.lower()
 
         with get_db() as conn:
@@ -133,14 +133,14 @@ class ProjectPilotOrchestrator:
             
             log_agent_decision(
                 project_id=project_id,
-                agent_name="CHITTI (Rescue Assistant)",
+                agent_name="Rescue Assistant",
                 action="Processed Natural Language Blocker",
                 reasoning=f"Student reported: '{prompt_text}'. Flagged bottleneck on task '{target_task['task_name']}' assigned to {target_task['assigned_member_name']}. Triggered Project Rescue Mode."
             )
             
             return {
                 "type": "RESCUE_TRIGGERED",
-                "message": f"Reviewer Agent detected bottleneck on '{target_task['task_name']}' ({target_task['assigned_member_name']}). CHITTI generated a recovery plan.",
+                "message": f"Reviewer Agent detected bottleneck on '{target_task['task_name']}' ({target_task['assigned_member_name']}). Generated a recovery plan.",
                 "evaluation": eval_res
             }
         else:
@@ -148,14 +148,14 @@ class ProjectPilotOrchestrator:
             
             log_agent_decision(
                 project_id=project_id,
-                agent_name="CHITTI (Technical Assistant)",
+                agent_name="Technical Assistant",
                 action="Answered Student Technical Query",
-                reasoning=f"Answered question: '{prompt_text}' using CHITTI LLM Code Generator & Debugger engine."
+                reasoning=f"Answered question: '{prompt_text}' using Code Generator & Debugger engine."
             )
             
             return {
                 "type": "TECHNICAL_GUIDANCE",
-                "message": f"CHITTI Guidance for '{prompt_text}':\n\n{rag_res.get('explanation', '')}",
+                "message": f"Guidance for '{prompt_text}':\n\n{rag_res.get('explanation', '')}",
                 "resources": [rag_res]
             }
 
@@ -204,7 +204,7 @@ class ProjectPilotOrchestrator:
 
         log_agent_decision(
             project_id=project_id,
-            agent_name="CHITTI (Reviewer Agent)",
+            agent_name="Reviewer Agent",
             action="Evaluated Project Health",
             reasoning=f"Overall Progress: {overall_progress}%. Completed: {completed_tasks}/{total_tasks} tasks. Delayed Tasks Detected: {len(delayed_tasks)}. Assessed Risk Level: {risk_level}."
         )
@@ -225,7 +225,7 @@ class ProjectPilotOrchestrator:
         }
 
     def trigger_rescue_mode(self, project_id, proj, tasks, members):
-        """Triggers Rescue Mode: CHITTI Planner Agent re-analyzes bottlenecks and generates recovery schedule for human approval."""
+        """Triggers Rescue Mode: Planner Agent re-analyzes bottlenecks and generates recovery schedule for human approval."""
         current_progress = {t['task_id']: t['actual_progress_pct'] for t in tasks}
         
         with get_db() as conn:
@@ -256,7 +256,7 @@ class ProjectPilotOrchestrator:
 
         log_agent_decision(
             project_id=project_id,
-            agent_name="CHITTI (Planner Agent)",
+            agent_name="Planner Agent",
             action="Generated Project Rescue Plan",
             reasoning=f"Detected bottleneck on delayed tasks. Re-allocated workload across {len(members)} team members. Projected new completion date: {rescue_summary['projected_recovery_end_date']}. Pending Human Approval."
         )
@@ -283,7 +283,7 @@ class ProjectPilotOrchestrator:
                 
                 log_agent_decision(
                     project_id=project_id,
-                    agent_name="CHITTI (Orchestrator)",
+                    agent_name="Orchestrator",
                     action="Rescue Plan Approved & Activated",
                     reasoning=f"User APPROVED the recovery schedule. Project active plan updated to Version {new_ver}."
                 )
@@ -291,7 +291,7 @@ class ProjectPilotOrchestrator:
                 cursor.execute("UPDATE APPROVALS SET status = 'REJECTED' WHERE project_id = ? AND status = 'PENDING'", (project_id,))
                 log_agent_decision(
                     project_id=project_id,
-                    agent_name="CHITTI (Orchestrator)",
+                    agent_name="Orchestrator",
                     action="Rescue Plan Rejected",
                     reasoning="User REJECTED the recovery schedule. Retaining existing schedule."
                 )

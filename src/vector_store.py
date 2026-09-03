@@ -6,7 +6,7 @@ from typing import List, Dict, Any
 
 class KnowledgeBaseRAG:
     """
-    LLM Code Generator & Debugger Engine.
+    Domain-Aware Smart RAG & Code Generator Engine.
     Generates domain-specific code templates and analyzes/fixes code errors and debug tracebacks.
     """
     def generate_or_debug_code(self, prompt: str, project_title: str = "") -> Dict[str, Any]:
@@ -18,9 +18,9 @@ class KnowledgeBaseRAG:
         if is_debug_mode:
             if "cors" in clean_p:
                 return {
-                    "mode": "🛠️ LLM Bug Fixer & Code Debugger",
+                    "mode": "🛠️ Bug Fixer & Code Debugger",
                     "title": "Fix: FastAPI / Web API CORS Header Resolution",
-                    "explanation": "CORS (Cross-Origin Resource Sharing) error occurs when frontend (e.g. React/Streamlit on port 8501) makes HTTP requests to a backend API (port 8000) without explicit Access-Control-Allow-Origin headers.",
+                    "explanation": "Hello! I am Chitti, your AI Technical Assistant. CORS (Cross-Origin Resource Sharing) error occurs when frontend (e.g. React/Streamlit on port 8501) makes HTTP requests to a backend API (port 8000) without explicit Access-Control-Allow-Origin headers.",
                     "database_rec": "Ensure backend API middleware explicitly authorizes frontend origins.",
                     "starter_code": """# ✅ FIX: FastAPI CORSMiddleware Authorization
 from fastapi import FastAPI
@@ -43,9 +43,9 @@ def health():
                 }
             elif "database" in clean_p or "locked" in clean_p or "sqlite" in clean_p:
                 return {
-                    "mode": "🛠️ LLM Bug Fixer & Code Debugger",
+                    "mode": "🛠️ Bug Fixer & Code Debugger",
                     "title": "Fix: SQLite Database Lock & Transaction Concurrency Repair",
-                    "explanation": "sqlite3.OperationalError: database is locked occurs when unclosed read cursors block write transactions. Solution: Enable Write-Ahead Logging (WAL) mode and use atomic context managers.",
+                    "explanation": "Hello! I am Chitti, your AI Technical Assistant. sqlite3.OperationalError: database is locked occurs when unclosed read cursors block write transactions. Solution: Enable Write-Ahead Logging (WAL) mode and use atomic context managers.",
                     "database_rec": "Execute PRAGMA journal_mode=WAL; and wrap queries in 'with get_db() as conn:' context managers.",
                     "starter_code": """# ✅ FIX: Transaction-Safe SQLite WAL Mode Connection Pool
 import sqlite3
@@ -74,9 +74,9 @@ def get_db_safe():
                 }
             else:
                 return {
-                    "mode": "🛠️ LLM Bug Fixer & Code Debugger",
+                    "mode": "🛠️ Bug Fixer & Code Debugger",
                     "title": f"Fix & Repair Guide: {prompt[:40]}...",
-                    "explanation": "Identified runtime logic exception. Resolved by adding explicit input validation, try-except exception handling wrappers, and graceful fallbacks.",
+                    "explanation": "Hello! I am Chitti, your AI Technical Assistant. Identified runtime logic exception. Resolved by adding explicit input validation, try-except exception handling wrappers, and graceful fallbacks.",
                     "database_rec": "Use defensive null-check guards before accessing database records or dictionary keys.",
                     "starter_code": f"""# ✅ FIX: Runtime Exception Handler & Defensive Wrapper
 import logging
@@ -99,14 +99,14 @@ def execute_repaired_module(data_input):
     return {{"result": "SUCCESS", "input": data_input}}"""
                 }
 
-        # Mode B: LLM Code Generator & Architect (Project Domain Specific)
+        # Mode B: Code Generator & Architect (Project Domain Specific)
         domain_query = f"{prompt} {project_title}".lower()
 
         if any(k in domain_query for k in ["crop", "drone", "plant", "agri", "leaf", "disease", "vision", "pytorch"]):
             return {
-                "mode": "💻 LLM Code Generator & Architect",
+                "mode": "💻 Code Generator & Architect",
                 "title": "PyTorch + OpenCV: Crop Leaf Disease Classifier & Image Pipeline",
-                "explanation": "Generates a complete deep learning transfer learning model using ResNet-50 for leaf disease detection alongside a FastAPI image upload service.",
+                "explanation": "Hello! I am Chitti, your AI Technical Assistant. Here is a complete deep learning transfer learning model using ResNet-50 for leaf disease detection alongside a FastAPI image upload service.",
                 "database_rec": "Store drone TIFF aerial images in S3/Local Storage + Disease metadata in SQLite table: FIELD_ANALYSIS.",
                 "starter_code": """import torch
 import torch.nn as nn
@@ -135,9 +135,9 @@ print("PyTorch Crop Disease Classifier Ready.")"""
             }
         elif any(k in domain_query for k in ["attendance", "face", "camera", "student", "recognition"]):
             return {
-                "mode": "💻 LLM Code Generator & Architect",
+                "mode": "💻 Code Generator & Architect",
                 "title": "OpenCV + ArcFace: Facial Recognition Engine & FastAPI Attendance Logger",
-                "explanation": "Generates real-time facial feature embedding extractor and student attendance REST endpoint.",
+                "explanation": "Hello! I am Chitti, your AI Technical Assistant. Here is a real-time facial feature embedding extractor and student attendance REST endpoint.",
                 "database_rec": "SQLite tables: STUDENTS(id, name, embedding_vector), ATTENDANCE_LOGS(id, student_id, timestamp).",
                 "starter_code": """from fastapi import FastAPI
 from pydantic import BaseModel
@@ -165,9 +165,9 @@ def mark_attendance(req: AttendanceMarkRequest):
             }
         elif any(k in domain_query for k in ["water", "iot", "sensor", "leak", "esp32", "quality"]):
             return {
-                "mode": "💻 LLM Code Generator & Architect",
+                "mode": "💻 Code Generator & Architect",
                 "title": "ESP32 C++ Telemetry Driver & FastAPI IoT Telemetry Receiver",
-                "explanation": "Generates ESP32 C++ sensor reading code for pH, turbidity, and flow rate sensors, along with a FastAPI backend telemetry receiver endpoint.",
+                "explanation": "Hello! I am Chitti, your AI Technical Assistant. Here is ESP32 C++ sensor reading code for pH, turbidity, and flow rate sensors, along with a FastAPI backend telemetry receiver endpoint.",
                 "database_rec": "SQLite timeseries table: IOT_TELEMETRY(id, sensor_id, ph_level, turbidity_ntu, flow_rate, timestamp).",
                 "starter_code": """# FastAPI IoT Water Telemetry Receiver
 from fastapi import FastAPI
@@ -199,9 +199,9 @@ def receive_telemetry(data: SensorTelemetry):
         else:
             clean_title = project_title if project_title else "Software System"
             return {
-                "mode": "💻 LLM Code Generator & Architect",
+                "mode": "💻 Code Generator & Architect",
                 "title": f"Production REST Controller & Database Layer ({clean_title})",
-                "explanation": f"Generates scalable FastAPI router code, CORS authorization, and SQLite database schema pool for {clean_title}.",
+                "explanation": f"Hello! I am Chitti, your AI Technical Assistant. Here is scalable FastAPI router code, CORS authorization, and SQLite database schema pool for {clean_title}.",
                 "database_rec": "SQLite WAL mode with indexed transaction logging.",
                 "starter_code": f"""# FastAPI REST Controller for {clean_title}
 from fastapi import FastAPI, HTTPException
